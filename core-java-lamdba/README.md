@@ -19,3 +19,6 @@ Supplier<T>| / | T | 提供一个数据
 UnaryOperator<T>| T | T | 一元函数（输入输出类型相同）
 Bifunction<T,U,R>| (T,U) | R | 两个输入的函数
 BinaryOperator<T>| (T,T) | T | 两元函数（输入输出类型相同）
+
+> 使用 Lambda 表达式的时候尽量使用JDK自带的函数接口，这样就不用编写太多代码
+

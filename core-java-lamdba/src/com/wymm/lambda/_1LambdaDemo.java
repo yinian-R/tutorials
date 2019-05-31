@@ -1,10 +1,8 @@
 package com.wymm.lambda;
 
-@FunctionalInterface
-interface interface1{
-    int doubleNum(int i);
-}
-
+/**
+ * lambda 表达式常见使用写法
+ */
 public class _1LambdaDemo {
 
     public static void main(String[] args) {
@@ -19,4 +17,9 @@ public class _1LambdaDemo {
         System.out.println(interface1.doubleNum(3));
         System.out.println(interface2.doubleNum(3));
     }
+}
+
+@FunctionalInterface
+interface interface1{
+    int doubleNum(int i);
 }
