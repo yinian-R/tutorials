@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/core-java-lamdba/core-java-lamdba.iml" filepath="$PROJECT_DIR$/core-java-lamdba/core-java-lamdba.iml" />
+      <module fileurl="file://$PROJECT_DIR$/core-java-stream/core-java-stream.iml" filepath="$PROJECT_DIR$/core-java-stream/core-java-stream.iml" />
     </modules>
   </component>
 </project>
