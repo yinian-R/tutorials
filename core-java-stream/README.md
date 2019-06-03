@@ -14,3 +14,39 @@ Stream不是一个集合，不会存放数据，它关注的是怎么高效处�
 数组 | Arrays.stream
 数字Stream | IntStream/LongStream.range/rangeClosed Random.ints/longs/doubles
 自己创建 | Stream.generate/iterate
+
+
+**Stream 中间操作**
+
+<table>
+    <tr>
+        <th></th>
+        <th>相关方法</th>
+    </tr>
+    <tr>
+        <td rowspan="5">无状态操作</td>
+        <td>map/mapToXxx</td>
+    </tr>
+    <tr>
+        <td>flatMap/flatMapToXxx</td>
+    </tr>
+    <tr>
+        <td>filter</td>
+    </tr>
+    <tr>
+        <td>peek</td>
+    </tr>
+    <tr>
+        <td>unordered</td>
+    </tr>
+    <tr>
+        <td rowspan="3">有状态操作</td>
+        <td>distinct</td>
+    </tr>
+    <tr>
+        <td>sorted</td>
+    </tr>
+    <tr>
+        <td>limit/skip</td>
+    </tr>
+</table>

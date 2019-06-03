@@ -10,7 +10,7 @@ import java.util.stream.Stream;
 /**
  * 流的创建
  */
-public class _3StreamDemo {
+public class _3CreateStreamDemo {
     public static void main(String[] args) {
         List<String> list = new ArrayList<>();
 
