@@ -50,3 +50,34 @@ Stream不是一个集合，不会存放数据，它关注的是怎么高效处�
         <td>limit/skip</td>
     </tr>
 </table>
+
+**Stream 终止操作**
+
+<html>
+<table>
+    <tr>
+        <th></th>
+        <th>相关方法</th>
+    </tr>
+    <tr>
+        <td rowspan="4">无短路操作</td>
+        <td>forEach / forEachOrdered</td>
+    </tr>
+    <tr>
+        <td>collect / toArray</td>
+    </tr>
+    <tr>
+        <td>reduce</td>
+    </tr>
+    <tr>
+        <td>min / max / count</td>
+    </tr>
+    <tr>
+        <td rowspan="3">短路操作</td>
+        <td>findFirst / findAny</td>
+    </tr>
+    <tr>
+        <td>allMatch / anyMatch / noneMatch</td>
+    </tr>
+</table>
+</html>
