@@ -36,12 +36,12 @@ public class _2ExecutorService {
         // 不再接受新的任务，立刻终止所有未执行的任务，关闭executor
         //scheduledExecutorService.shutdownNow();
         
-        // 创建一个周期性操作。该操作再指定延迟后开始运行，随后在给定的周期到了执行，直到服务终止。
+        // 创建一个固定速度的计划。该操作再指定初始延迟后开始运行，随后在给定的周期到了执行，直到服务终止。
         scheduledExecutorService.scheduleAtFixedRate(() -> {
             System.out.println("scheduleAtFixedRate");
         }, 1, 1, TimeUnit.SECONDS);
     
-        // 创建一个周期性操作。该操作再指定延迟后开始运行，任务执行完毕随后在给定的周期反复执行，直到服务终止。
+        // 创建一个具有固定延迟的计划。该操作再指定初始延迟后开始运行，任务执行完毕随后在给定的延迟反复执行，直到服务终止。
         scheduledExecutorService.scheduleWithFixedDelay(() -> {
             System.out.println("scheduleWithFixedDelay");
         }, 1, 2, TimeUnit.SECONDS);
