@@ -5,7 +5,7 @@
 ---|---
 Executor | Executor是一个表示执行提供的任务的对象的接口
 ExecutorService | ExecutorService是异步处理的完整解决方案
-ScheduledExecutorService | row 1 col 2
+ScheduledExecutorService | 通过使用CountDownLatch，我们可以导致线程阻塞，直到其他线程完成给定的任务
 Future | row 2 col 2
 CountDownLatch | row 1 col 2
 CyclicBarrier | row 2 col 2
