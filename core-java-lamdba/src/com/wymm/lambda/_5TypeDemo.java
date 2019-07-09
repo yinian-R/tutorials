@@ -28,9 +28,10 @@ public class _5TypeDemo {
     public static IMath createIMath() {
         return (x, y) -> x + y;
     }
+
+    @FunctionalInterface
+    interface IMath {
+        int add(int x, int y);
+    }
 }
 
-@FunctionalInterface
-interface IMath {
-    int add(int x, int y);
-}

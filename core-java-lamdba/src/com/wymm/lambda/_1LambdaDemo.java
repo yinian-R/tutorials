@@ -17,9 +17,10 @@ public class _1LambdaDemo {
         System.out.println(interface1.doubleNum(3));
         System.out.println(interface2.doubleNum(3));
     }
+
+    @FunctionalInterface
+    interface interface1{
+        int doubleNum(int i);
+    }
 }
 
-@FunctionalInterface
-interface interface1{
-    int doubleNum(int i);
-}

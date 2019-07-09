@@ -5,8 +5,8 @@ import org.junit.jupiter.api.Test;
 import java.util.concurrent.Executor;
 
 public class _1Executor {
-    
-    
+
+
     @Test
     public void execute() {
         Executor executor = new Invoke();
@@ -15,14 +15,14 @@ public class _1Executor {
             System.out.println("hello world");
         });
     }
-    
-}
 
+    static class Invoke implements Executor {
 
-class Invoke implements Executor {
-    
-    @Override
-    public void execute(Runnable command) {
-        command.run();
+        @Override
+        public void execute(Runnable command) {
+            command.run();
+        }
     }
 }
+
+
