@@ -34,23 +34,24 @@ public class _1CountDownLatch {
         
         outerScraper.forEach(System.out::println);
     }
-    
+
+    static class Worker implements Runnable {
+
+        private List<String> outerScraper;
+        private CountDownLatch countDownLatch;
+
+        public Worker(List<String> outerScraper, CountDownLatch countDownLatch) {
+            this.outerScraper = outerScraper;
+            this.countDownLatch = countDownLatch;
+        }
+
+        @Override
+        public void run() {
+            // do something
+            outerScraper.add("counted down");
+            countDownLatch.countDown();
+        }
+    }
 }
 
-class Worker implements Runnable {
-    
-    private List<String> outerScraper;
-    private CountDownLatch countDownLatch;
-    
-    public Worker(List<String> outerScraper, CountDownLatch countDownLatch) {
-        this.outerScraper = outerScraper;
-        this.countDownLatch = countDownLatch;
-    }
-    
-    @Override
-    public void run() {
-        // do something
-        outerScraper.add("counted down");
-        countDownLatch.countDown();
-    }
-}
+
