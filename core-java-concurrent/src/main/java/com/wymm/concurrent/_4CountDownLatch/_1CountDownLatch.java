@@ -11,21 +11,27 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
+ * 保证线程的顺序。此例子使用五个子线程
  * CountDownLatch 有一个计数字段，可以根据需要减少它。然后可以用它来阻塞调用线程，直到计数器为零。
  */
-public class _4CountDownLatch {
+public class _1CountDownLatch {
     
     
+    /**
+     * 因为我们调用了await()，所以 Latch release 将作为最后一个输出
+     * 如果我们没有调用await()，我们将无法保证线程的执行顺序，因此测试会执行失败
+     */
     @Test
     public void whenParallelProcessing_thenMainThreadWillBlockUntilCompletion() throws InterruptedException {
         List<String> outerScraper = Collections.synchronizedList(new ArrayList<>());
         CountDownLatch countDownLatch = new CountDownLatch(5);
         List<Thread> workers = Stream.generate(() -> new Thread(new Worker(outerScraper, countDownLatch))).limit(5).collect(Collectors.toList());
         workers.forEach(Thread::start);
-    
+        
         // 调用await保证线程的顺序
         countDownLatch.await();
         outerScraper.add("Latch released");
+        
         outerScraper.forEach(System.out::println);
     }
     
@@ -43,8 +49,7 @@ class Worker implements Runnable {
     
     @Override
     public void run() {
-        System.out.println("hello world");
-        
+        // do something
         outerScraper.add("counted down");
         countDownLatch.countDown();
     }
