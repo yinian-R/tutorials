@@ -1,4 +1,4 @@
-package com.wymm.stream;
+package stream;
 
 import java.util.concurrent.ForkJoinPool;
 import java.util.stream.IntStream;

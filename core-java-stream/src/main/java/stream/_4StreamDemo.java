@@ -1,4 +1,4 @@
-package com.wymm.stream;
+package stream;
 
 import java.util.Random;
 import java.util.stream.Stream;
