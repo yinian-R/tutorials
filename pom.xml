@@ -10,6 +10,7 @@
     <modules>
         <module>core-java-concurrent</module>
         <module>core-java-stream</module>
+        <module>core-java-date</module>
     </modules>
     <packaging>pom</packaging>
 
