@@ -1,4 +1,4 @@
-**JDK java.util.concurrent 中最实用的程序**
+#### JDK java.util.concurrent 中最实用的程序
 
 
 /| desc
@@ -15,3 +15,7 @@ BlockingQueue | row 2 col 2
 DelayQueue | row 1 col 2
 Locks | row 2 col 2
 Phaser | row 2 col 2
+
+
+#### CountDownLatch 和 CyclicBarrier 的区别
+CountDownLatch 和 CyclicBarrier 几乎相同，区别在于 CyclicBarrier 可以重复使用
