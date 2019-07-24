@@ -1,0 +1,11 @@
+# Windows平台Mysql表名变小写解决
+#
+# windows 下的解决方法：
+# my.ini 里面的mysqld部分
+# 加入 lower_case_table_names=2
+# [mysqld]
+# lower_case_table_names=2
+# 1 表示不区分大小写 2表示区分大小写
+
+# 确认已经把lower_case_table_names值改成2了
+show variables like '%low%';
