@@ -1,0 +1,1 @@
+INSERT INTO mysql_advanced.pop_tbl (pref_name, population) VALUES ('德岛', 100);

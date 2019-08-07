@@ -47,6 +47,7 @@ buildNumber.properties
 .idea/**/shelf
 
 # Sensitive or high-churn files
+.idea
 .idea/**/dataSources/
 .idea/**/dataSources.ids
 .idea/**/dataSources.local.xml
@@ -54,6 +55,8 @@ buildNumber.properties
 .idea/**/dynamic.xml
 .idea/**/uiDesigner.xml
 .idea/**/dbnavigator.xml
+
+*.iml
 
 # Gradle
 .idea/**/gradle.xml
