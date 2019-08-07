@@ -30,3 +30,6 @@ spring:
 public interface UserRepository extends ReactiveMongoRepository<User, String> {
 ```
 
+
+# 参数校验
+第一种使用 hibernate validate，第二种使用自定义的异常和检验工具类

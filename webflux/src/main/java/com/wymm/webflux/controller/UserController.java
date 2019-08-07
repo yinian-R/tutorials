@@ -2,6 +2,7 @@ package com.wymm.webflux.controller;
 
 import com.wymm.webflux.domain.User;
 import com.wymm.webflux.repository.UserRepository;
+import com.wymm.webflux.utils.CheckUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -9,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import javax.validation.Valid;
 
 @AllArgsConstructor
 @RestController
@@ -82,6 +85,7 @@ public class UserController {
     @PostMapping
     public Mono<User> createUser(@RequestBody User user) {
         user.setId(null);
+        CheckUtils.checkName(user.getName());
         return userRepository.save(user);
 
     }
@@ -98,7 +102,8 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public Mono<ResponseEntity<User>> updateUser(@PathVariable String id, @RequestBody User user) {
+    public Mono<ResponseEntity<User>> updateUser(@PathVariable String id, @Valid @RequestBody User user) {
+        CheckUtils.checkName(user.getName());
         return userRepository.findById(id)
                 // flatMap 操作数据
                 .flatMap(u -> {
