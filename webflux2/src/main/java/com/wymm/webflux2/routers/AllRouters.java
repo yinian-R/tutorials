@@ -16,7 +16,6 @@ public class AllRouters {
 
     @Bean
     RouterFunction<ServerResponse> userRouter(UserHandler handler) {
-
         return nest(
                 // 相当于@RequestMapping("/users")
                 path("/users"),
@@ -24,7 +23,7 @@ public class AllRouters {
                 // 查询用户列表
                 route(GET(""), handler::getAllUser)
                         // 创建用户
-                        .andRoute(POST("").and(accept(APPLICATION_JSON)), handler::createUser)
+                        .andRoute(POST("").and(accept(APPLICATION_JSON_UTF8)), handler::createUser)
                         // 删除用户
                         .andRoute(DELETE("/{id}"), handler::deleteUser)
         );

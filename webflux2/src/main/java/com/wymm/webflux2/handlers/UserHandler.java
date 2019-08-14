@@ -2,6 +2,7 @@ package com.wymm.webflux2.handlers;
 
 import com.wymm.webflux2.domain.User;
 import com.wymm.webflux2.repository.UserRepository;
+import com.wymm.webflux2.utils.CheckUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
@@ -36,8 +37,11 @@ public class UserHandler {
      */
     public Mono<ServerResponse> createUser(ServerRequest request) {
         Mono<User> user = request.bodyToMono(User.class);
-        return ok().contentType(APPLICATION_JSON)
-                .body(this.userRepository.saveAll(user), User.class);
+        return user.flatMap(u -> {
+            CheckUtils.checkName(u.getName());
+            return ok().contentType(APPLICATION_JSON)
+                    .body(this.userRepository.save(u), User.class);
+        });
     }
 
     /**
