@@ -1,4 +1,4 @@
-package com.wymm.webfluxclient;
+package com.wymm.core;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
