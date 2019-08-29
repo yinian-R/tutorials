@@ -12,6 +12,7 @@ import java.lang.reflect.Proxy;
 
 @Slf4j
 public class JDKProxyCreator implements ProxyCreator {
+    
     @Override
     public Object createProxy(Class<?> type) {
         log.info("createProxy:" + type);
@@ -40,7 +41,6 @@ public class JDKProxyCreator implements ProxyCreator {
     private MethodInfo extractMethodInfo(Method method, Object[] args) {
         return null;
     }
-    
     
     private ServerInfo extractServerInfo(Class<?> type) {
         return null;

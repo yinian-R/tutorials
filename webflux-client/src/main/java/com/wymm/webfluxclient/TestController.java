@@ -7,12 +7,12 @@ import reactor.core.publisher.Flux;
 
 @RestController
 public class TestController {
-
+    
     @Autowired
     IUserApi userApi;
-
+    
     @GetMapping("/")
-    public void test(){
+    public void test() {
         Flux<User> users = userApi.getAllUsers();
         users.subscribe(System.out::println);
     }

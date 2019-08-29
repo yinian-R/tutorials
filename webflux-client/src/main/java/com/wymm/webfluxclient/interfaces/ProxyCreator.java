@@ -6,6 +6,7 @@ package com.wymm.webfluxclient.interfaces;
 public interface ProxyCreator {
     /**
      * 创建代理类
+     *
      * @param type
      * @return
      */

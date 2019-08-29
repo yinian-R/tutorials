@@ -15,7 +15,7 @@ public class WebfluxClientApplication {
     }
     
     @Bean
-    ProxyCreator jdkProxyCreator(){
+    ProxyCreator jdkProxyCreator() {
         return new JDKProxyCreator();
     }
     

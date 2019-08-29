@@ -13,16 +13,16 @@ import java.util.Map;
 @Data
 @Builder
 public class MethodInfo {
-
+    
     // 请求 URL
     private String url;
-
+    
     // 请求方法
     private HttpMethod method;
-
+    
     // 请求参数
     private Map<String, Object> params;
-
+    
     // 请求 body
     private Mono<?> body;
 }
