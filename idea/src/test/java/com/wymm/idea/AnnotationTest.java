@@ -2,13 +2,15 @@ package com.wymm.idea;
 
 import com.wymm.idea.annotation.Select;
 import com.wymm.idea.builder.MapperBuilder;
+import org.junit.Test;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-public class AnnotationMain {
-    public static void main(String[] args) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+public class AnnotationTest {
+    @Test
+    public void test() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         MapperBuilder builder = new MapperBuilder();
         builder.select();
         
