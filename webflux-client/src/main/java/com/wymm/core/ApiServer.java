@@ -1,4 +1,4 @@
-package com.wymm.webfluxclient;
+package com.wymm.core;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -11,7 +11,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ApiServer {
-
+    
     String value() default "";
-
+    
 }
