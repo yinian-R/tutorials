@@ -21,5 +21,6 @@ class _5StreamDemoTest {
         list.add("asd");
         Optional<String> placeholders = Stream.generate(()->"?").limit(list.size()).reduce((a, b)-> a+","+b);
         System.out.println(placeholders.orElse(""));
+        
     }
 }
