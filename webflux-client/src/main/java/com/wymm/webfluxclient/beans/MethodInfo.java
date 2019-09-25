@@ -1,7 +1,9 @@
 package com.wymm.webfluxclient.beans;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.http.HttpMethod;
 import reactor.core.publisher.Mono;
 
@@ -12,6 +14,8 @@ import java.util.Map;
  */
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class MethodInfo {
     
     // 请求 URL
