@@ -15,9 +15,9 @@ import static org.springframework.web.reactive.function.server.ServerResponse.*;
 @AllArgsConstructor
 @Component
 public class UserHandler {
-
+    
     private final UserRepository userRepository;
-
+    
     /**
      * 得到所有用户
      *
@@ -28,7 +28,13 @@ public class UserHandler {
         return ok().contentType(APPLICATION_JSON)
                 .body(this.userRepository.findAll(), User.class);
     }
-
+    
+    public Mono<ServerResponse> getUserById(ServerRequest request) {
+        String id = request.pathVariable("id");
+        return ok().contentType(APPLICATION_JSON)
+                .body(this.userRepository.findById(id), User.class);
+    }
+    
     /**
      * 创建用户
      *
@@ -43,7 +49,7 @@ public class UserHandler {
                     .body(this.userRepository.save(u), User.class);
         });
     }
-
+    
     /**
      * 删除用户
      *
@@ -56,5 +62,5 @@ public class UserHandler {
                 .then(ok().build()))
                 .switchIfEmpty(notFound().build());
     }
-
+    
 }

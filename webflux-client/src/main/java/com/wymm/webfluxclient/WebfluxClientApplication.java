@@ -23,7 +23,7 @@ public class WebfluxClientApplication {
     FactoryBean<IUserApi> userApiFactoryBean(ProxyCreator proxyCreator) {
         return new FactoryBean<IUserApi>() {
             @Override
-            public IUserApi getObject() throws Exception {
+            public IUserApi getObject() {
                 return (IUserApi) proxyCreator.createProxy(getObjectType());
             }
             

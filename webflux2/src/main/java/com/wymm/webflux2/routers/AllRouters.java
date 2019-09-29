@@ -22,6 +22,8 @@ public class AllRouters {
                 // 相当于@GetMapping
                 // 查询用户列表
                 route(GET(""), handler::getAllUser)
+                        // 查询用户
+                        .andRoute(GET("/{id}"), handler::getUserById)
                         // 创建用户
                         .andRoute(POST("").and(accept(APPLICATION_JSON_UTF8)), handler::createUser)
                         // 删除用户

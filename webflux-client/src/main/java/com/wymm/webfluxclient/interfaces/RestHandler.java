@@ -6,7 +6,7 @@ import com.wymm.webfluxclient.beans.ServerInfo;
 /**
  * rest 请求调用 handle
  */
-public interface RestHandle {
+public interface RestHandler {
     /**
      * 初始化服务器信息
      *
