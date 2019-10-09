@@ -1,7 +1,7 @@
-package com.wymm.webfluxclient.interfaces;
+package com.wymm.core.interfaces;
 
-import com.wymm.webfluxclient.beans.MethodInfo;
-import com.wymm.webfluxclient.beans.ServerInfo;
+import com.wymm.core.beans.MethodInfo;
+import com.wymm.core.beans.ServerInfo;
 
 /**
  * rest 请求调用 handle

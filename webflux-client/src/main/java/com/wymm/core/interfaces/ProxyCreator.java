@@ -1,4 +1,4 @@
-package com.wymm.webfluxclient.interfaces;
+package com.wymm.core.interfaces;
 
 /**
  * 创建道理类接口

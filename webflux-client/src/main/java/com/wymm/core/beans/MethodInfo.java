@@ -1,4 +1,4 @@
-package com.wymm.webfluxclient.beans;
+package com.wymm.core.beans;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,7 +28,10 @@ public class MethodInfo {
     private Map<String, Object> params;
     
     // 请求 body
-    private Mono<?> body;
+    private Mono body;
+    
+    // 请求 body 的类型
+    private Class<?> bodyElementType;
     
     /**
      * 返回是flux还是mono

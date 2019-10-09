@@ -1,11 +1,11 @@
-package com.wymm.webfluxclient.proxys;
+package com.wymm.core.proxys;
 
 import com.wymm.core.ApiServer;
-import com.wymm.webfluxclient.beans.MethodInfo;
-import com.wymm.webfluxclient.beans.ServerInfo;
-import com.wymm.webfluxclient.interfaces.ProxyCreator;
-import com.wymm.webfluxclient.interfaces.RestHandler;
-import com.wymm.webfluxclient.resthandlers.WebClientRestHandler;
+import com.wymm.core.beans.MethodInfo;
+import com.wymm.core.beans.ServerInfo;
+import com.wymm.core.interfaces.ProxyCreator;
+import com.wymm.core.interfaces.RestHandler;
+import com.wymm.core.resthandlers.WebClientRestHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.bind.annotation.*;
@@ -55,7 +55,7 @@ public class JDKProxyCreator implements ProxyCreator {
         extractUrlAndMethod(method, methodInfo);
     
         // 提取调用的参数和body
-        extractRequestAndBody(method, args, methodInfo);
+        extractRequestParamAndBody(method, args, methodInfo);
     
         // 提取返回对象的信息
         extractReturnInfo(method, methodInfo);
@@ -99,7 +99,7 @@ public class JDKProxyCreator implements ProxyCreator {
      * @param args
      * @param methodInfo
      */
-    private void extractRequestAndBody(Method method, Object[] args, MethodInfo methodInfo) {
+    private void extractRequestParamAndBody(Method method, Object[] args, MethodInfo methodInfo) {
         Parameter[] parameters = method.getParameters();
         for (int i = 0; i < parameters.length; i++) {
             // 参数和值对应的map
@@ -111,11 +111,13 @@ public class JDKProxyCreator implements ProxyCreator {
             if (annotationPath != null) {
                 params.put(annotationPath.value(), args[i]);
             }
-            
-            // 是否带有RequestBody
+    
+            // 是否带有 RequestBody
             RequestBody annotationBody = parameters[i].getAnnotation(RequestBody.class);
             if (annotationBody != null) {
-                methodInfo.setBody(Mono.just(args[i]));
+                methodInfo.setBody((Mono<?>) args[i]);
+                // 提取请求对象的实际类型
+                methodInfo.setBodyElementType(extractElementType(parameters[i].getParameterizedType()));
             }
         }
     }

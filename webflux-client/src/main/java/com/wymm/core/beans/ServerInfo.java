@@ -1,4 +1,4 @@
-package com.wymm.webfluxclient.beans;
+package com.wymm.core.beans;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

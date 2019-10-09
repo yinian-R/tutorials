@@ -1,7 +1,7 @@
 package com.wymm.webfluxclient;
 
-import com.wymm.webfluxclient.interfaces.ProxyCreator;
-import com.wymm.webfluxclient.proxys.JDKProxyCreator;
+import com.wymm.core.interfaces.ProxyCreator;
+import com.wymm.core.proxys.JDKProxyCreator;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -31,8 +31,8 @@ public class UserHandler {
     
     public Mono<ServerResponse> getUserById(ServerRequest request) {
         String id = request.pathVariable("id");
-        return ok().contentType(APPLICATION_JSON)
-                .body(this.userRepository.findById(id), User.class);
+        return this.userRepository.findById(id).flatMap(user -> ok().contentType(APPLICATION_JSON)
+                .body(Mono.just(user), User.class)).switchIfEmpty(notFound().build());
     }
     
     /**
