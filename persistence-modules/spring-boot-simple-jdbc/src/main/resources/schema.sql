@@ -1,0 +1,1 @@
+create table FOO(ID int IDENTITY, BAR VARCHAR(64))
