@@ -17,6 +17,5 @@ public class Main {
         convert = SimpleEnumConverter.VEHICLE_TYPE.convert(1);
         System.out.println(convert);
         
-        SimpleEnumConverter.CSYS.ma
     }
 }
