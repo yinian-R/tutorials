@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
-public enum SimpleEnumConverter implements Converter<Integer, String> {
+public enum SimpleEnumConverter implements Converter<Object, String> {
     CSYS {
         Map<String, String> map = new HashMap<>();
         {
@@ -13,14 +13,14 @@ public enum SimpleEnumConverter implements Converter<Integer, String> {
         }
         
         @Override
-        public String convert(Integer integer) {
-            return "str:" + integer + " " + map.get("temp");
+        public String convert(Object object) {
+            return "str:" + object + " " + map.get("temp");
         }
     },
     VEHICLE_TYPE {
         @Override
-        public String convert(Integer integer) {
-            return "temp";
+        public String convert(Object object) {
+            return "temp：" + object;
         }
     }
 }
