@@ -12,11 +12,13 @@ public enum SimpleEnumConverter implements Converter<Integer, String> {
             System.out.println("just one run");
         }
         
+        @Override
         public String convert(Integer integer) {
             return "str:" + integer + " " + map.get("temp");
         }
     },
     VEHICLE_TYPE {
+        @Override
         public String convert(Integer integer) {
             return "temp";
         }
