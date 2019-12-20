@@ -7,9 +7,9 @@ public class _1LambdaDemo {
 
     public static void main(String[] args) {
         // 最常见的写法
-        interface1 interface1 = i -> i*2;
+        Interface1 interface1 = i -> i*2;
         // 方法里面多行
-        interface1 interface2 = i -> {
+        Interface1 interface2 = i -> {
             return i*2;
         };
 
@@ -19,7 +19,7 @@ public class _1LambdaDemo {
     }
 
     @FunctionalInterface
-    interface interface1{
+    interface Interface1 {
         int doubleNum(int i);
     }
 }
