@@ -1,0 +1,6 @@
+sample:
+  server:
+    url: https://localhost:8443
+security:
+  key-store: classpath:springsample.p12
+  key-pass: spring
