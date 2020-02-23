@@ -8,12 +8,11 @@ import org.apache.flume.FlumeException;
 import org.apache.flume.channel.ChannelProcessor;
 import org.apache.flume.conf.Configurable;
 import org.apache.flume.conf.ConfigurationException;
-import org.apache.flume.event.JSONEvent;
 import org.apache.flume.event.SimpleEvent;
 import org.apache.flume.source.AbstractSource;
-import org.apache.flume.source.kafka.KafkaSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.ClassUtils;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -23,21 +22,48 @@ public class RabbitMQSource extends AbstractSource implements Configurable, Even
     
     private static final Logger log = LoggerFactory.getLogger(RabbitMQSource.class);
     
-    Connection connection;
+    private static final String FLUME_CONSUMER_NAME = "flumeConsumer";
+    
+    private Context context;
+    
+    
+    private Connection connection;
+    private Channel channel;
+    
+    private String queue;
+    private int prefetchCount = 1;
+    private boolean autoAck = false;
+    
+    private RabbitDemoTran rabbitDemoTran;
+    
+    
+    private ChannelProcessor channelProcessor;
     
     public void configure(Context context) {
-        
-        print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~configure start");
+    
+        this.context = context;
         
         String host = context.getString(RabbitMQSourceConstants.HOST, ConnectionFactory.DEFAULT_HOST);
         Integer port = context.getInteger(RabbitMQSourceConstants.PORT, AMQP.PROTOCOL.PORT);
         String username = context.getString(RabbitMQSourceConstants.USERNAME, ConnectionFactory.DEFAULT_USER);
         String password = context.getString(RabbitMQSourceConstants.PASSWORD, ConnectionFactory.DEFAULT_PASS);
-        String queue = context.getString(RabbitMQSourceConstants.QUEUE);
+        queue = context.getString(RabbitMQSourceConstants.QUEUE);
+        prefetchCount = context.getInteger(RabbitMQSourceConstants.PREFETCH_COUNT, 1);
         if (queue == null) {
             throw new ConfigurationException("rabbitmq queue cannot be empty");
         }
+        String translateDataHandlerClass = context.getString(RabbitMQSourceConstants.TRANSLATE_DATA_HANDLER);
         
+        if(translateDataHandlerClass != null){
+            try {
+                rabbitDemoTran = (RabbitDemoTran) ClassUtils
+                        .forName(translateDataHandlerClass, ClassUtils.getDefaultClassLoader())
+                        .newInstance();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    
         // config factory
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost(host);
@@ -47,58 +73,75 @@ public class RabbitMQSource extends AbstractSource implements Configurable, Even
         try {
             connection = factory.newConnection();
         } catch (IOException | TimeoutException e) {
-            // todo
-            throw new FlumeException(e);
+            throw new FlumeException("Error create RabbitMQ connection", e);
         }
+        
+    }
     
+    @Override
+    public synchronized void start() {
+        
+        channelProcessor = super.getChannelProcessor();
         try {
             consumer(queue);
         } catch (Exception e) {
             throw new FlumeException(e);
         }
-    
-        print("~~~~~~~~~~~~~~~~~~~~~~~~~configure start final");
-    
-    }
-    
-    @Override
-    public synchronized void start() {
-        print("start start");
+        
         super.start();
     }
     
-    public void consumer(String queue) throws Exception {
-        Channel channel = connection.createChannel();
-    
-        // 没创建的时候才创建
-        //createQueue(channel);
-    
-        channel.basicQos(1);
-    
-        ChannelProcessor channelProcessor = super.getChannelProcessor();
-    
-        Consumer consumer = new DefaultConsumer(channel) {
+    @Override
+    public synchronized void stop() {
+        try {
+            channel.basicCancel(FLUME_CONSUMER_NAME);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         
-            @Override
-            public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
-                super.handleDelivery(consumerTag, envelope, properties, body);
-                String message = new String(body, StandardCharsets.UTF_8);
-                print("消费者接收数据：" + message);
-    
-                SimpleEvent event = new SimpleEvent();
-                event.setBody(message.getBytes());
-                //channelProcessor.processEvent(event);
-            
-                channel.basicAck(envelope.getDeliveryTag(), false);
-            }
+        try {
+            channel.close();
+        } catch (IOException | TimeoutException e) {
+            e.printStackTrace();
+        }
         
-        };
-    
-        channel.basicConsume(queue, consumer);
+        try {
+            connection.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+        super.stop();
     }
     
+    private void consumer(String queue) throws Exception {
+        channel = connection.createChannel();
+        
+        channel.basicQos(prefetchCount);
+        
+        Consumer consumer = new DefaultConsumer(channel) {
+            
+            @Override
+            public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
+                String message = new String(body, StandardCharsets.UTF_8);
+                Event event = new SimpleEvent();
+                event.setBody(message.getBytes());
     
-    private void print(String msg){
-        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~:"+msg);
+                if(rabbitDemoTran != null){
+                    event = rabbitDemoTran.doTranslateData(event, context);
+                }
+                
+                channelProcessor.processEvent(event);
+                
+                channel.basicAck(envelope.getDeliveryTag(), false);
+            }
+            
+        };
+        
+        channel.basicConsume(queue, autoAck, FLUME_CONSUMER_NAME, consumer);
+    }
+    
+    private void print(String msg) {
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~:" + msg);
     }
 }
