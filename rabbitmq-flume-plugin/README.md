@@ -5,7 +5,7 @@ sampleRabbitMQAgent.sources=rabbitSource
 sampleRabbitMQAgent.sinks=sink1
 sampleRabbitMQAgent.channels=channel1
 # sources
-sampleRabbitMQAgent.sources.rabbitSource.type=com.wymm.flume.core.source.RabbitMQSource
+sampleRabbitMQAgent.sources.rabbitSource.type=com.wymm.flume.core.rabbitmq.RabbitMQSource
 sampleRabbitMQAgent.sources.rabbitSource.converter=com.wymm.flume.core.source.sample.SampleEventDataConverter
 sampleRabbitMQAgent.sources.rabbitSource.rabbitmq.host=localhost
 sampleRabbitMQAgent.sources.rabbitSource.rabbitmq.port=5672
@@ -44,3 +44,16 @@ sampleRabbitMQAgent.sinks.sink1.channel=channel1
 ## 启动命令
 > .\bin\flume-ng.cmd agent -conf .\conf -conf-file .\conf\sampleRabbitMQAgent.properties -name sampleRabbitMQAgent -property flume.root.logger=INFO,console
 
+
+## Converter Sample
+```
+@Slf4j
+public class SampleEventDataConverter implements Converter {
+    
+    @Override
+    public Event convert(Event source, Context context) {
+        log.info("执行转换数据");
+        return source;
+    }
+}
+```

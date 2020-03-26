@@ -1,11 +1,12 @@
-package com.wymm.flume.core.source;
+package com.wymm.flume.core.rabbitmq.source;
 
 import com.rabbitmq.client.*;
-import com.wymm.flume.core.Converter;
+import com.wymm.flume.core.rabbitmq.Converter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.flume.Context;
 import org.apache.flume.Event;
+import org.apache.flume.FlumeException;
 import org.apache.flume.channel.ChannelProcessor;
 import org.apache.flume.event.SimpleEvent;
 
@@ -21,18 +22,22 @@ import java.util.concurrent.TimeoutException;
 public class Consumer implements Runnable {
     
     private static final String FLUME_CONSUMER_NAME = "flumeConsumer";
-    String name;
     @Setter
     private ConnectionFactory factory;
     @Setter
     private String queue;
     @Setter
-    private int prefetchCount = 1;
-    private Connection connection;
-    private Channel channel;
+    private int prefetchCount;
+    
     @Setter
     private Class<?> converterType;
     private Converter converter;
+    @Setter
+    private Boolean converterConsumerSingleton;
+    
+    private Connection connection;
+    private Channel channel;
+    
     @Setter
     private Context context;
     @Setter
@@ -40,10 +45,9 @@ public class Consumer implements Runnable {
     
     @Override
     public void run() {
-        name = Thread.currentThread().getName();
         try {
             try {
-                if (converterType != null) {
+                if (converterConsumerSingleton && converterType != null) {
                     converter = (Converter) converterType.newInstance();
                 }
             } catch (InstantiationException | IllegalAccessException e) {
@@ -63,7 +67,6 @@ public class Consumer implements Runnable {
                 channel.basicQos(prefetchCount);
             } catch (IOException e) {
                 log.error("Error setting prefetchCount", e);
-                this.close();
                 return;
             }
             
@@ -72,17 +75,29 @@ public class Consumer implements Runnable {
                 
                 @Override
                 public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
-                    String message = new String(body, StandardCharsets.UTF_8);
-                    Event event = new SimpleEvent();
-                    event.setBody(message.getBytes());
-                    
-                    if (converter != null) {
-                        event = converter.convert(event, context);
+                    try {
+                        String message = new String(body, StandardCharsets.UTF_8);
+                        Event event = new SimpleEvent();
+                        event.setBody(message.getBytes());
+                        
+                        if (!converterConsumerSingleton && converterType != null) {
+                            try {
+                                converter = (Converter) converterType.newInstance();
+                            } catch (InstantiationException | IllegalAccessException e) {
+                                throw new FlumeException("Error Instance Converter", e);
+                            }
+                        }
+                        if (converter != null) {
+                            event = converter.convert(event, context);
+                        }
+                        
+                        channelProcessor.processEvent(event);
+                        
+                        channel.basicAck(envelope.getDeliveryTag(), false);
+                    } catch (Throwable e) {
+                        log.error(e.getMessage(), e);
+                        throw e;
                     }
-                    
-                    channelProcessor.processEvent(event);
-                    
-                    channel.basicAck(envelope.getDeliveryTag(), false);
                 }
                 
             };
@@ -96,13 +111,30 @@ public class Consumer implements Runnable {
             
         } catch (Throwable e) {
             log.error("Error Unknown Throwable", e);
+            this.shutdown();
         }
     }
     
+    /**
+     * 关闭线程
+     */
+    public void shutdown() {
+        try {
+            channel.basicCancel(FLUME_CONSUMER_NAME);
+        } catch (IOException e) {
+            log.error("Error RabbitMQ basic cancel", e);
+        }
+        
+        this.close();
+    }
+    
+    /**
+     * 关闭连接
+     */
     public void close() {
         try {
-            connection.close();
             channel.close();
+            connection.close();
         } catch (IOException | TimeoutException e) {
             log.error("Error close RabbitMQ connection", e);
         }
