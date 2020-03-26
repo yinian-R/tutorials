@@ -1,0 +1,9 @@
+## Optional
+* 检查值存在：isPresent()
+* 使用ifPresent()的条件操作
+* 使用get()返回值
+* 使用orElse()、orElseGet()的默认值
+* orElseThrow()的异常
+* 带filter()的条件判断返回
+* 使用map()转换值
+* 使用flatMap()转换Optional包装的值并对其解包
