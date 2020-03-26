@@ -1,0 +1,17 @@
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+zuul:
+  routes:
+    service-feign:
+      path: /api-feign/**
+    service-rest-ribbon:
+      path: /api-rest-ribbon/**
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: bus-refresh

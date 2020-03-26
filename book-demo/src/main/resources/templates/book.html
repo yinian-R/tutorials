@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>书籍列表</title>
+    <link rel="stylesheet" href="webjars/element-ui/2.7.0/lib/theme-chalk/index.css">
+    <style>
+        body {
+            background: aliceblue;
+        }
+    </style>
+    <script src="webjars/vue/2.6.10/dist/vue.min.js"></script>
+    <script src="webjars/element-ui/2.7.0/lib/index.js"></script>
+</head>
+<body>
+
+<div id="app">
+
+    <el-card class="box-card">
+        <div slot="header" class="clearfix">
+            <span>书籍列表</span>
+            <el-button style="float: right; padding: 3px 0" type="text" @click="handleAdd">新增</el-button>
+        </div>
+        <el-table
+                :data="tableData"
+                style="width: 100%">
+            <el-table-column
+                    prop="date"
+                    label="日期"
+                    width="180">
+            </el-table-column>
+            <el-table-column
+                    prop="name"
+                    label="姓名"
+                    width="180">
+            </el-table-column>
+            <el-table-column
+                    prop="address"
+                    label="地址">
+            </el-table-column>
+            <el-table-column label="操作">
+                <template slot-scope="scope">
+                    <el-button
+                            size="mini"
+                            @click="handleEdit(scope.$index, scope.row)">编辑
+                    </el-button>
+                    <el-button
+                            size="mini"
+                            type="danger"
+                            @click="handleDelete(scope.$index, scope.row)">删除
+                    </el-button>
+                </template>
+            </el-table-column>
+        </el-table>
+        <br/>
+        <el-pagination
+                background
+                layout="prev, pager, next"
+                :total="1000">
+        </el-pagination>
+    </el-card>
+
+
+    <el-dialog title="新增书籍信息" :visible.sync="dialogAddFormVisible">
+        <el-form :model="form">
+            <el-form-item label="书籍名称" label-width="120px">
+                <el-input v-model="form.name" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="书籍简介" label-width="120px">
+                <el-input v-model="form.desc" autocomplete="off"></el-input>
+            </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+            <el-button @click="dialogAddFormVisible = false">取 消</el-button>
+            <el-button type="primary" @click="dialogAddFormVisible = false">确 定</el-button>
+        </div>
+    </el-dialog>
+
+    <el-dialog title="修改书籍信息" :visible.sync="dialogEditFormVisible">
+        <el-form :model="editForm">
+            <el-form-item label="书籍名称" label-width="120px">
+                <el-input v-model="editForm.name" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="书籍简介" label-width="120px">
+                <el-input v-model="editForm.desc" autocomplete="off"></el-input>
+            </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+            <el-button @click="dialogEditFormVisible = false">取 消</el-button>
+            <el-button type="primary" @click="dialogEditFormVisible = false">确 定</el-button>
+        </div>
+    </el-dialog>
+
+</div>
+
+
+<script>
+    new Vue({
+        el: '#app',
+        data: function () {
+            return {
+                dialogAddFormVisible: false,
+                form: {
+                    name: '',
+                    desc: '',
+                },
+                dialogEditFormVisible: false,
+                editForm: {
+                    name: '',
+                    desc: '',
+                },
+                tableData: [{
+                    date: '2016-05-02',
+                    name: '王小虎',
+                    address: '上海市普陀区金沙江路 1518 弄'
+                }, {
+                    date: '2016-05-04',
+                    name: '王小虎',
+                    address: '上海市普陀区金沙江路 1517 弄'
+                }, {
+                    date: '2016-05-01',
+                    name: '王小虎',
+                    address: '上海市普陀区金沙江路 1519 弄'
+                }, {
+                    date: '2016-05-03',
+                    name: '王小虎',
+                    address: '上海市普陀区金沙江路 1516 弄'
+                }]
+            }
+        },
+        methods: {
+            handleAdd: function () {
+                console.log("add");
+                this.dialogAddFormVisible = true
+            },
+            addBook() {
+                console.log("axios addBook");
+            },
+            handleEdit: function (index, row) {
+                console.log(index, row);
+                this.editForm = row;
+                this.dialogEditFormVisible = true;
+            },
+            handleDelete: function (index, row) {
+                console.log(index, row);
+                this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    this.$message({
+                        type: 'success',
+                        message: '删除成功!'
+                    });
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });
+                });
+            }
+        }
+    })
+</script>
+</body>
+</html>
