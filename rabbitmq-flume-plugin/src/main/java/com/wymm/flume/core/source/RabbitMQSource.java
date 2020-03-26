@@ -1,46 +1,37 @@
 package com.wymm.flume.core.source;
 
-import com.rabbitmq.client.*;
+import com.rabbitmq.client.AMQP;
+import com.rabbitmq.client.Connection;
+import com.rabbitmq.client.ConnectionFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.flume.Context;
-import org.apache.flume.Event;
 import org.apache.flume.EventDrivenSource;
 import org.apache.flume.FlumeException;
-import org.apache.flume.channel.ChannelProcessor;
 import org.apache.flume.conf.Configurable;
 import org.apache.flume.conf.ConfigurationException;
-import org.apache.flume.event.SimpleEvent;
 import org.apache.flume.source.AbstractSource;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.util.ClassUtils;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeoutException;
 
+/**
+ * Flume RabbitMQ Source Class
+ * 主要用于配置属性和创建消费线程
+ */
+@Slf4j
 public class RabbitMQSource extends AbstractSource implements Configurable, EventDrivenSource {
     
-    private static final Logger log = LoggerFactory.getLogger(RabbitMQSource.class);
-    
-    private static final String FLUME_CONSUMER_NAME = "flumeConsumer";
-    
     private Context context;
-    
-    
-    private Connection connection;
-    private Channel channel;
-    
+    private ConnectionFactory factory;
     private String queue;
-    private int prefetchCount = 1;
-    private boolean autoAck = false;
-    
-    private RabbitDemoTran rabbitDemoTran;
-    
-    
-    private ChannelProcessor channelProcessor;
+    private int prefetchCount;
+    private int consumerThreadCount;
+    private Class<?> converterType;
+    private List<Consumer> consumers = new ArrayList<>();
     
     public void configure(Context context) {
-    
         this.context = context;
         
         String host = context.getString(RabbitMQSourceConstants.HOST, ConnectionFactory.DEFAULT_HOST);
@@ -48,100 +39,66 @@ public class RabbitMQSource extends AbstractSource implements Configurable, Even
         String username = context.getString(RabbitMQSourceConstants.USERNAME, ConnectionFactory.DEFAULT_USER);
         String password = context.getString(RabbitMQSourceConstants.PASSWORD, ConnectionFactory.DEFAULT_PASS);
         queue = context.getString(RabbitMQSourceConstants.QUEUE);
-        prefetchCount = context.getInteger(RabbitMQSourceConstants.PREFETCH_COUNT, 1);
         if (queue == null) {
             throw new ConfigurationException("rabbitmq queue cannot be empty");
         }
-        String translateDataHandlerClass = context.getString(RabbitMQSourceConstants.TRANSLATE_DATA_HANDLER);
+        prefetchCount = context.getInteger(RabbitMQSourceConstants.PREFETCH_COUNT, 1);
+        consumerThreadCount = context.getInteger(RabbitMQSourceConstants.CONSUMER_THREAD_COUNT, 1);
+        if (consumerThreadCount < 1) {
+            throw new IllegalArgumentException("rabbitmq consumer thread count cannot be less than 1");
+        }
         
-        if(translateDataHandlerClass != null){
+        String converter = context.getString(RabbitMQSourceConstants.CONVERTER);
+        if (converter != null) {
             try {
-                rabbitDemoTran = (RabbitDemoTran) ClassUtils
-                        .forName(translateDataHandlerClass, ClassUtils.getDefaultClassLoader())
-                        .newInstance();
+                converterType = Class.forName(converter);
+                this.testConverterInstance(converterType);
             } catch (Exception e) {
-                e.printStackTrace();
+                throw new ConfigurationException("converter is error", e);
             }
         }
-    
-        // config factory
-        ConnectionFactory factory = new ConnectionFactory();
+        
+        factory = new ConnectionFactory();
         factory.setHost(host);
         factory.setPort(port);
         factory.setUsername(username);
         factory.setPassword(password);
         try {
-            connection = factory.newConnection();
-        } catch (IOException | TimeoutException e) {
-            throw new FlumeException("Error create RabbitMQ connection", e);
+            this.testRabbitMQConnection(factory);
+        } catch (TimeoutException | IOException e) {
+            throw new FlumeException("create RabbitMQ connection error", e);
         }
-        
     }
     
-    @Override
     public synchronized void start() {
-        
-        channelProcessor = super.getChannelProcessor();
-        try {
-            consumer(queue);
-        } catch (Exception e) {
-            throw new FlumeException(e);
+        for (int i = 0; i < consumerThreadCount; ++i) {
+            Consumer consumer = new Consumer();
+            consumer.setFactory(factory);
+            consumer.setQueue(queue);
+            consumer.setChannelProcessor(super.getChannelProcessor());
+            consumer.setContext(context);
+            consumer.setConverterType(converterType);
+            consumer.setPrefetchCount(prefetchCount);
+            Thread thread = new Thread(consumer);
+            thread.setName("rabbitmq-consumer-thread-" + i);
+            thread.start();
+            consumers.add(consumer);
         }
         
         super.start();
     }
     
-    @Override
     public synchronized void stop() {
-        try {
-            channel.basicCancel(FLUME_CONSUMER_NAME);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        
-        try {
-            channel.close();
-        } catch (IOException | TimeoutException e) {
-            e.printStackTrace();
-        }
-        
-        try {
-            connection.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        
+        consumers.forEach(Consumer::close);
         super.stop();
     }
     
-    private void consumer(String queue) throws Exception {
-        channel = connection.createChannel();
-        
-        channel.basicQos(prefetchCount);
-        
-        Consumer consumer = new DefaultConsumer(channel) {
-            
-            @Override
-            public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
-                String message = new String(body, StandardCharsets.UTF_8);
-                Event event = new SimpleEvent();
-                event.setBody(message.getBytes());
-    
-                if(rabbitDemoTran != null){
-                    event = rabbitDemoTran.doTranslateData(event, context);
-                }
-                
-                channelProcessor.processEvent(event);
-                
-                channel.basicAck(envelope.getDeliveryTag(), false);
-            }
-            
-        };
-        
-        channel.basicConsume(queue, autoAck, FLUME_CONSUMER_NAME, consumer);
+    private void testConverterInstance(Class<?> converterType) throws IllegalAccessException, InstantiationException {
+        converterType.newInstance();
     }
     
-    private void print(String msg) {
-        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~:" + msg);
+    private void testRabbitMQConnection(ConnectionFactory factory) throws IOException, TimeoutException {
+        Connection connection = factory.newConnection();
+        connection.close();
     }
 }

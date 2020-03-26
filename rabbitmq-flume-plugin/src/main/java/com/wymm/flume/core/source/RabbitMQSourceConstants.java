@@ -3,6 +3,9 @@ package com.wymm.flume.core.source;
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.ConnectionFactory;
 
+/**
+ * Flume RabbitMQ Source 配置常量
+ */
 public class RabbitMQSourceConstants {
     
     /**
@@ -32,6 +35,9 @@ public class RabbitMQSourceConstants {
     /**
      * Translate Date Class
      */
-    public static final String TRANSLATE_DATA_HANDLER = "translateDataHandler";
+    public static final String CONVERTER = "converter";
+    
+    
+    public static final String CONSUMER_THREAD_COUNT = "rabbitmq.consumer.thread.count";
     
 }
