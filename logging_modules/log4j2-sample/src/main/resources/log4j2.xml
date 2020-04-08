@@ -1,26 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration>
-    
-    <Loggers>
-        <!--设置启动的Appender-->
-        <!--设置日志级别，低于该级别日志不打印-->
-        <Root level="info">
-            <AppenderRef ref="consoleAppender"/>
-            <AppenderRef ref="foutAppender"/>
-            <AppenderRef ref="AsyncAppender"/>
-        </Root>
-        
-        <!--AsyncRoot替换Root开启异步记录-->
-        <!-- 也可以通过系统属性开启异步记录`Log4jContextSelector`设置为`org.apache.logging.log4j.core.async.AsyncLoggerContextSelector`-->
-        <!--<AsyncRoot level="info">-->
-        <!--    <AppenderRef ref="stdout"/>-->
-        <!--</AsyncRoot>-->
-    
-        <Logger name="com.wymm.log4j.logger" level="trace">
-            <AppenderRef ref="consoleAppender"/>
-        </Logger>
-    </Loggers>
-    
     <Appenders>
         
         <!--SYSTEM_OUT：输出到控制台-->
@@ -35,4 +14,23 @@
         </File>
     
     </Appenders>
+    <Loggers>
+        <!--设置启动的Appender-->
+        <!--设置日志级别，低于该级别日志不打印-->
+        <Root level="info">
+            <AppenderRef ref="consoleAppender"/>
+            <AppenderRef ref="foutAppender"/>
+            <AppenderRef ref="AsyncAppender"/>
+        </Root>
+
+        <!--AsyncRoot替换Root开启异步记录-->
+        <!-- 也可以通过系统属性开启异步记录`Log4jContextSelector`设置为`org.apache.logging.log4j.core.async.AsyncLoggerContextSelector`-->
+        <!--<AsyncRoot level="info">-->
+        <!--    <AppenderRef ref="stdout"/>-->
+        <!--</AsyncRoot>-->
+
+        <Logger name="com.wymm.log4j.logger" level="trace">
+            <AppenderRef ref="consoleAppender"/>
+        </Logger>
+    </Loggers>
 </Configuration>
