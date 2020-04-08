@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+
+    <Appenders>
+        <!--SYSTEM_OUT：输出到控制台-->
+        <Console name="consoleAppender" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d %-5p [%t] %c{1.}.%M:%L : %m%n"/>
+            <!--<PatternLayout pattern="%d %-5p %l %m%n"/>-->
+        </Console>
+    </Appenders>
+
+    <Loggers>
+        <!--设置启动的Appender-->
+        <!--设置日志级别，低于该级别日志不打印-->
+        <Root level="info">
+            <AppenderRef ref="consoleAppender"/>
+        </Root>
+
+    </Loggers>
+</Configuration>
