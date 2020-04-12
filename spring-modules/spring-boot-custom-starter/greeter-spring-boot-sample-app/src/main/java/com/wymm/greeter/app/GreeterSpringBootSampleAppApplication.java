@@ -1,4 +1,4 @@
-package com.wymm.greeterspringbootsampleapp;
+package com.wymm.greeter.app;
 
 import com.wymm.greeter.library.GreeterTemplate;
 import lombok.extern.slf4j.Slf4j;
@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 
 @Slf4j
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"com.wymm.greeter.app", "com.wymm.greeter.autoconfigure"})
 public class GreeterSpringBootSampleAppApplication implements CommandLineRunner {
     
     @Autowired

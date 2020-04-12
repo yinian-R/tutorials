@@ -9,13 +9,13 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <artifactId>greeter-spring-boot-autoconfigure</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>greeter-spring-boot-autoconfigure</name>
     <description>autoconfigure greater</description>
 
     <properties>
         <java.version>1.8</java.version>
-        <greeter.version>0.0.1-SNAPSHOT</greeter.version>
+        <greeter.version>1.0.0</greeter.version>
     </properties>
 
     <dependencies>

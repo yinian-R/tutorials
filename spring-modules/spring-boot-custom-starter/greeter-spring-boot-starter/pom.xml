@@ -9,13 +9,13 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <artifactId>greeter-spring-boot-starter</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>greeter-spring-boot-starter</name>
     <description>Greeter Spring Boot Starter</description>
 
     <properties>
         <java.version>1.8</java.version>
-        <greeter.version>0.0.1-SNAPSHOT</greeter.version>
+        <greeter.version>1.0.0</greeter.version>
     </properties>
 
     <dependencies>
@@ -26,15 +26,23 @@
 
         <dependency>
             <groupId>com.wymm</groupId>
-            <artifactId>greeter-spring-boot-autoconfigure</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.wymm</groupId>
             <artifactId>greeter-library</artifactId>
             <version>${greeter.version}</version>
         </dependency>
+
+<!--        spring boot 自动配置-->
+        <dependency>
+            <groupId>com.wymm</groupId>
+            <artifactId>greeter-spring-boot-autoconfigure</artifactId>
+            <version>${greeter.version}</version>
+        </dependency>
+<!--        扩展Spring支持自动配置-->
+<!--        <dependency>-->
+<!--            <groupId>com.wymm</groupId>-->
+<!--            <artifactId>greeter-spring-autoconfigure-backport</artifactId>-->
+<!--            <version>${greeter.version}</version>-->
+<!--        </dependency>-->
+
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
