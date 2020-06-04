@@ -1,0 +1,6 @@
+server:
+  port: 8770
+
+info:
+  app:
+    author: wymm

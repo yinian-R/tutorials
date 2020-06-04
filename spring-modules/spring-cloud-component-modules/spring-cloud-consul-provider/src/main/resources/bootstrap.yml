@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: consul-provider-service
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        # 注册时使用ip而不是主机名
+        prefer-ip-address: true
+        # 唯一服务实例id
+        instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}

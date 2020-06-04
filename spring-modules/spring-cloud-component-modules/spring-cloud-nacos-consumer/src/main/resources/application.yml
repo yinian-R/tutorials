@@ -1,0 +1,9 @@
+server:
+  port: 8773
+
+spring:
+  application:
+    name: nacos-consumer-service
+  cloud:
+    nacos:
+      server-addr: localhost:8848
