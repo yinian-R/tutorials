@@ -1,10 +1,23 @@
 # log4j 2
-> 一个使用log4j作为日志工具
-* Console 输出日志到控制台
-* File 输出日志到文件
-* 添加依赖disruptor和使用<AsyncRoot>开启异步记录
+> 一个使用`log4j`作为日志工具
 
-### 概念
+引入依赖，包含`log4j-api、log4j-core、slf4j-api`
+```
+<dependency>
+    <groupId>org.apache.logging.log4j</groupId>
+    <artifactId>log4j-slf4j-impl</artifactId>
+    <version>2.11.1</version>
+</dependency>
+```
+
+* `Console` 输出日志到控制台
+* `File` 输出日志到文件
+* 添加依赖`disruptor`和使用`<AsyncRoot>`开启异步记录
+* 引入依赖`log4j-slf4j-impl`使用`Slf4j`作为外观
+* 自定义Appender
+* 使用lambda表达式进行懒记录
+
+### 基础
 日志级别由高到低：`OFF、FATAL、ERROR、WARN、INFO、DEBUG、TRACE、ALL`。级别越高打的日志越少
 
 没有日志配置文件或者JAVA配置，打印error及更高级别日志到控制台

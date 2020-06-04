@@ -16,7 +16,7 @@
 
     <properties>
         <java.version>1.8</java.version>
-        <greeter-starter.version>0.0.1-SNAPSHOT</greeter-starter.version>
+        <greeter.version>1.0.0</greeter.version>
     </properties>
 
     <dependencies>
@@ -28,7 +28,7 @@
         <dependency>
             <groupId>com.wymm</groupId>
             <artifactId>greeter-spring-boot-starter</artifactId>
-            <version>${greeter-starter.version}</version>
+            <version>${greeter.version}</version>
         </dependency>
 
         <dependency>

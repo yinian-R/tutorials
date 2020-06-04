@@ -1,26 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration>
+
+    <property name="LOG_PATH" value="./logs"/>
+    <property name="DEFAULT_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss} %-5p %m%n"/>
+
+
     <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
         <layout class="ch.qos.logback.classic.PatternLayout">
             # Pattern of log message for console appender
-            <Pattern>%d{yyyy-MM-dd HH:mm:ss} %-5p %m%n</Pattern>
+            <Pattern>${DEFAULT_PATTERN}</Pattern>
         </layout>
     </appender>
-    
+
     <appender name="fout" class="ch.qos.logback.core.FileAppender">
-        <file>./logs/logback-sample.log</file>
+        <file>${LOG_PATH}/logback-sample.log</file>
+        <!-- 所述 <append> 标签设置为true 指示日志是否追加到现有的文件，而不是截断它-->
         <append>false</append>
         <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5p %m%n</pattern>
+            <pattern>${DEFAULT_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="fout2" class="ch.qos.logback.core.FileAppender">
+        <file>${LOG_PATH}/logback-sample2.log</file>
+        <append>false</append>
+        <encoder>
+            <pattern>${DEFAULT_PATTERN}</pattern>
         </encoder>
     </appender>
     
-    <!--Override log level for specified package-->
+    <appender name="E" class="ch.qos.logback.core.FileAppender">
+        <file>${LOG_PATH}/error.log</file>
+        <append>false</append>
+        <encoder>
+            <pattern>${DEFAULT_PATTERN}</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <!--为指定的包重写日志级别，如果不设置日志级别，则从根记录器继承日志级别。并且和跟记录器的Appender关联-->
     <logger name="com.wymm.logback" level="TRACE"/>
-    
+
+    <!--additivity设置false，不会关联根记录器的Appender-->
+    <logger name="com.wymm.logback.level" level="ERROR" additivity="false">
+        <appender-ref ref="fout2"/>
+    </logger>
+
     <root level="INFO">
-        <appender-ref ref="stdout" />
-        <appender-ref ref="fout" />
+        <appender-ref ref="stdout"/>
+        <appender-ref ref="fout"/>
+        <appender-ref ref="E"/>
     </root>
 </configuration>
