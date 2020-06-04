@@ -73,7 +73,7 @@ public class RabbitMQSourceConstants {
     public static final String CONVERTER = "converter";
     
     /**
-     * 每个Consumer仅有一个Converter实例
+     * 每个Consumer有一个Converter实例
      */
     public static final String CONVERTER_CONSUMER_SINGLETON = "converter.consumer.singleton";
     

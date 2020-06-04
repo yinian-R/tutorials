@@ -14,7 +14,6 @@ import org.apache.flume.conf.ConfigurationException;
 import org.apache.flume.source.AbstractSource;
 
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -88,7 +87,7 @@ public class RabbitMQSource extends AbstractSource implements Configurable, Even
             if (create) {
                 String topicExchange = context.getString(RabbitMQSourceConstants.TOPIC_EXCHANGE);
                 String routingKey = context.getString(RabbitMQSourceConstants.ROUTING_KEY);
-                this.createQueue(factory, queue, topicExchange, routingKey);
+                this.createQueue(queue, topicExchange, routingKey);
             }
         } catch (Throwable e) {
             log.error(e.getMessage(), e);
@@ -128,7 +127,7 @@ public class RabbitMQSource extends AbstractSource implements Configurable, Even
      * @param exchange   交换机
      * @param routingKey 路由
      */
-    protected void createQueue(ConnectionFactory factory, String queue, String exchange, String routingKey) {
+    protected void createQueue(String queue, String exchange, String routingKey) {
         Objects.requireNonNull(queue);
         Objects.requireNonNull(exchange);
         Objects.requireNonNull(routingKey);

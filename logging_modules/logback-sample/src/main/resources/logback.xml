@@ -29,6 +29,19 @@
             <pattern>${DEFAULT_PATTERN}</pattern>
         </encoder>
     </appender>
+    
+    <appender name="E" class="ch.qos.logback.core.FileAppender">
+        <file>${LOG_PATH}/error.log</file>
+        <append>false</append>
+        <encoder>
+            <pattern>${DEFAULT_PATTERN}</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
 
     <!--为指定的包重写日志级别，如果不设置日志级别，则从根记录器继承日志级别。并且和跟记录器的Appender关联-->
     <logger name="com.wymm.logback" level="TRACE"/>
@@ -41,5 +54,6 @@
     <root level="INFO">
         <appender-ref ref="stdout"/>
         <appender-ref ref="fout"/>
+        <appender-ref ref="E"/>
     </root>
 </configuration>
