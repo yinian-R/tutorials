@@ -8,16 +8,16 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
-public class _1JacksonTest {
+class _1JacksonTest {
     
     @Test
-    void test() throws IOException {
+    void readFile() throws IOException {
         // read file
         ObjectMapper objectMapper = new ObjectMapper();
         File file = new File(System.getProperty("user.dir") + "/src/test/resources/data.json");
         MyValue myValue = objectMapper.readValue(file, MyValue.class);
         System.out.println(myValue.toString());
-    
+        
         // read url
         URL resource = this.getClass().getResource("/data.json");
         MyValue myValue2 = objectMapper.readValue(resource, MyValue.class);
