@@ -9,6 +9,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.config.SocketConfig;
 import org.apache.http.conn.ConnectionKeepAliveStrategy;
 import org.apache.http.conn.routing.HttpRoute;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -88,6 +89,19 @@ class _7ConnectionManagementTest {
     }
 
     /**
+     * 设置 Connection Manager 的 Socket Timeout（非阻塞I/O操作的socket超时时间）
+     * InputStream 读数据、OutputStream 写数据的时间
+     */
+    @Test
+    void usingSoTimeout() {
+        HttpRoute route = new HttpRoute(new HttpHost("www.baeldung.com", 80));
+        PoolingHttpClientConnectionManager connManager
+                = new PoolingHttpClientConnectionManager();
+        connManager.setSocketConfig(route.getTargetHost(), SocketConfig.custom().
+                setSoTimeout(5000).build());
+    }
+
+    /**
      * 连接驱逐，用于检测空闲和过期的连接并关闭它们
      * 有两种方法可以实现这一点
      */
@@ -108,14 +122,14 @@ class _7ConnectionManagementTest {
 
     /**
      * 要正确关闭连接，我们需要执行以下所有操作：
-     *
+     * <p>
      * 消耗并关闭响应（如果可关闭）
      * 关闭 client
      * 关闭 connection manager
-     *
+     * <p>
      * 如果在没有关闭连接的情况下关闭了管理器，则将关闭所有连接并释放所有资源。
      * 重要的是要记住，这不会刷新任何可能存在于现有连接中的数据
-     *
+     * <p>
      * 如果使用连接池，通过EntityUtils.consume()关闭响应的内容，以便管理器可以将连接释放回池
      */
     @Test
