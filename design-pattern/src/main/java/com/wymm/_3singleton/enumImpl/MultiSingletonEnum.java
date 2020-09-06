@@ -5,7 +5,7 @@ package com.wymm._3singleton.enumImpl;
  * 线程安全、单例
  * 推荐理由：不需要构造函数、更简洁、支持多个单例在同一个类实现
  */
-public enum MultiSingletonEnum implements Service {
+public enum MultiSingletonEnum {
     ONE_SINGLETON {
         @Override
         public void doSomething() {
@@ -17,10 +17,8 @@ public enum MultiSingletonEnum implements Service {
         public void doSomething() {
             // do something
         }
-    }
+    };
     
-}
-
-interface Service {
-    void doSomething();
+    public abstract void doSomething();
+    
 }

@@ -8,6 +8,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.Iterator;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -47,4 +50,63 @@ class _6JsonNodeTest {
         
         assertNotNull(jsonNode);
     }
+    
+    /**
+     * 使用 JsonNode 把 JSON 转换成 YAML
+     */
+    @Test
+    void whenGivenJsonNode_thenPrintYaml() throws IOException {
+        URL resource = this.getClass().getResource("/exmple.json");
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode jsonNode = objectMapper.readTree(resource);
+        
+        String yamlStr = toYaml(jsonNode);
+        System.out.println(yamlStr);
+    }
+    
+    private String toYaml(JsonNode root) {
+        StringBuilder yamlBuilder = new StringBuilder();
+        processNode(root, yamlBuilder, 0);
+        return yamlBuilder.toString();
+    }
+    
+    private void appendNodeToYaml(JsonNode jsonNode, StringBuilder yamlBuilder, int depth, boolean isArrayItem) {
+        Iterator<Map.Entry<String, JsonNode>> fields = jsonNode.fields();
+        boolean isFirst = true;
+        while (fields.hasNext()) {
+            Map.Entry<String, JsonNode> jsonField = fields.next();
+            addFieldNameToYaml(yamlBuilder, jsonField.getKey(), depth, isArrayItem && isFirst);
+            processNode(jsonField.getValue(), yamlBuilder, depth + 1);
+            isFirst = false;
+        }
+    }
+    
+    private void processNode(JsonNode jsonNode, StringBuilder yamlBuilder, int depth) {
+        if (jsonNode.isValueNode()) {
+            yamlBuilder.append(jsonNode.asText());
+        } else if (jsonNode.isArray()) {
+            for (JsonNode arrayItem : jsonNode) {
+                appendNodeToYaml(arrayItem, yamlBuilder, depth, true);
+            }
+        } else if (jsonNode.isObject()) {
+            appendNodeToYaml(jsonNode, yamlBuilder, depth, false);
+        }
+    }
+    
+    private void addFieldNameToYaml(StringBuilder yamlBuilder, String fieldName, int depth, boolean isFirstInArray) {
+        if (yamlBuilder.length() > 0) {
+            yamlBuilder.append("\n");
+            int requiredDepth = isFirstInArray ? depth - 1 : depth;
+            for (int i = 0; i < requiredDepth; i++) {
+                yamlBuilder.append("  ");
+            }
+            if (isFirstInArray) {
+                yamlBuilder.append("- ");
+            }
+        }
+        
+        yamlBuilder.append(fieldName);
+        yamlBuilder.append(": ");
+    }
+    
 }

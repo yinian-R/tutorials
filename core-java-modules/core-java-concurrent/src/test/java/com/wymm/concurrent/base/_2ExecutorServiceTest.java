@@ -4,6 +4,9 @@ import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.*;
 
+/**
+ * ExecutorService 是异步处理的完整解决方案
+ */
 class _2ExecutorServiceTest {
     
     @Test
@@ -39,7 +42,7 @@ class _2ExecutorServiceTest {
         // 不再接受新的任务，立刻终止所有未执行的任务，关闭executor
         //scheduledExecutorService.shutdownNow();
         
-        // 创建一个固定速度的计划。该操作再指定初始延迟后开始运行，随后在给定的周期到了执行，直到服务终止。
+        // 创建一个固定速度的计划。该操作再指定初始延迟后开始运行，随后在给定的周期到了执行，直到服务终止。（该周期参数是时间的任务的开始时间之间测量的，所以执行速率是固定的）
         scheduledExecutorService.scheduleAtFixedRate(() -> {
             System.out.println("scheduleAtFixedRate");
         }, 1, 1, TimeUnit.SECONDS);

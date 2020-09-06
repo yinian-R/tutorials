@@ -4,6 +4,9 @@ import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.Executor;
 
+/**
+ * Executor 是一个表示执行所提供任务的对象的接口
+ */
 class _1ExecutorTest {
     
     

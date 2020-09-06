@@ -2,9 +2,7 @@ package com.wymm.jackson;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.MapperFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.ser.FilterProvider;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
@@ -371,6 +369,16 @@ class _4AnnotationTest {
         assertTrue(result.contains("book"));
         assertTrue(result.contains(("2")));
         assertFalse(result.contains(("John")));
+        
+        
+        String json = "{\"id\":1,\"itemName\":\"book\",\"ownerName\":\"John\"}";
+        Views.Item o = new ObjectMapper()
+                .readerWithView(Views.Public.class)
+                .forType(Views.Item.class)
+                .readValue(json);
+        assertEquals(o.id, 1);
+        assertEquals(o.itemName, "book");
+        assertNull(o.ownerName);
     }
     
     /**
@@ -478,9 +486,34 @@ class _4AnnotationTest {
         ObjectMapper mapper = new ObjectMapper();
         mapper.disable(MapperFeature.USE_ANNOTATIONS);
         String result = mapper.writeValueAsString(bean);
-    
+        
         assertTrue(result.contains("1"));
         assertTrue(result.contains("name"));
+    }
+    
+    /**
+     * 使用 @JsonAppend 注解，序列化时往 JSON 中添加属性
+     */
+    @Test
+    void whenSerializingUsingJsonAppend_thenCorrect() throws JsonProcessingException {
+        BeanWithoutAppend beanWithoutAppend = new BeanWithoutAppend(2, "Bean With Append Annotation");
+        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectWriter objectWriter = objectMapper.writerFor(BeanWithoutAppend.class).withAttribute("version", 1.1);
+        String result = objectWriter.writeValueAsString(beanWithoutAppend);
+        
+        assertTrue(result.contains("version"));
+    }
+    
+    /**
+     * 使用 @JsonNaming 注解选择序列化属性命名策略
+     * 命名策略可以根据 {@link PropertyNamingStrategy}内部类查看
+     */
+    @Test
+    void whenSerializingUsingJsonNaming_thenCorrect() throws JsonProcessingException {
+        NamingBean bean = new NamingBean(3, "Naming Bean");
+        ObjectMapper objectMapper = new ObjectMapper();
+        String jsonString = objectMapper.writeValueAsString(bean);
+        assertTrue(jsonString.contains("bean_name"));
     }
 }
 

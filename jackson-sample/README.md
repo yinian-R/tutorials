@@ -41,6 +41,8 @@
 - @JacksonAnnotationsInside 注释自定义 Jackson 注释
 - 使用 Jackson MixIn 语法，在序列化时忽略 addMixIn 添加的类型
 - 禁用所有 Jackson 注解
+- @JsonAppend 注解，序列化时往 JSON 中添加属性
+- @JsonNaming 注解选择序列化属性命名策略
 
 > PS：引入依赖 *jackson-datatype-jsr310*，使用 @JsonDeserialize、@JsonSerialize、@JsonFormat 定制Java 8 日期格式
 
@@ -84,6 +86,10 @@
 
 https://www.baeldung.com/jackson-object-mapper-tutorial
 
-https://www.baeldung.com/jackson-serialize-dates
-
 https://www.baeldung.com/jackson
+
+自定义视图，以及如何开始与 Spring 集成
+https://www.baeldung.com/jackson-json-view-annotation
+
+Jackson 常见异常与解决方案
+https://www.baeldung.com/jackson-exception
