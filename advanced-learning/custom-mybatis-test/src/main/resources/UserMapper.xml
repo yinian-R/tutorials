@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mapper namespace="user">
+
+    <select id="findUsers" resultType="com.wymm.custom.mybatis.User">
+        select * from user
+    </select>
+
+    <select id="findUserByName" resultType="com.wymm.custom.mybatis.User" paramterType="com.wymm.custom.mybatis.User">
+        select * from user where name=#{name}
+    </select>
+
+</mapper>
