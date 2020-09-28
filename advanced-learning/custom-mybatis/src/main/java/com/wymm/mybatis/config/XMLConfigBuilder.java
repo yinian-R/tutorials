@@ -29,7 +29,6 @@ public class XMLConfigBuilder {
      * @return
      */
     public Configuration parseConfig(InputStream inputStream) throws DocumentException, PropertyVetoException {
-
         Document document = new SAXReader().read(inputStream);
 
         Element rootElement = document.getRootElement();
@@ -37,7 +36,23 @@ public class XMLConfigBuilder {
         // 解析 dataSource
         Node dataSource = rootElement.selectSingleNode("dataSource");
         List<Node> list = dataSource.selectNodes("//property");
+        parseDataSource(configuration, list);
 
+        // 解析 mapper
+        List<Node> mapperNodes = rootElement.selectNodes("//mapper");
+        parseMapper(configuration, mapperNodes);
+
+        return configuration;
+    }
+
+    /**
+     * 解析 dataSource
+     *
+     * @param configuration
+     * @param list
+     * @throws PropertyVetoException
+     */
+    public void parseDataSource(Configuration configuration, List<Node> list) throws PropertyVetoException {
         Properties props = new Properties();
         for (Node node : list) {
             Element element = (Element) node;
@@ -45,18 +60,22 @@ public class XMLConfigBuilder {
             String value = element.attributeValue("value");
             props.setProperty(name, value);
         }
-
         ComboPooledDataSource comboPooledDataSource = new ComboPooledDataSource();
         comboPooledDataSource.setDriverClass((String) props.get("driveClass"));
         comboPooledDataSource.setJdbcUrl((String) props.get("url"));
         comboPooledDataSource.setUser((String) props.get("username"));
         comboPooledDataSource.setPassword((String) props.get("password"));
-
         configuration.setDataSource(comboPooledDataSource);
+    }
 
-        // 解析 mapper
-        List<Node> mapperNodes = rootElement.selectNodes("//mapper");
-
+    /**
+     * 解析 mapper
+     *
+     * @param configuration
+     * @param mapperNodes
+     * @throws DocumentException
+     */
+    public void parseMapper(Configuration configuration, List<Node> mapperNodes) throws DocumentException {
         for (Node mapperNode : mapperNodes) {
             Element mapperElement = (Element) mapperNode;
             String mapperPath = mapperElement.attributeValue("resource");
@@ -64,7 +83,6 @@ public class XMLConfigBuilder {
             XMLMapperBuilder xmlMapperBuilder = new XMLMapperBuilder(configuration);
             xmlMapperBuilder.parse(resourceAsStream);
         }
-
-        return configuration;
     }
+
 }
