@@ -10,11 +10,12 @@ import org.junit.jupiter.api.Test;
 
 import java.beans.PropertyVetoException;
 import java.io.InputStream;
+import java.sql.SQLException;
 import java.util.List;
 
 class MybatisTest {
     @Test
-    void test() throws DocumentException, PropertyVetoException {
+    void test() throws DocumentException, PropertyVetoException, SQLException {
         InputStream inputStream = Resources.getResourceAsStream("sqlMapConfig.xml");
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
         SqlSession sqlSession = sqlSessionFactory.openSession();

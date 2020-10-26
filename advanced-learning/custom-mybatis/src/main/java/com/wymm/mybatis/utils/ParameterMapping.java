@@ -15,7 +15,6 @@
  */
 package com.wymm.mybatis.utils;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
