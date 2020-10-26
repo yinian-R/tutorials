@@ -7,6 +7,7 @@ import com.wymm.mybatis.utils.GenericTokenParser;
 import com.wymm.mybatis.utils.ParameterMapping;
 import com.wymm.mybatis.utils.ParameterMappingTokenHandler;
 
+import java.lang.reflect.Field;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -14,7 +15,7 @@ import java.util.List;
 
 public class SimpleExecutor implements Executor {
     @Override
-    public <E> List<E> find(Configuration configuration, MappedStatement mappedStatement, Object... params) throws SQLException {
+    public <E> List<E> find(Configuration configuration, MappedStatement mappedStatement, Object... params) throws SQLException, ClassNotFoundException, NoSuchFieldException, IllegalAccessException {
         // 1.注册驱动，获取连接
         Connection connection = configuration.getDataSource().getConnection();
         // 2.获取 SQL :select * from user where name=#{name}
@@ -27,10 +28,32 @@ public class SimpleExecutor implements Executor {
         PreparedStatement preparedStatement = connection.prepareStatement(boundSql.getSqlText());
 
         // 4.设置参数
+        String paramterType = mappedStatement.getParamterType();
+        Class<?> paramterTypeClass = getClassType(paramterType);
+
+        List<ParameterMapping> parameterMappingList = boundSql.getParameterMappingList();
+        for (int i = 0; i < parameterMappingList.size(); i++) {
+            ParameterMapping parameterMapping = parameterMappingList.get(i);
+            String content = parameterMapping.getContent();
+
+            // 反射
+            Field declaredField = paramterTypeClass.getDeclaredField(content);
+            declaredField.setAccessible(true);
+            Object o = declaredField.get(params[i]);
+
+            preparedStatement.setObject(i + 1, o);
+        }
 
         // 5.执行 SQL
 
         // 6.封装返回结果集
+        return null;
+    }
+
+    private Class<?> getClassType(String paramterType) throws ClassNotFoundException {
+        if (paramterType != null) {
+            return Class.forName(paramterType);
+        }
         return null;
     }
 

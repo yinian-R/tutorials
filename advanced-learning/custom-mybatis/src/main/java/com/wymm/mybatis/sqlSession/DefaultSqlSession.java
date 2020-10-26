@@ -15,7 +15,7 @@ public class DefaultSqlSession implements SqlSession {
     }
 
     @Override
-    public <E> List<E> finds(String statementId, Object... params) throws SQLException {
+    public <E> List<E> finds(String statementId, Object... params) throws SQLException, IllegalAccessException, NoSuchFieldException, ClassNotFoundException {
         SimpleExecutor simpleExecutor = new SimpleExecutor();
         MappedStatement mappedStatement = configuration.getMappedStatementMap().get(statementId);
         List<Object> list = simpleExecutor.find(configuration, mappedStatement, params);
@@ -23,7 +23,7 @@ public class DefaultSqlSession implements SqlSession {
     }
 
     @Override
-    public <E> E find(String statementId, Object... params) throws SQLException {
+    public <E> E find(String statementId, Object... params) throws SQLException, IllegalAccessException, NoSuchFieldException, ClassNotFoundException {
         List<Object> objects = finds(statementId, params);
         if (objects.size() == 1) {
             return (E) objects.get(0);

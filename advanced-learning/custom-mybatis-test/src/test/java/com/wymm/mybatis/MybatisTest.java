@@ -15,14 +15,14 @@ import java.util.List;
 
 class MybatisTest {
     @Test
-    void test() throws DocumentException, PropertyVetoException, SQLException {
+    void test() throws DocumentException, PropertyVetoException, SQLException, IllegalAccessException, NoSuchFieldException, ClassNotFoundException {
         InputStream inputStream = Resources.getResourceAsStream("sqlMapConfig.xml");
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
         SqlSession sqlSession = sqlSessionFactory.openSession();
 
         User user = new User();
         user.setId(1);
-        user.setUsername("xiaohui");
+        user.setName("xiaohui");
         Object user1 = sqlSession.find("user.findUserByName", user);
     }
 }
