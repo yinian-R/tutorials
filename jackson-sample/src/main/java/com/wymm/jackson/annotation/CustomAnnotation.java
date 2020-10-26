@@ -10,6 +10,6 @@ import java.lang.annotation.RetentionPolicy;
 @Retention(RetentionPolicy.RUNTIME)
 @JacksonAnnotationsInside
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "name", "id", "dateCreated" })
+@JsonPropertyOrder({"name", "id", "dateCreated"})
 public @interface CustomAnnotation {
 }

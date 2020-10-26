@@ -9,34 +9,33 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
 
 @Component
 public class TokenFilter extends ZuulFilter {
-
+    
     private static Logger log = LoggerFactory.getLogger(TokenFilter.class);
-
+    
     @Override
     public String filterType() {
         return "pre"; // 可以在请求被路由之前调用
     }
-
+    
     @Override
     public int filterOrder() {
         return 0; // filter执行顺序，通过数字指定 ,优先级为0，数字越大，优先级越低
     }
-
+    
     @Override
     public boolean shouldFilter() {
         return true; // 是否执行该过滤器，此处为true，说明需要过滤
     }
-
+    
     @Override
     public Object run() throws ZuulException {
         RequestContext ctx = RequestContext.getCurrentContext();
         HttpServletRequest request = ctx.getRequest();
         log.info(">>> {} {}", request.getMethod(), request.getRequestURL().toString());
-
+        
         String token = request.getParameter("token");
         if (StringUtils.isBlank(token)) {
             log.warn("token is empty");
@@ -46,7 +45,7 @@ public class TokenFilter extends ZuulFilter {
             ctx.set("isSuccess", false);
             return null;
         }
-
+        
         ctx.set("isSuccess", true);
         return null;
     }

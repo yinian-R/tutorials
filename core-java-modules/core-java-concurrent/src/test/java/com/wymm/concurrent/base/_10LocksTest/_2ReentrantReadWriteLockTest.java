@@ -11,7 +11,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
  * 通过线程获取 ReadLock 或 WriteLock 的规则：
  * - ReadLock - 如果没有线程获取或请求写锁，则多个线程可以获取读锁
  * - WriteLock - 如果没有线程正在读或写，则只有一个线程可以获取写锁
- * 
+ * <p>
  * 可以锁降级：线程获取写入锁后可以获取读锁，然后释放写入锁，这样写入锁就降级成读锁，从而实现锁降级的特性
  * 不可锁升级：线程获取读锁后不能直接升级为写入锁，需先释放读锁才能获取写入锁
  */

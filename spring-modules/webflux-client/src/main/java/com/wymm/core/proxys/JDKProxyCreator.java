@@ -8,12 +8,10 @@ import com.wymm.core.interfaces.RestHandler;
 import com.wymm.core.resthandlers.WebClientRestHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpMethod;
-import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.lang.annotation.Annotation;
-import java.lang.reflect.*;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -31,7 +29,7 @@ public class JDKProxyCreator implements ProxyCreator {
         
         // 初始化服务器信息、webclient
         handler.init(serverInfo);
-    
+        
         return Proxy.newProxyInstance(this.getClass().getClassLoader(), new Class[]{type}, (proxy, method, args) -> {
             // 根据方法和参数提取调用的信息
             MethodInfo methodInfo = extractMethodInfo(method, args);
@@ -50,16 +48,16 @@ public class JDKProxyCreator implements ProxyCreator {
      */
     private MethodInfo extractMethodInfo(Method method, Object[] args) {
         MethodInfo methodInfo = new MethodInfo();
-    
+        
         // 提取请求URL和请求方法
         extractUrlAndMethod(method, methodInfo);
-    
+        
         // 提取调用的参数和body
         extractRequestParamAndBody(method, args, methodInfo);
-    
+        
         // 提取返回对象的信息
         extractReturnInfo(method, methodInfo);
-    
+        
         return methodInfo;
     }
     
@@ -111,7 +109,7 @@ public class JDKProxyCreator implements ProxyCreator {
             if (annotationPath != null) {
                 params.put(annotationPath.value(), args[i]);
             }
-    
+            
             // 是否带有 RequestBody
             RequestBody annotationBody = parameters[i].getAnnotation(RequestBody.class);
             if (annotationBody != null) {

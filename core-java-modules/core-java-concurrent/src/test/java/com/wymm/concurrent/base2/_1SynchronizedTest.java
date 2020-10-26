@@ -90,14 +90,14 @@ class _1SynchronizedTest {
      * synchronized methods 和 blocks 是可以重复获取相同的锁
      */
     @Test
-    void reentrantLock(){
+    void reentrantLock() {
         Object lock = new Object();
         synchronized (lock) {
             System.out.println("First time acquiring it");
-        
+            
             synchronized (lock) {
                 System.out.println("Entering again");
-            
+                
                 synchronized (lock) {
                     System.out.println("And again");
                 }

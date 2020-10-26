@@ -9,7 +9,7 @@ package com.wymm.fragment;
  * K 用于键
  * V 用于值
  * E 代表Element
- * 
+ * <p>
  * 在实例化泛型时，必须指定类型
  */
 public class GenericsModel<T> {

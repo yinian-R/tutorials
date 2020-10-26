@@ -13,11 +13,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * 对集合进行排序
- * 
+ * <p>
  * Comparator 返回 int，负整数表示入参1比入参2小，0表示相等，正整数表示入参1比入参2大
- * 
+ * <p>
  * 强烈建议使用nullsFirst() 或 nullsLast() 装饰器，因为它们更灵活，尤其是更具可读性
- * 
+ * <p>
  * 推荐使用Java 8 Lambda表达式对List进行排序
  */
 class ListSortTest {
@@ -234,7 +234,7 @@ class ListSortTest {
     }
     
     /**
-     * 最简单的解决方案就是 Comparator 实现手动处理 null 
+     * 最简单的解决方案就是 Comparator 实现手动处理 null
      */
     @Test
     void givenANullElement_whenSortingEntitiesByNameManually_thenMovesTheNullToLast() {
@@ -245,17 +245,16 @@ class ListSortTest {
                 add(null);
             }
         };
-    
+        
         humans.sort((h1, h2) -> {
             if (h1 == null) {
                 return h2 == null ? 0 : 1;
-            }
-            else if (h2 == null) {
+            } else if (h2 == null) {
                 return -1;
             }
             return h1.getName().compareTo(h2.getName());
         });
-    
+        
         assertNotNull(humans.get(0));
         assertNull(humans.get(1));
         assertNull(humans.get(2));

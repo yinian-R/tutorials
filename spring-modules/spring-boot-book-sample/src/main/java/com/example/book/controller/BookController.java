@@ -7,12 +7,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/books")
 public class BookController {
-
+    
     @GetMapping
     public String getBooks() {
         return "book";
     }
-
-
+    
+    
 }
 

@@ -8,14 +8,14 @@ import org.junit.jupiter.api.Test;
  */
 @Log4j2
 public class LoggerTest {
-	
-	@Test
-	public void test() {
-		log.trace("log message");
-		log.debug("log message");
-		log.info("log message");
-		log.warn("log message");
-		log.error("log message", new Exception("test error"));
-		log.fatal("log message", new Exception("test error"));
-	}
+    
+    @Test
+    public void test() {
+        log.trace("log message");
+        log.debug("log message");
+        log.info("log message");
+        log.warn("log message");
+        log.error("log message", new Exception("test error"));
+        log.fatal("log message", new Exception("test error"));
+    }
 }

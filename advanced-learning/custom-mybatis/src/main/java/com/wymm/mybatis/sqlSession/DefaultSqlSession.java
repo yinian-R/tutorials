@@ -9,13 +9,13 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class DefaultSqlSession implements SqlSession {
-
+    
     private Configuration configuration;
-
+    
     public DefaultSqlSession(Configuration configuration) {
         this.configuration = configuration;
     }
-
+    
     @Override
     public <E> List<E> finds(String statementId, Object... params) throws SQLException, IllegalAccessException, NoSuchFieldException, ClassNotFoundException, InvocationTargetException, IntrospectionException, InstantiationException {
         SimpleExecutor simpleExecutor = new SimpleExecutor();
@@ -23,7 +23,7 @@ public class DefaultSqlSession implements SqlSession {
         List<Object> list = simpleExecutor.find(configuration, mappedStatement, params);
         return (List<E>) list;
     }
-
+    
     @Override
     public <E> E find(String statementId, Object... params) throws SQLException, IllegalAccessException, NoSuchFieldException, ClassNotFoundException, InstantiationException, IntrospectionException, InvocationTargetException {
         List<Object> objects = finds(statementId, params);

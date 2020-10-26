@@ -11,7 +11,7 @@ import org.springframework.web.client.RestTemplate;
 @Slf4j
 @SpringBootApplication
 public class SpringBootHttp2ClientApplication implements CommandLineRunner {
-
+    
     @Value("${sample.server.url}")
     private String url;
     
@@ -24,8 +24,8 @@ public class SpringBootHttp2ClientApplication implements CommandLineRunner {
     
     @Override
     public void run(String... args) throws Exception {
-    
+        
         String forObject = restTemplate.getForObject(url + "/hello", String.class);
-        log.info("response str:{}",forObject);
+        log.info("response str:{}", forObject);
     }
 }

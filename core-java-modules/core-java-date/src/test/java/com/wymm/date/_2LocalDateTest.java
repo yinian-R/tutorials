@@ -14,6 +14,20 @@ import java.util.stream.IntStream;
  */
 class _2LocalDateTest {
     
+    /**
+     * 获取两个日期之间的所有日期
+     *
+     * @param startDate 开始日期，包含
+     * @param endDate   结束日期，包含
+     */
+    public static List<LocalDate> getDatesBetweenUsingJava8(LocalDate startDate, LocalDate endDate) {
+        long numOfDaysBetween = ChronoUnit.DAYS.between(startDate, endDate);
+        return IntStream.iterate(0, i -> i + 1)
+                .limit(numOfDaysBetween + 1)
+                .mapToObj(startDate::plusDays)
+                .collect(Collectors.toList());
+    }
+    
     @Test
     void test() {
         System.out.println("\n系统当前日期：" +
@@ -97,18 +111,5 @@ class _2LocalDateTest {
         LocalDate endDate = LocalDate.of(2020, 7, 10);
         List<LocalDate> dates = getDatesBetweenUsingJava8(startDate, endDate);
         System.out.println(dates);
-    }
-    /**
-     * 获取两个日期之间的所有日期
-     *
-     * @param startDate 开始日期，包含
-     * @param endDate   结束日期，包含
-     */
-    public static List<LocalDate> getDatesBetweenUsingJava8(LocalDate startDate, LocalDate endDate) {
-        long numOfDaysBetween = ChronoUnit.DAYS.between(startDate, endDate);
-        return IntStream.iterate(0, i -> i + 1)
-                .limit(numOfDaysBetween + 1)
-                .mapToObj(startDate::plusDays)
-                .collect(Collectors.toList());
     }
 }

@@ -13,7 +13,7 @@ import java.util.TimerTask;
 
 /**
  * 讨论了如何配置HttpClient可用的各种类型的超时。它还说明了用于使正在进行的HTTP连接硬超时的简单机制
- *
+ * <p>
  * Connect Timeout和DNS Round Robin 需要注意的事
  * 某些较大的域将使用 DNS 轮训配置，本质是将域映射多个IP地址。这给针对此类域的超时提出了新的挑战，这仅仅是因为HttpClient尝试连接到该域超时的方式：
  * HttpClient获取到该域的IP路由列表
@@ -23,7 +23,7 @@ import java.util.TimerTask;
  * 因此，如您所见– 当我们期望整体操作不会超时时。相反，当所有可能的路由都超时时，它将超时。更重要的是，这将对客户端完全透明地进行（除非您在DEBUG级别配置了日志）
  */
 public class _2TimeoutTest {
-
+    
     /**
      * 4.3中提供了正确的方法来设置高级别的超时
      * - Connection Timeout : 建立与远程主机连接的时间
@@ -43,7 +43,7 @@ public class _2TimeoutTest {
                 .setDefaultRequestConfig(requestConfig)
                 .build();
     }
-
+    
     /**
      * 硬超时
      * 虽然在建立HTTP连接时设置超时并且不接收数据非常有用，但有时我们需要为整个请求设置一个硬超时
@@ -54,7 +54,7 @@ public class _2TimeoutTest {
     void hardTimeout() throws IOException {
         CloseableHttpClient httpClient = HttpClientBuilder.create().build();
         HttpGet httpGet = new HttpGet("http://127.0.0.1:8080");
-
+        
         int hardTimeout = 5;
         TimerTask timerTask = new TimerTask() {
             @Override
@@ -62,10 +62,10 @@ public class _2TimeoutTest {
                 httpGet.abort();
             }
         };
-
+        
         new Timer(true).schedule(timerTask, hardTimeout * 5);
         CloseableHttpResponse response = httpClient.execute(httpGet);
         System.out.println("HTTP Status of response: " + response.getStatusLine().getStatusCode());
     }
-
+    
 }

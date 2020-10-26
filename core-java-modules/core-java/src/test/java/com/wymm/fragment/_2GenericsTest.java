@@ -48,8 +48,8 @@ class _2GenericsTest {
         Generics.paintAllBuildings(buildings);
         // Compilation error
         //Generics.paintAllBuildings(buildings2);
-    
-    
+        
+        
         Generics.paintAllBuildings2(buildings);
         // good
         Generics.paintAllBuildings2(buildings2);

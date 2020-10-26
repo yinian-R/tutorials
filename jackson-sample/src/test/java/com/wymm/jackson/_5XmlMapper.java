@@ -82,7 +82,7 @@ class _5XmlMapper {
     @Test
     void whenJavaSerializedToXmlFile_thenSuccess() throws IOException {
         String XML = "<Person><firstName>Rohan</firstName><lastName>Daye</lastName><phoneNumbers><phoneNumbers>9911034731</phoneNumbers><phoneNumbers>9911033478</phoneNumbers></phoneNumbers><address><streetName>Name1</streetName><city>City1</city></address><address><streetName>Name2</streetName><city>City2</city></address></Person>";
-    
+        
         Person person = new Person();
         person.setFirstName("Rohan");
         person.setLastName("Daye");
@@ -96,13 +96,13 @@ class _5XmlMapper {
         address.setCity("City2");
         address.setStreetName("Name2");
         person.addAddress(address);
-    
+        
         XmlMapper xmlMapper = new XmlMapper();
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         xmlMapper.writeValue(byteArrayOutputStream, person);
         assertEquals(XML, byteArrayOutputStream.toString());
-    
-    
+        
+        
         // jackson 也可以读取包含对象列表的 XML
         Person value = xmlMapper.readValue(XML, Person.class);
         assertEquals("City1", value.getAddress().get(0).getCity());

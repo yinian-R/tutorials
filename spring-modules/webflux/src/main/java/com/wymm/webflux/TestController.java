@@ -13,7 +13,7 @@ import java.util.stream.IntStream;
 @Slf4j
 @RestController
 public class TestController {
-
+    
     @GetMapping("/1")
     private String get1() {
         log.info("get1 start");
@@ -21,7 +21,7 @@ public class TestController {
         log.info("get1 end");
         return str;
     }
-
+    
     @GetMapping("/2")
     private Mono<String> get2() {
         log.info("get2 start");
@@ -30,7 +30,7 @@ public class TestController {
         log.info("get2 end");
         return just;
     }
-
+    
     //@GetMapping(value = "/3", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     //private Flux<String> get3() {
     //    Flux<String> result = Flux.fromStream(IntStream.range(1, 5).mapToObj(i -> {
@@ -43,7 +43,7 @@ public class TestController {
     //    }));
     //    return result;
     //}
-
+    
     @GetMapping(value = "/3", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     private Flux<String> flux() {
         Flux<String> result = Flux
@@ -56,7 +56,7 @@ public class TestController {
                 }));
         return result;
     }
-
+    
     private String createStr() {
         try {
             TimeUnit.SECONDS.sleep(3);

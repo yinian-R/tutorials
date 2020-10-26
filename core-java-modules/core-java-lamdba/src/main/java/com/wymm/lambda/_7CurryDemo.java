@@ -13,11 +13,11 @@ public class _7CurryDemo {
         // 实现一个x+y的级联表达式
         Function<Integer, Function<Integer, Integer>> function1 = x -> y -> x + y;
         System.out.println(function1.apply(2).apply(3));
-
+        
         // 柯里化
         Function<Integer, Function<Integer, Function<Integer, Integer>>> function2 = x -> y -> z -> x + y + z;
         System.out.println(function2.apply(2).apply(3).apply(4));
-
+        
         // 高阶函数
         int[] nums = {2, 3, 4};
         Function f = function2;

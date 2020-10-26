@@ -82,6 +82,7 @@ class _1ReentrantLockTest {
         
         TimeUnit.SECONDS.sleep(1);
     }
+    
     public void pushToStack(String item) {
         try {
             lock.lock();
@@ -96,6 +97,7 @@ class _1ReentrantLockTest {
             lock.unlock();
         }
     }
+    
     public String popFromStack() {
         try {
             lock.lock();

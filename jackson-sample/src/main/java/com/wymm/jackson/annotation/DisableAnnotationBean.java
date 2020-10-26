@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "name", "id" })
+@JsonPropertyOrder({"name", "id"})
 public class DisableAnnotationBean {
     public int id;
     public String name;

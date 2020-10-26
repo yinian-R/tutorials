@@ -20,13 +20,13 @@ import java.util.Map;
 @Slf4j
 @Controller
 public class LoginController {
-
+    
     @GetMapping("/login")
     public String showLogin() {
         return "login";
     }
-
-
+    
+    
     @ResponseBody
     @PostMapping("/login")
     public HttpEntity login(String name, String password, HttpSession session) {
@@ -34,10 +34,10 @@ public class LoginController {
         if (StringUtils.isEmpty(name) || StringUtils.isEmpty(password)) {
             return new ResponseEntity<>("账号密码不能为空", HttpStatus.UNAUTHORIZED);
         }
-
-
+        
+        
         // 认证用户
-
+        
         //获取生成token
         Map<String, Object> map = new HashMap<>();
         //建立载荷，这些数据根据业务，自己定义。
@@ -52,10 +52,10 @@ public class LoginController {
         } catch (JOSEException e) {
             e.printStackTrace();
         }
-
+        
         return new ResponseEntity(HttpStatus.OK);
     }
-
+    
     @ResponseBody
     @PostMapping("logout")
     public HttpEntity logout(String name, String password, HttpSession session) {
@@ -63,5 +63,5 @@ public class LoginController {
         session.invalidate();
         return new ResponseEntity(HttpStatus.OK);
     }
-
+    
 }

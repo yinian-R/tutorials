@@ -1,7 +1,5 @@
 package com.example.demo.socket;
 
-import lombok.*;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

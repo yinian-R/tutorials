@@ -1,6 +1,5 @@
 package com.wymm.fragment;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -28,7 +27,7 @@ public class Generics {
      * 有界泛型：类型参数可以是有界的。有界表示“ 限制 ”，我们可以限制方法可以接受的类型。
      * 上界通配符 <? extends E>
      * 指定一个方法接受一个类型及其所有子类（上限）
-     * 
+     * <p>
      * 一个类型可以指定多个上限:
      * <T extends Number & Comparable>
      */
@@ -65,6 +64,7 @@ public class Generics {
     static class Animal {
         
     }
+    
     static class Dog extends Animal {
         
     }

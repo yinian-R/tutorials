@@ -80,8 +80,8 @@ public class RabbitMQSource extends AbstractSource implements Configurable, Even
             } catch (TimeoutException | IOException e) {
                 throw new FlumeException("create RabbitMQ connection error", e);
             }
-    
-    
+            
+            
             // 创建队列
             Boolean create = context.getBoolean(RabbitMQSourceConstants.CREATE_QUEUE, false);
             if (create) {

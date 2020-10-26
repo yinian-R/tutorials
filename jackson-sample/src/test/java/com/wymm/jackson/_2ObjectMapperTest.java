@@ -53,7 +53,8 @@ class _2ObjectMapperTest {
     void useTypeReference_readJson_toList() throws JsonProcessingException {
         String jsonCarArray = "[{ \"color\" : \"Black\", \"type\" : \"BMW\" }, { \"color\" : \"Red\", \"type\" : \"FIAT\" }]";
         ObjectMapper objectMapper = new ObjectMapper();
-        List<Car> listCar = objectMapper.readValue(jsonCarArray, new TypeReference<List<Car>>() {});
+        List<Car> listCar = objectMapper.readValue(jsonCarArray, new TypeReference<List<Car>>() {
+        });
         assertEquals(listCar.size(), 2);
     }
     
@@ -64,7 +65,8 @@ class _2ObjectMapperTest {
     void useTypeReference_readJson_toMap() throws JsonProcessingException {
         String json = "{ \"color\" : \"Black\", \"type\" : \"BMW\" }";
         ObjectMapper objectMapper = new ObjectMapper();
-        Map<String, Object> map = objectMapper.readValue(json, new TypeReference<Map<String, Object>>() {});
+        Map<String, Object> map = objectMapper.readValue(json, new TypeReference<Map<String, Object>>() {
+        });
         assertEquals(map.keySet().size(), 2);
     }
     

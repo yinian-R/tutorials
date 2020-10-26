@@ -30,16 +30,16 @@ public class AvgLatencyConsumerInterceptor implements ConsumerInterceptor<String
     
     @Override
     public void onCommit(Map<TopicPartition, OffsetAndMetadata> offsets) {
-        
+    
     }
     
     @Override
     public void close() {
-        
+    
     }
     
     @Override
     public void configure(Map<String, ?> configs) {
-        
+    
     }
 }

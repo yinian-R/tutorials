@@ -394,13 +394,13 @@ class _2ConsumerTest {
         
         countDownLatch.await();
     }
-
-
+    
+    
     /**
      * 使用认证机制 SCRAM-SHA-256 消费消息
      */
     @Test
-    void usingSaslScram_thenConsumer(){
+    void usingSaslScram_thenConsumer() {
         Properties props = new Properties();
         props.setProperty(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, KafkaConfig.BOOTSTRAP_SERVERS);
         props.setProperty(ConsumerConfig.GROUP_ID_CONFIG, "test");
@@ -411,7 +411,7 @@ class _2ConsumerTest {
         props.put(CommonClientConfigs.SECURITY_PROTOCOL_CONFIG, "SASL_PLAINTEXT");
         props.put(SaslConfigs.SASL_MECHANISM, "SCRAM-SHA-256");
         props.put(SaslConfigs.SASL_JAAS_CONFIG, "org.apache.kafka.common.security.scram.ScramLoginModule required username=\"reader\" password=\"reader\";");
-
+        
         try (KafkaConsumer<String, String> consumer = new KafkaConsumer<>(props)) {
             consumer.subscribe(Collections.singleton(KafkaConfig.TEST_TOPIC));
             while (true) {

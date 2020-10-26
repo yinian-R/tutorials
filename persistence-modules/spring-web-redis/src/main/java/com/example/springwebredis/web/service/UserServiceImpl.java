@@ -14,28 +14,28 @@ import java.util.List;
 @Service
 @Transactional
 public class UserServiceImpl implements UserService {
-
+    
     @Autowired
     UserMapper userMapper;
-
+    
     @Cacheable(value = "users")
     @Override
     public List<User> findUsers() {
         return userMapper.findUsers();
     }
-
+    
     @Cacheable(cacheNames = "users")
     @Override
     public User findUser(String id) {
         return userMapper.getUser(id);
     }
-
+    
     @CachePut(cacheNames = "users", key = "#user.id")
     @Override
     public boolean addUser(User user) {
         return userMapper.addUser(user);
     }
-
+    
     @CacheEvict(cacheNames = "users")
     @Override
     public boolean deleteUser(String id) {

@@ -16,53 +16,53 @@ import java.util.concurrent.CountDownLatch;
 
 @SpringBootApplication
 public class SpringDataRedisApplication {
-
+    
     private static final Logger LOGGER = LoggerFactory.getLogger(SpringDataRedisApplication.class);
-
-
+    
+    
     public static void main(String[] args) throws InterruptedException {
-
+        
         ApplicationContext ctx = SpringApplication.run(SpringDataRedisApplication.class, args);
-
+        
         StringRedisTemplate template = ctx.getBean(StringRedisTemplate.class);
         CountDownLatch latch = ctx.getBean(CountDownLatch.class);
-
+        
         LOGGER.info("Sending message...");
         template.convertAndSend("chat", "Hello from Redis!");
-
+        
         latch.await();
-
+        
     }
-
+    
     @Bean
     RedisMessageListenerContainer container(RedisConnectionFactory connectionFactory,
                                             MessageListenerAdapter listenerAdapter) {
-
+        
         RedisMessageListenerContainer container = new RedisMessageListenerContainer();
         container.setConnectionFactory(connectionFactory);
         container.addMessageListener(listenerAdapter, new PatternTopic("chat"));
-
+        
         return container;
     }
-
+    
     @Bean
     MessageListenerAdapter listenerAdapter(Receiver receiver) {
         return new MessageListenerAdapter(receiver, "receiveMessage");
     }
-
+    
     @Bean
     Receiver receiver(CountDownLatch latch) {
         return new Receiver(latch);
     }
-
+    
     @Bean
     CountDownLatch latch() {
         return new CountDownLatch(1);
     }
-
+    
     @Bean
     StringRedisTemplate template(RedisConnectionFactory connectionFactory) {
         return new StringRedisTemplate(connectionFactory);
     }
-
+    
 }

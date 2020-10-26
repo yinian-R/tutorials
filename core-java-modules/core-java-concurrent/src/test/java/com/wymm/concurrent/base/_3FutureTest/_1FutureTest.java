@@ -2,8 +2,6 @@ package com.wymm.concurrent.base._3FutureTest;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.concurrent.*;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
@@ -27,7 +25,7 @@ class _1FutureTest {
             }
             return "hello world";
         });
-    
+        
         // 阻塞线程，直到线程执行完毕。获取线程返回值
         String str = future.get();
         // 获取线程返回值。给操作指定超时，如果任务花费时间超过此时间，则抛出 TimeoutException

@@ -10,12 +10,12 @@ import java.util.Map;
 @Setter
 @Getter
 public class Configuration {
-
+    
     private DataSource dataSource;
-
+    
     /**
      * key: namespace.id
      */
     private Map<String, MappedStatement> mappedStatementMap = new HashMap<>();
-
+    
 }

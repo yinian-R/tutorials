@@ -8,14 +8,14 @@ import java.util.concurrent.TimeUnit;
  * 一个监视线程，关闭超过30秒空闲和过期的连接
  */
 public class IdleConnectionMonitorThread extends Thread {
-
+    
     private final HttpClientConnectionManager connectionManager;
     private volatile boolean shutdown;
-
+    
     public IdleConnectionMonitorThread(HttpClientConnectionManager connectionManager) {
         this.connectionManager = connectionManager;
     }
-
+    
     @Override
     public void run() {
         try {
@@ -30,7 +30,7 @@ public class IdleConnectionMonitorThread extends Thread {
             shutdown();
         }
     }
-
+    
     public void shutdown() {
         shutdown = true;
         synchronized (this) {

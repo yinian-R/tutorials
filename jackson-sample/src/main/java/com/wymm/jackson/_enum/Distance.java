@@ -8,8 +8,8 @@ public enum Distance {
     CENTIMETER("cm", 0.01),
     MILLIMETER("mm", 0.001);
     
-    private String unit;
     private final double meters;
+    private String unit;
     
     Distance(String unit, double meters) {
         this.unit = unit;

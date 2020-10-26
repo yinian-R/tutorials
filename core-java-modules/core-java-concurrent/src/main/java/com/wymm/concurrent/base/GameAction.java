@@ -4,7 +4,7 @@ import lombok.SneakyThrows;
 
 import java.util.concurrent.Phaser;
 
-public class GameAction implements  Runnable{
+public class GameAction implements Runnable {
     
     private String threadName;
     private Phaser phaser;
@@ -19,15 +19,15 @@ public class GameAction implements  Runnable{
     @Override
     public void run() {
         // ...
-        System.out.println(threadName+"：预赛");
+        System.out.println(threadName + "：预赛");
         phaser.arriveAndAwaitAdvance();
-    
+        
         // ...
-        System.out.println(threadName+"：初赛");
+        System.out.println(threadName + "：初赛");
         phaser.arriveAndAwaitAdvance();
-    
+        
         // ...
-        System.out.println(threadName+"：决赛");
+        System.out.println(threadName + "：决赛");
         phaser.arriveAndAwaitAdvance();
         
         phaser.arriveAndDeregister();

@@ -9,6 +9,16 @@ public class SynchronizedMethods {
     public static int staticSum = 0;
     private int sum = 0;
     
+    public static synchronized void synchronizedStaticCalculate() {
+        staticSum += 1;
+    }
+    
+    public static void performStaticSynchronizedTask() {
+        synchronized (SynchronizedMethods.class) {
+            staticSum += 1;
+        }
+    }
+    
     public void calculate() {
         setSum(getSum() + 1);
     }
@@ -17,20 +27,9 @@ public class SynchronizedMethods {
         setSum(getSum() + 1);
     }
     
-    public static synchronized void synchronizedStaticCalculate() {
-        staticSum += 1;
-    }
-    
-    
     public void performSynchronizedTask() {
         synchronized (this) {
             setSum(getSum() + 1);
-        }
-    }
-    
-    public static void performStaticSynchronizedTask() {
-        synchronized (SynchronizedMethods.class) {
-            staticSum += 1;
         }
     }
 }

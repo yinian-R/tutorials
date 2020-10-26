@@ -9,7 +9,7 @@ import java.util.List;
 
 @RepositoryRestResource
 public interface PersonRepository extends PagingAndSortingRepository<Person, Long> {
-
+    
     List<Person> findPersonByLastName(@Param("name") String name);
-
+    
 }

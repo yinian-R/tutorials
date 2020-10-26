@@ -49,7 +49,7 @@ class _1ProducerTest {
         props.put(ProducerConfig.ACKS_CONFIG, "all");
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer");
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer");
-
+        
         Producer<String, String> producer = new KafkaProducer<>(props);
         for (int i = 0; i < 100; i++) {
             producer.send(new ProducerRecord<>(KafkaConfig.TEST_TOPIC, Integer.toString(i), Integer.toString(i)));
@@ -132,12 +132,12 @@ class _1ProducerTest {
         }
         producer.close();
     }
-
+    
     /**
      * 使用认证机制 SCRAM-SHA-256 生产消息
      */
     @Test
-    void usingSaslScram_thenSend(){
+    void usingSaslScram_thenSend() {
         Properties props = new Properties();
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, KafkaConfig.BOOTSTRAP_SERVERS);
         props.put(ProducerConfig.ACKS_CONFIG, "all");
@@ -146,12 +146,12 @@ class _1ProducerTest {
         props.put(CommonClientConfigs.SECURITY_PROTOCOL_CONFIG, "SASL_PLAINTEXT");
         props.put(SaslConfigs.SASL_MECHANISM, "SCRAM-SHA-256");
         props.put(SaslConfigs.SASL_JAAS_CONFIG, "org.apache.kafka.common.security.scram.ScramLoginModule required username=\"writer\" password=\"writer\";");
-
+        
         Producer<String, String> producer = new KafkaProducer<>(props);
         for (int i = 0; i < 100; i++) {
             producer.send(new ProducerRecord<>(KafkaConfig.TEST_TOPIC, Integer.toString(i), Integer.toString(i)));
         }
-
+        
         producer.close();
     }
     

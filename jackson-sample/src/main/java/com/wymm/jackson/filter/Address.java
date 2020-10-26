@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Address implements Hidable{
+public class Address implements Hidable {
     private String city;
     private String country;
     private boolean hidden;

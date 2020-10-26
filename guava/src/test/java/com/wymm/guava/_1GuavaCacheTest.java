@@ -8,7 +8,6 @@ import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
-import javax.sql.DataSource;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -340,7 +339,7 @@ class _1GuavaCacheTest {
      * 初始化加载所有缓存
      */
     void template() {
-        JdbcTemplate jdbcTemplate = new JdbcTemplate(new DriverManagerDataSource("jdbc:mysql://localhost:3306","root","root"));
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(new DriverManagerDataSource("jdbc:mysql://localhost:3306", "root", "root"));
         
         final String FIND_INFO = "select * from TEMPLATE_TABLE";
         final String FIND_INFO_BY_ID_SQL = FIND_INFO + " where ID = ?";

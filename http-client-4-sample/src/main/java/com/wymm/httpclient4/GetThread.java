@@ -9,15 +9,15 @@ import java.util.concurrent.Future;
 
 @Slf4j
 public class GetThread extends Thread {
-
+    
     private HttpAsyncClient client;
     private HttpGet httpGet;
-
+    
     public GetThread(HttpAsyncClient client, HttpGet httpGet) {
         this.client = client;
         this.httpGet = httpGet;
     }
-
+    
     @Override
     public void run() {
         try {

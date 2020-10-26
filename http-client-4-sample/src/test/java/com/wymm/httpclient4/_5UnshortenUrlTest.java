@@ -18,17 +18,17 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class _5UnshortenUrlTest {
-
+    
     private final CloseableHttpClient client = HttpClients.createDefault();
-
-
+    
+    
     @Test
     public void givenShortenedOnce_whenUrlIsUnshortened_thenCorrectResult() {
         String expectedResult = "https://segmentfault.com/";
         String actualResult = expandSafe("https://sf.gg");
         assertEquals(expectedResult, actualResult);
     }
-
+    
     /**
      * 处理一次缩短的 URL
      *
@@ -40,12 +40,12 @@ class _5UnshortenUrlTest {
         try {
             httpHead = new HttpHead(url);
             CloseableHttpResponse response = client.execute(httpHead);
-
+            
             int statusCode = response.getStatusLine().getStatusCode();
             if (statusCode != HttpStatus.SC_MOVED_PERMANENTLY && statusCode != HttpStatus.SC_MOVED_TEMPORARILY) {
                 return Pair.of(statusCode, url);
             }
-
+            
             Header[] headers = response.getHeaders(HttpHeaders.LOCATION);
             Preconditions.checkState(headers.length == 1, "http head location cannot empty");
             String newUrl = headers[0].getValue();
@@ -58,7 +58,7 @@ class _5UnshortenUrlTest {
             }
         }
     }
-
+    
     /**
      * 处理多次缩短的 URL
      *
@@ -67,19 +67,19 @@ class _5UnshortenUrlTest {
      */
     public String expandSafe(String url) {
         List<String> alreadyVisited = new ArrayList<>();
-
+        
         String originalUrl = url;
         String newUrl = expandSingleLevelSafe(url).getRight();
         alreadyVisited.add(originalUrl);
         alreadyVisited.add(newUrl);
-
+        
         while (!newUrl.equals(originalUrl)) {
             Pair<Integer, String> statusAndUrl = expandSingleLevelSafe(url);
             originalUrl = newUrl;
             newUrl = statusAndUrl.getRight();
-
+            
             int statusCode = statusAndUrl.getLeft();
-
+            
             boolean isRedirect = statusCode == HttpStatus.SC_MOVED_PERMANENTLY || statusCode == HttpStatus.SC_MOVED_TEMPORARILY;
             if (isRedirect && alreadyVisited.contains(newUrl)) {
                 throw new IllegalStateException("likely a redirect loop");

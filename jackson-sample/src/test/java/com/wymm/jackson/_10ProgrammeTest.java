@@ -2,26 +2,17 @@ package com.wymm.jackson;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.databind.introspect.AnnotatedMember;
-import com.fasterxml.jackson.databind.introspect.JacksonAnnotationIntrospector;
 import com.fasterxml.jackson.databind.module.SimpleModule;
-import com.wymm.jackson.filter.Car;
-import com.wymm.jackson.filter.Fleet;
-import com.wymm.jackson.filter.Truck;
-import com.wymm.jackson.filter.Vehicle;
 import com.wymm.jackson.time.CustomDateDeserializer;
 import com.wymm.jackson.time.CustomDateSerializer;
 import org.junit.jupiter.api.Test;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 class _10ProgrammeTest {
     

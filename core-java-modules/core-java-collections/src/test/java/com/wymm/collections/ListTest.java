@@ -3,7 +3,6 @@ package com.wymm.collections;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -103,6 +102,6 @@ public class ListTest {
         
         // 使用 Java Set
         listWithoutDuplicates = new ArrayList<>(new TreeSet<>(listWithDuplicates));
-    
+        
     }
 }

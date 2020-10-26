@@ -21,7 +21,7 @@ public class CustomRecursiveAction extends RecursiveAction {
     }
     
     /**
-     * 如果 workload.length() > THRESHOLD 则使用 createSubTasks() 方法拆分任务 
+     * 如果 workload.length() > THRESHOLD 则使用 createSubTasks() 方法拆分任务
      */
     @Override
     protected void compute() {

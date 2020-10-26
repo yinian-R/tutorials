@@ -7,9 +7,9 @@ import org.junit.jupiter.api.Test;
  * 模拟打印堆栈信息
  */
 public class _5MockStackTraceTest {
-	@Test
-	public void print() {
-		MockStackTraceInfo mockStackTraceInfo = new MockStackTraceInfo();
-		mockStackTraceInfo.info();
-	}
+    @Test
+    public void print() {
+        MockStackTraceInfo mockStackTraceInfo = new MockStackTraceInfo();
+        mockStackTraceInfo.info();
+    }
 }

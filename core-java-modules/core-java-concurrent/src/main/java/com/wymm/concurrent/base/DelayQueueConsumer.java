@@ -8,10 +8,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Slf4j
 public class DelayQueueConsumer implements Runnable {
     
+    public AtomicInteger numberOfConsumerElements = new AtomicInteger();
     private BlockingQueue<DelayObject> queue;
     private Integer numberOfElementsToTake;
-    
-    public AtomicInteger numberOfConsumerElements = new AtomicInteger();
     
     public DelayQueueConsumer(BlockingQueue<DelayObject> queue, Integer numberOfElementsToTake) {
         this.queue = queue;
@@ -23,7 +22,7 @@ public class DelayQueueConsumer implements Runnable {
         try {
             for (int i = 0; i < numberOfElementsToTake; i++) {
                 DelayObject take = queue.take();
-    
+                
                 numberOfConsumerElements.getAndIncrement();
                 log.info("consumer get:" + take);
             }

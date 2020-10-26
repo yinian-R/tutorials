@@ -7,16 +7,16 @@ import org.springframework.web.client.RestTemplate;
 
 @Service
 public class HelloService {
-
+    
     @Autowired
     RestTemplate restTemplate;
     
-    @HystrixCommand(fallbackMethod  = "hiError")
+    @HystrixCommand(fallbackMethod = "hiError")
     public String hiService(String name) {
         return restTemplate.getForObject("http://provider/hi?name=" + name, String.class);
     }
     
-    String hiError(String name){
-        return "hi, "+name+"; sorry error";
+    String hiError(String name) {
+        return "hi, " + name + "; sorry error";
     }
 }

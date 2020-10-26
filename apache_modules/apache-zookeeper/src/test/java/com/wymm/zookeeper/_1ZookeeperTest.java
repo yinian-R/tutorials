@@ -1,6 +1,5 @@
 package com.wymm.zookeeper;
 
-import org.apache.zookeeper.*;
 import org.apache.zookeeper.data.Stat;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

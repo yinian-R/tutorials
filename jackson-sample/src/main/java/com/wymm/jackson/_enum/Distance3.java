@@ -1,6 +1,5 @@
 package com.wymm.jackson._enum;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum Distance3 {

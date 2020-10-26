@@ -12,5 +12,6 @@ public class Item {
     public User owner;
     
     @JsonIgnoreType
-    public static class MyMixInForIgnoreType {}
+    public static class MyMixInForIgnoreType {
+    }
 }

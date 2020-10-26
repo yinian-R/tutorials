@@ -16,6 +16,7 @@ class _1ConverterEnumTest {
         convert = _1SimpleEnumConverter.TYPE.convert(1);
         System.out.println(convert);
     }
+    
     /**
      * 通过实现抽象方法提供外部调用方法
      */

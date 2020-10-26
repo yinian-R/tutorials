@@ -12,18 +12,18 @@ import java.io.InputStream;
 import java.util.List;
 
 public class XMLMapperBuilder {
-
+    
     private Configuration configuration;
-
+    
     public XMLMapperBuilder(Configuration configuration) {
         this.configuration = configuration;
     }
-
+    
     public void parse(InputStream inputStream) throws DocumentException {
         Document document = new SAXReader().read(inputStream);
         Element rootElement = document.getRootElement();
         String namespace = rootElement.attributeValue("namespace");
-
+        
         List<Node> selectNodes = rootElement.selectNodes("//select");
         for (Node selectNode : selectNodes) {
             Element selectElement = (Element) selectNode;
@@ -31,7 +31,7 @@ public class XMLMapperBuilder {
             String resultType = selectElement.attributeValue("resultType");
             String paramterType = selectElement.attributeValue("paramterType");
             String sql = selectElement.getTextTrim();
-
+            
             MappedStatement mappedStatement = new MappedStatement();
             mappedStatement.setId(id);
             mappedStatement.setResultType(resultType);
@@ -41,5 +41,5 @@ public class XMLMapperBuilder {
             configuration.getMappedStatementMap().put(key, mappedStatement);
         }
     }
-
+    
 }

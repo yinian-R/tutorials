@@ -14,10 +14,11 @@ public class Person {
     @JacksonXmlElementWrapper(useWrapping = false)
     private List<Address> address = new ArrayList<>();
     
-    public boolean addPhoneNumber(String phoneNumber){
+    public boolean addPhoneNumber(String phoneNumber) {
         return phoneNumbers.add(phoneNumber);
     }
-    public boolean addAddress(Address address){
+    
+    public boolean addAddress(Address address) {
         return this.address.add(address);
     }
 }

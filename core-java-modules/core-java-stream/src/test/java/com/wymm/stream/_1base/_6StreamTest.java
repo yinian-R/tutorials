@@ -9,6 +9,33 @@ import java.util.stream.IntStream;
  * 并行流
  */
 class _6StreamTest {
+    private static void debug(int i) {
+        System.out.println(i);
+        try {
+            Thread.sleep(10);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    private static void debug2(int i) {
+        System.out.println(i + " " + i);
+        try {
+            Thread.sleep(10);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    private static void debug3(int i) {
+        System.out.println(Thread.currentThread().getName() + " debug " + i);
+        try {
+            Thread.sleep(10);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+    
     @Test
     void main() {
 //        // 调用parallel产生一个并行流
@@ -40,33 +67,6 @@ class _6StreamTest {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        }
-    }
-    
-    private static void debug(int i) {
-        System.out.println(i);
-        try {
-            Thread.sleep(10);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-    
-    private static void debug2(int i) {
-        System.out.println(i + " " + i);
-        try {
-            Thread.sleep(10);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-    
-    private static void debug3(int i) {
-        System.out.println(Thread.currentThread().getName() + " debug " + i);
-        try {
-            Thread.sleep(10);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         }
     }
 }

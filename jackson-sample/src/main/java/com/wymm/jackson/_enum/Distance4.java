@@ -1,6 +1,5 @@
 package com.wymm.jackson._enum;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 @JsonSerialize(using = DistanceSerializer.class)

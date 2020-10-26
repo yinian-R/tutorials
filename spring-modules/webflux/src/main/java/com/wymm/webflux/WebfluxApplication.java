@@ -7,9 +7,9 @@ import org.springframework.data.mongodb.repository.config.EnableReactiveMongoRep
 @EnableReactiveMongoRepositories
 @SpringBootApplication
 public class WebfluxApplication {
-
+    
     public static void main(String[] args) {
         SpringApplication.run(WebfluxApplication.class, args);
     }
-
+    
 }

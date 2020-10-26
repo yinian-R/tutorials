@@ -1,9 +1,5 @@
 package com.wymm.zookeeper;
 
-import lombok.AllArgsConstructor;
-import org.apache.zookeeper.*;
-import org.apache.zookeeper.data.Stat;
-
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.stream.Collectors;

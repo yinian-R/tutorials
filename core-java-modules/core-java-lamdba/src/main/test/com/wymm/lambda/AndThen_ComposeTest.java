@@ -48,7 +48,7 @@ class AndThen_ComposeTest {
         Function<Object, Function<Object, Function<Object, Function<Object, Function<Object, Function<Object, String>>>>>> customFormatDate
                 = y -> M -> d -> h -> m -> s -> String.format("%s-%s-%s %s:%s:%s", y, M, d, h, m, s);
         for (int i = 0; i < nums.length; i++) {
-    
+            
             if (customFormatDate instanceof Function) {
                 Object obj = customFormatDate.apply(nums[i]);
                 if (obj instanceof Function) {

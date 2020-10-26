@@ -16,21 +16,22 @@ import org.springframework.web.client.RestTemplate;
 @EnableEurekaClient
 @SpringBootApplication
 public class SpringCloudConsumerRestRibbonApplication {
-
+    
     public static void main(String[] args) {
         SpringApplication.run(SpringCloudConsumerRestRibbonApplication.class, args);
     }
-
+    
     @Bean
     @LoadBalanced
-    RestTemplate restTemplate(){
+    RestTemplate restTemplate() {
         return new RestTemplate();
     }
     
     @Bean
-    public HystrixMetricsStreamServlet hystrixMetricsStreamServlet(){
+    public HystrixMetricsStreamServlet hystrixMetricsStreamServlet() {
         return new HystrixMetricsStreamServlet();
     }
+    
     @Bean
     public ServletRegistrationBean getServlet(HystrixMetricsStreamServlet servlet) {
         ServletRegistrationBean registrationBean = new ServletRegistrationBean<>(servlet);
@@ -40,5 +41,4 @@ public class SpringCloudConsumerRestRibbonApplication {
     }
     
     
-
 }

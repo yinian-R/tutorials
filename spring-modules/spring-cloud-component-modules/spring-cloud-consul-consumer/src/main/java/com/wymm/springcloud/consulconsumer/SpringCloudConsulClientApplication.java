@@ -15,20 +15,20 @@ import org.springframework.web.client.RestTemplate;
 @EnableDiscoveryClient
 @SpringBootApplication
 public class SpringCloudConsulClientApplication implements CommandLineRunner {
-
+    
     @Autowired
     private RestTemplate restTemplate;
-
+    
     public static void main(String[] args) {
         SpringApplication.run(SpringCloudConsulClientApplication.class, args);
     }
-
+    
     @Bean
     @LoadBalanced
-    public RestTemplate restTemplate(){
+    public RestTemplate restTemplate() {
         return new RestTemplate();
     }
-
+    
     @Override
     public void run(String... args) throws Exception {
         ResponseEntity<String> forEntity = restTemplate.getForEntity("http://consul-provider-service/hi", String.class);

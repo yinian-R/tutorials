@@ -16,18 +16,18 @@ import java.util.List;
 public class SampleDataSet {
     private static final String INDEX_NAME = "sample";
     private static final String INDEX_TYPE = "employee";
-
+    
     @Autowired
     EmployeeRepository repository;
-
+    
     @Autowired
     ElasticsearchTemplate template;
-
+    
     @PostConstruct
     public void init() {
         bulk();
     }
-
+    
     private void bulk() {
         try {
             if (!template.indexExists(INDEX_NAME)) {
@@ -52,7 +52,7 @@ public class SampleDataSet {
             log.error("Error bulk index", e);
         }
     }
-
+    
     private List<Employee> employees() {
         List<Employee> employees = new ArrayList<>();
         employees.add(new Employee(1L, "yinian", 1, "guangzhou"));

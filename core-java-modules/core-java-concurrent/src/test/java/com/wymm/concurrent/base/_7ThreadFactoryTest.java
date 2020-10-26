@@ -9,15 +9,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 class _7ThreadFactoryTest {
     
+    static void print() {
+        System.out.println("start print");
+    }
+    
     @Test
     void test() throws InterruptedException {
         CustomThreadFactory customThreadFactory = new CustomThreadFactory("CustomThreadFactory");
         Thread thread = customThreadFactory.newThread(_7ThreadFactoryTest::print);
         thread.start();
         assertEquals("CustomThreadFactory-pool-1-thread-1", thread.getName());
-    }
-    
-    static void print() {
-        System.out.println("start print");
     }
 }

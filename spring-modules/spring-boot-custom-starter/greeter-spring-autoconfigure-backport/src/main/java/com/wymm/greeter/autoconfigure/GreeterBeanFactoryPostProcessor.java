@@ -23,10 +23,10 @@ public class GreeterBeanFactoryPostProcessor implements BeanFactoryPostProcessor
         if (beanFactory.containsBean("greeterTemplate")) {
             log.info("greeterTemplate is registered");
         }
-
+        
         register(beanFactory);
     }
-
+    
     private void register(ConfigurableListableBeanFactory beanFactory) {
         log.info("register greeterTemplate");
         GreetingConfig greetingConfig;
@@ -37,19 +37,19 @@ public class GreeterBeanFactoryPostProcessor implements BeanFactoryPostProcessor
             greetingConfig.put(GreeterConfigParams.USER_NAME, "user");
             greetingConfig.put(GreeterConfigParams.NIGHT_MESSAGE, "good night");
         }
-
+        
         if (beanFactory instanceof BeanDefinitionRegistry) {
             GenericBeanDefinition beanDefinition = new GenericBeanDefinition();
             beanDefinition.setBeanClass(GreeterTemplate.class);
             ConstructorArgumentValues constructorArgumentValues = new ConstructorArgumentValues();
             constructorArgumentValues.addGenericArgumentValue(greetingConfig);
             beanDefinition.setConstructorArgumentValues(constructorArgumentValues);
-
+            
             ((BeanDefinitionRegistry) beanFactory).registerBeanDefinition("greeterTemplate", beanDefinition);
         } else {
             beanFactory.registerSingleton("greeterTemplate", new GreeterTemplate(greetingConfig));
         }
-
-
+        
+        
     }
 }

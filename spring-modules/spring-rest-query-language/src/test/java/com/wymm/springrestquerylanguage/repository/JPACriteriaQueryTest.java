@@ -14,13 +14,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class JPACriteriaQueryTest {
-
-    @Autowired
-    private UserDAO userDAO;
-
+    
     private static User userJohn;
     private static User userTom;
-
+    @Autowired
+    private UserDAO userDAO;
+    
     @BeforeAll
     public static void setup() {
         userJohn = new User();
@@ -28,14 +27,14 @@ class JPACriteriaQueryTest {
         userJohn.setLastName("Doe");
         userJohn.setEmail("jogn@doe.com");
         userJohn.setAge(24);
-
+        
         userTom = new User();
         userTom.setFirstName("Tom");
         userTom.setLastName("Doe");
         userTom.setEmail("tom@doe.com");
         userTom.setAge(25);
     }
-
+    
     /**
      * 添加两个用户初始化数据库用来支持测试
      */
@@ -44,16 +43,16 @@ class JPACriteriaQueryTest {
         userDAO.save(userJohn);
         userDAO.save(userTom);
     }
-
+    
     /**
      * 获取一个特定的 firstName 和 lastName 的用户
      */
     @Test
-    public void givenFirstAndLastName_whenGettingListOfUsers_thenCorrect(){
+    public void givenFirstAndLastName_whenGettingListOfUsers_thenCorrect() {
         ArrayList<SearchCriteria> params = new ArrayList<>();
-        params.add(new SearchCriteria("firstName", ":","John"));
-        params.add(new SearchCriteria("lastName", ":","Doe"));
-
+        params.add(new SearchCriteria("firstName", ":", "John"));
+        params.add(new SearchCriteria("lastName", ":", "Doe"));
+        
         List<User> users = userDAO.searchUser(params);
         assertTrue(users.contains(userJohn));
     }
