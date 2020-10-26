@@ -7,15 +7,18 @@ import com.wymm.mybatis.utils.GenericTokenParser;
 import com.wymm.mybatis.utils.ParameterMapping;
 import com.wymm.mybatis.utils.ParameterMappingTokenHandler;
 
+import java.beans.IntrospectionException;
+import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SimpleExecutor implements Executor {
     @Override
-    public <E> List<E> find(Configuration configuration, MappedStatement mappedStatement, Object... params) throws SQLException, ClassNotFoundException, NoSuchFieldException, IllegalAccessException {
+    public <E> List<E> find(Configuration configuration, MappedStatement mappedStatement, Object... params) throws SQLException, ClassNotFoundException, NoSuchFieldException, IllegalAccessException, InstantiationException, IntrospectionException, InvocationTargetException {
         // 1.注册驱动，获取连接
         Connection connection = configuration.getDataSource().getConnection();
         // 2.获取 SQL :select * from user where name=#{name}
@@ -45,9 +48,30 @@ public class SimpleExecutor implements Executor {
         }
 
         // 5.执行 SQL
+        ResultSet resultSet = preparedStatement.executeQuery();
 
         // 6.封装返回结果集
-        return null;
+        String resultType = mappedStatement.getResultType();
+        Class<?> resultTypeClass = getClassType(resultType);
+        Object o = resultTypeClass.newInstance();
+        List<Object> result = new ArrayList<>();
+        while (resultSet.next()) {
+            // 元数据
+            ResultSetMetaData metaData = resultSet.getMetaData();
+            for (int i = 1; i <= metaData.getColumnCount(); i++) {
+                // 字段名
+                String columnName = metaData.getColumnName(i);
+                // 字段的值
+                Object value = resultSet.getObject(columnName);
+
+                // 使用反射，根据数据库表和实体的对应关系，封装
+                PropertyDescriptor propertyDescriptor = new PropertyDescriptor(columnName, resultTypeClass);
+                Method writeMethod = propertyDescriptor.getWriteMethod();
+                writeMethod.invoke(o, value);
+            }
+            result.add(o);
+        }
+        return (List<E>) result;
     }
 
     private Class<?> getClassType(String paramterType) throws ClassNotFoundException {
