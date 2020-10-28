@@ -5,6 +5,9 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+/**
+ * 用户信息请求接口
+ */
 @ApiServer("http://localhost:8080/users")
 public interface IUserApi {
     

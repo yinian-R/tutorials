@@ -45,7 +45,7 @@ public class JDKProxyCreator implements ProxyCreator {
     }
     
     /**
-     * 根据方法定义和调用参数的调用的相关信息
+     * 根据接口提取方法定义和调用的相关信息
      *
      * @param method
      * @param args

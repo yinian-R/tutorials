@@ -13,14 +13,28 @@
 ├── core
 │  └── beans
 │     ├── MethodInfo        请求接口方法调用信息类
-│     └── ServerInfo        请求服务器信息
+│     └── ServerInfo        请求服务器信息类
 │  └── interfaces
 │     ├── ProxyCreator      创建代理类接口
-│     └── RestHandler       rest 请求调用处理类接口
+│     └── RestHandler       请求接口调用处理类接口
 │  └── proxys
-│     └── JDKProxyCreator   ProxyCreator 创建代理类接口实现
+│     └── JDKProxyCreator   ProxyCreator 创建代理类接口实现（提取服务器信息，提取方法定义和调用的相关信息，创建接口的代理类）
 │  └── resthandlers
-│     └── WebClientRestHandler  RestHandler 请求调用处理类接口实现
+│     └── WebClientRestHandler  RestHandler 请求接口调用处理类接口实现
 ├── webfluxclient
-│  └── IUserApi     测试获取用户信息接口（定义请求链接、参数、返回值）
+│  └── IUserApi     用户信息请求接口（定义用户信息请求链接、参数、返回值）
 ```
+
+### 关键代码
+```
+Proxy.newProxyInstance(this.getClass().getClassLoader(), new Class[]{type}, (proxy, method, args) -> {
+    // 根据方法和参数提取调用的信息
+    MethodInfo methodInfo = extractMethodInfo(method, args);
+    // 调用 rest
+    return handler.invokeRest(methodInfo);
+});
+```
+
+### 下一步优化思路
+目前注入是单个注入，如何做到扫描，批量注入？(可参考 mybatis mapper 注入)，目前代码如下：
+`FactoryBean<IUserApi> userApiFactoryBean(ProxyCreator proxyCreator)`

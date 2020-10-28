@@ -14,24 +14,4 @@ public class WebfluxClientApplication {
         SpringApplication.run(WebfluxClientApplication.class, args);
     }
     
-    @Bean
-    ProxyCreator jdkProxyCreator() {
-        return new JDKProxyCreator();
-    }
-    
-    @Bean
-    FactoryBean<IUserApi> userApiFactoryBean(ProxyCreator proxyCreator) {
-        return new FactoryBean<IUserApi>() {
-            @Override
-            public IUserApi getObject() {
-                return (IUserApi) proxyCreator.createProxy(getObjectType());
-            }
-            
-            @Override
-            public Class<?> getObjectType() {
-                return IUserApi.class;
-            }
-        };
-    }
-    
 }
