@@ -13,7 +13,7 @@ import static org.springframework.web.reactive.function.server.RouterFunctions.*
 
 @Configuration
 public class AllRouters {
-    
+
     @Bean
     RouterFunction<ServerResponse> userRouter(UserHandler handler) {
         return nest(

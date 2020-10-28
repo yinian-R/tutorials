@@ -4,7 +4,7 @@ import com.wymm.core.beans.MethodInfo;
 import com.wymm.core.beans.ServerInfo;
 
 /**
- * rest 请求调用 handle
+ * 请求调用处理类接口
  */
 public interface RestHandler {
     /**

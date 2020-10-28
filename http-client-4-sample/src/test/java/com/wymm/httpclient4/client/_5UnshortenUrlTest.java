@@ -1,4 +1,4 @@
-package com.wymm.httpclient4;
+package com.wymm.httpclient4.client;
 
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.http.Header;

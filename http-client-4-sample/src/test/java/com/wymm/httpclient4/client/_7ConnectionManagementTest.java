@@ -1,4 +1,4 @@
-package com.wymm.httpclient4;
+package com.wymm.httpclient4.client;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -18,6 +18,8 @@ import org.apache.http.util.EntityUtils;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
 class _7ConnectionManagementTest {
@@ -98,21 +100,36 @@ class _7ConnectionManagementTest {
     
     /**
      * 连接驱逐，用于检测空闲和过期的连接并关闭它们
-     * 有两种方法可以实现这一点
+     * 有三种方法可以实现这一点
      */
     @Test
-    void connectionEviction() throws InterruptedException {
+    void connectionEviction() {
         PoolingHttpClientConnectionManager connManager = new PoolingHttpClientConnectionManager();
-        // 1.定义不活动的时间（毫秒），在此期间后必须通过验证才返回给消费者。这是一个昂贵的选择，并不总是可靠的
+        // 1.定义不活动的时间（毫秒），在此期间后必须通过验证才返回给消费者。这是一个昂贵的选择，并不总是可靠的（不太可靠）
         connManager.setValidateAfterInactivity(30 * 1000);
         
         CloseableHttpClient client = HttpClients.custom().setDefaultRequestConfig(
                 RequestConfig.custom().build()
         ).setConnectionManager(connManager).build();
         
-        // 2.创建一个监视线程以关闭空闲和过期的连接
-        IdleConnectionMonitorThread idleConnectionMonitor = new IdleConnectionMonitorThread(connManager);
+        // 2.创建一个监视线程以关闭空闲和过期的连接（需编写驱逐连接类，冗余）
+        IdleConnectionMonitorThread idleConnectionMonitor = new IdleConnectionMonitorThread(connManager, 5);
         idleConnectionMonitor.start();
+        
+        // 3. HttpClientBuilder 会根据参数创建一个驱逐连接类（推荐）
+        client = HttpClients.custom()
+                // 驱逐过期连接
+                .evictExpiredConnections()
+                .setKeepAliveStrategy(
+                        (response, context) -> Arrays.stream(response.getHeaders(HTTP.CONN_KEEP_ALIVE))
+                                .filter(h -> StringUtils.equalsIgnoreCase(h.getName(), "timeoout") && StringUtils.isNumeric(h.getValue()))
+                                .findFirst()
+                                .map(h -> NumberUtils.toLong(h.getValue()))
+                                .orElse(30L) * 1000
+                )
+                // 驱逐空闲连接，设置 KeepAliveStrategy 后，不用调用该方法
+                //.evictIdleConnections(30, TimeUnit.SECONDS)
+                .build();
     }
     
     /**

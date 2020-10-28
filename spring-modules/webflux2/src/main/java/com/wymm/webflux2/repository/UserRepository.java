@@ -14,7 +14,7 @@ public interface UserRepository extends ReactiveMongoRepository<User, String> {
      * @return 用户列表
      */
     Flux<User> findByAgeBetween(int start, int end);
-    
+
     /**
      * 得到20~30年龄的用户
      *
@@ -22,6 +22,6 @@ public interface UserRepository extends ReactiveMongoRepository<User, String> {
      */
     @Query("{'age' : {'$gte' : 20, '$lte' : 30}}")
     Flux<User> oldUser();
-    
-    
+
+
 }

@@ -1,10 +1,12 @@
 package com.wymm.springboothttp2client;
 
-import com.wymm.springboothttp2client.support.CustomConnectionKeepAliveStrategy;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.http.protocol.HTTP;
 import org.apache.http.ssl.SSLContextBuilder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -17,6 +19,7 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.net.ssl.SSLContext;
 import java.time.Duration;
+import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 @Slf4j
@@ -55,7 +58,13 @@ public class Http2Config {
                 .setMaxConnTotal(200)
                 .setMaxConnPerRoute(20)
                 .disableAutomaticRetries()
-                .setKeepAliveStrategy(new CustomConnectionKeepAliveStrategy())
+                .setKeepAliveStrategy(
+                        (response, content) -> Arrays.stream(response.getHeaders(HTTP.CONN_KEEP_ALIVE))
+                                .filter(h -> StringUtils.equalsIgnoreCase(h.getName(), "timeoout") && StringUtils.isNumeric(h.getValue()))
+                                .findFirst()
+                                .map(h -> NumberUtils.toLong(h.getValue()))
+                                .orElse(30L) * 1000
+                )
                 .setSSLContext(sslContext)
                 .setSSLHostnameVerifier(NoopHostnameVerifier.INSTANCE)
                 .build();

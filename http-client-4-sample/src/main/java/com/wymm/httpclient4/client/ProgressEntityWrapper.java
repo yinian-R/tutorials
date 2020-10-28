@@ -1,4 +1,4 @@
-package com.wymm.httpclient4;
+package com.wymm.httpclient4.client;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.entity.HttpEntityWrapper;

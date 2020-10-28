@@ -22,16 +22,16 @@ public class AvgLatencyProducerInterceptor implements ProducerInterceptor<String
     
     @Override
     public void onAcknowledgement(RecordMetadata metadata, Exception exception) {
-    
+        
     }
     
     @Override
     public void close() {
-    
+        
     }
     
     @Override
     public void configure(Map<String, ?> configs) {
-    
+        
     }
 }

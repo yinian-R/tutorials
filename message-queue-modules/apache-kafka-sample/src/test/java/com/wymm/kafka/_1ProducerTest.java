@@ -8,6 +8,7 @@ import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.internals.ErrorLoggingCallback;
 import org.apache.kafka.common.config.SaslConfigs;
+import org.apache.kafka.common.config.SslConfigs;
 import org.apache.kafka.common.errors.AuthorizationException;
 import org.apache.kafka.common.errors.OutOfOrderSequenceException;
 import org.apache.kafka.common.errors.ProducerFencedException;
@@ -38,7 +39,7 @@ import java.util.Properties;
  * 最后，为了实现端到端的交易保证，必须将 consumers 配置为仅 read only committed messages
  */
 class _1ProducerTest {
-    
+
     /**
      * 生产者的简单示例
      */
@@ -49,15 +50,15 @@ class _1ProducerTest {
         props.put(ProducerConfig.ACKS_CONFIG, "all");
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer");
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer");
-        
+
         Producer<String, String> producer = new KafkaProducer<>(props);
         for (int i = 0; i < 100; i++) {
             producer.send(new ProducerRecord<>(KafkaConfig.TEST_TOPIC, Integer.toString(i), Integer.toString(i)));
         }
-        
+
         producer.close();
     }
-    
+
     /**
      * Producer 永远要使用带有回调通知的发送 API，也就是说不要使用 producer.send(msg)，而要使用 producer.send(msg, callback)。
      * 不要小瞧这里的 callback（回调），它能准确地告诉你消息是否真的提交成功了。一旦出现消息提交失败的情况，你就可以有针对性地进行处理。
@@ -70,7 +71,7 @@ class _1ProducerTest {
         props.put(ProducerConfig.RETRIES_CONFIG, "10");
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer");
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer");
-        
+
         String topic = KafkaConfig.TEST_TOPIC;
         Producer<String, String> producer = new KafkaProducer<>(props);
         for (int i = 0; i < 1000; i++) {
@@ -78,10 +79,10 @@ class _1ProducerTest {
             String value = Integer.toString(i);
             producer.send(new ProducerRecord<>(topic, key, value), new ErrorLoggingCallback(topic, key.getBytes(), value.getBytes(), true));
         }
-        
+
         producer.close();
     }
-    
+
     /**
      * 幂等生产者
      */
@@ -90,15 +91,15 @@ class _1ProducerTest {
         Properties props = new Properties();
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, KafkaConfig.BOOTSTRAP_SERVERS);
         props.put(ProducerConfig.ENABLE_IDEMPOTENCE_CONFIG, true);
-        
+
         Producer<String, String> producer = new KafkaProducer<>(props, new StringSerializer(), new StringSerializer());
         for (int i = 0; i < 100; i++) {
             producer.send(new ProducerRecord<>(KafkaConfig.TEST_TOPIC, Integer.toString(i), Integer.toString(i)));
         }
-        
+
         producer.close();
     }
-    
+
     /**
      * 事务生产者
      * 配合事务消费者一起使用可以达到精准一次
@@ -114,9 +115,9 @@ class _1ProducerTest {
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, KafkaConfig.BOOTSTRAP_SERVERS);
         props.put(ProducerConfig.TRANSACTIONAL_ID_CONFIG, "my-transactional-id");
         Producer<String, String> producer = new KafkaProducer<>(props, new StringSerializer(), new StringSerializer());
-        
+
         producer.initTransactions();
-        
+
         try {
             producer.beginTransaction();
             for (int i = 0; i < 100; i++) {
@@ -132,7 +133,7 @@ class _1ProducerTest {
         }
         producer.close();
     }
-    
+
     /**
      * 使用认证机制 SCRAM-SHA-256 生产消息
      */
@@ -146,13 +147,45 @@ class _1ProducerTest {
         props.put(CommonClientConfigs.SECURITY_PROTOCOL_CONFIG, "SASL_PLAINTEXT");
         props.put(SaslConfigs.SASL_MECHANISM, "SCRAM-SHA-256");
         props.put(SaslConfigs.SASL_JAAS_CONFIG, "org.apache.kafka.common.security.scram.ScramLoginModule required username=\"writer\" password=\"writer\";");
-        
+
         Producer<String, String> producer = new KafkaProducer<>(props);
         for (int i = 0; i < 100; i++) {
             producer.send(new ProducerRecord<>(KafkaConfig.TEST_TOPIC, Integer.toString(i), Integer.toString(i)));
         }
-        
+
         producer.close();
     }
-    
+
+    /**
+     * 使用认证机制 SCRAM-SHA-256 生产消息
+     */
+    @Test
+    void usingSSL_thenSend() {
+        Properties props = new Properties();
+        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "192.168.191.128:9092");
+        props.put(ProducerConfig.ACKS_CONFIG, "all");
+        props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer");
+        props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer");
+
+
+        //configure the following three settings for SSL Encryption
+        props.put(CommonClientConfigs.SECURITY_PROTOCOL_CONFIG, "SSL");
+        props.put(SslConfigs.SSL_TRUSTSTORE_LOCATION_CONFIG, "Z:\\kafkaenv\\certificates\\client.truststore.jks");
+        props.put(SslConfigs.SSL_TRUSTSTORE_PASSWORD_CONFIG, "test1234");
+
+        // configure the following three settings for SSL Authentication
+        props.put(SslConfigs.SSL_KEYSTORE_LOCATION_CONFIG, "Z:\\kafkaenv\\certificates\\client.keystore.jks");
+        props.put(SslConfigs.SSL_KEYSTORE_PASSWORD_CONFIG, "test1234");
+        props.put(SslConfigs.SSL_KEY_PASSWORD_CONFIG, "test1234");
+
+        props.put(SslConfigs.SSL_ENDPOINT_IDENTIFICATION_ALGORITHM_CONFIG, "");
+
+        Producer<String, String> producer = new KafkaProducer<>(props);
+        for (int i = 0; i < 100; i++) {
+            producer.send(new ProducerRecord<>(KafkaConfig.TEST_TOPIC, Integer.toString(i), Integer.toString(i)));
+        }
+
+        producer.close();
+    }
+
 }

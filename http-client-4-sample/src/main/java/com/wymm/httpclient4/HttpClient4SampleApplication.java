@@ -1,4 +1,4 @@
-package com.wymm.httpclient4.web;
+package com.wymm.httpclient4;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

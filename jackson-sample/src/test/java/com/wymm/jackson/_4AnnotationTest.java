@@ -2,7 +2,7 @@ package com.wymm.jackson;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.ser.FilterProvider;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
@@ -356,6 +356,7 @@ class _4AnnotationTest {
     
     /**
      * - @JsonView 将在其中包含属性以进行序列化/反序列化的视图
+     * 在使用 writerWithView 时，没有设置 @JsonView 的也能序列化
      */
     @Test
     void whenSerializingUsingJsonView_thenCorrect()
@@ -469,8 +470,8 @@ class _4AnnotationTest {
         assertTrue(result.contains("owner"));
         
         ObjectMapper mapper = new ObjectMapper();
+        // 序列化忽略 User 对象
         mapper.addMixIn(User.class, Item.MyMixInForIgnoreType.class);
-        
         result = mapper.writeValueAsString(item);
         assertFalse(result.contains("owner"));
     }

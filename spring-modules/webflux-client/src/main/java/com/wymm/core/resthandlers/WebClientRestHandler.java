@@ -7,6 +7,9 @@ import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
+/**
+ * 请求调用处理类
+ */
 public class WebClientRestHandler implements RestHandler {
     
     private WebClient client;

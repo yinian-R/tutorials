@@ -1,7 +1,7 @@
 package com.wymm.core.interfaces;
 
 /**
- * 创建道理类接口
+ * 创建代理类接口
  */
 public interface ProxyCreator {
     /**

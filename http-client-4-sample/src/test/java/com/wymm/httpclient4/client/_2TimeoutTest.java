@@ -1,4 +1,4 @@
-package com.wymm.httpclient4;
+package com.wymm.httpclient4.client;
 
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;

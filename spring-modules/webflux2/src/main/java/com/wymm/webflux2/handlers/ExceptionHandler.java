@@ -22,13 +22,13 @@ public class ExceptionHandler implements WebExceptionHandler {
         ServerHttpResponse response = serverWebExchange.getResponse();
         response.setStatusCode(HttpStatus.BAD_REQUEST);
         response.getHeaders().setContentType(MediaType.TEXT_PLAIN);
-        
+
         // 异常信息
         String errorMsg = toStr(throwable);
         DataBuffer dataBuffer = response.bufferFactory().wrap(errorMsg.getBytes());
         return response.writeWith(Mono.just(dataBuffer));
     }
-    
+
     private String toStr(Throwable throwable) {
         // 已知异常
         if (throwable instanceof CheckException) {
@@ -39,7 +39,7 @@ public class ExceptionHandler implements WebExceptionHandler {
             throwable.printStackTrace();
             return throwable.toString();
         }
-        
-        
+
+
     }
 }

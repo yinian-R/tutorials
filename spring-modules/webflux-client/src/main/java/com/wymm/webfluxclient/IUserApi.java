@@ -1,6 +1,7 @@
 package com.wymm.webfluxclient;
 
 import com.wymm.core.ApiServer;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
