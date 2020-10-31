@@ -5,4 +5,4 @@
 - core-java-stream
 
 ## Spring
-- [自定义 Spring Starter](#spring-modules/spring-boot-custom-starter)
+- 自定义Spring Starter - [💡 spring-boot-custom-starter️](#spring-modules/spring-boot-custom-starter)
