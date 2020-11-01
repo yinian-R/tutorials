@@ -8,11 +8,11 @@
         <version>2.1.4.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.example</groupId>
-    <artifactId>spring-kafka</artifactId>
+    <groupId>com.wymm</groupId>
+    <artifactId>spring-kafka-sample</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>spring-kafka-demo</name>
-    <description>Demo project for Spring Boot</description>
+    <name>spring-kafka-sample</name>
+    <description>Spring Boot Kafka 入门</description>
 
     <properties>
         <java.version>1.8</java.version>

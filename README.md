@@ -27,8 +27,18 @@
 - 配置中心 zookeeper 入门 - [💡 apache-zookeeper](/apache_modules/apache-zookeeper) 
 
 ## 数据访问
-*### 非关系数据库
+- Spring Boot中使用多个数据源 - [💡 spring-boot-multiple-db](/persistence-modules/spring-boot-multiple-db)
+- 通过SpringJDBC访问数据库 - [💡 spring-boot-simple-jdbc](/persistence-modules/spring-boot-simple-jdbc)
+- Spring Boot Data JPA 访问数据库 - [💡 spring-data-jpa](/persistence-modules/spring-data-jpa)
+
+### 关系数据库
+
+### 非关系数据库
 - Elasticsearch 入门 - [💡 elasticsearch-sample](/elasticsearch-sample) 
+- Spring Data Elasticsearch 访问 Elasticsearch - [💡 spring-data-elasticsearch](/persistence-modules/spring-data-elasticsearch)
+- Spring Data MongoDB 访问 MongoDB - [💡 spring-data-mongodb](/persistence-modules/spring-data-mongodb)
+- Spring Data Redis 访问 Redis - [💡 spring-data-redis](/persistence-modules/spring-data-redis)
+- Spring Data Redis + Cache 使用示例 - [💡 spring-web-redis](/persistence-modules/spring-web-redis)
 
 ## 远程调用
 ### HTTP
@@ -36,10 +46,11 @@
 
 ## 消息队列
 ### kafka
-- kafka 入门 - [💡 apache-kafka-sample](/message-queue-modules/apache-kafka-sample) 
+- 消息队列 kafka 入门 - [💡 apache-kafka-sample](/message-queue-modules/apache-kafka-sample) 
+- Spring Boot 消息队列 Kafka 入门 - [💡 spring-kafka-sample](/message-queue-modules/spring-kafka-sample)
 
 ### RabbitMQ
-- RabbitMQ 入门 - [💡 rabbitmq-sample](/message-queue-modules/rabbitmq-sample)
+- 消息队列 RabbitMQ 极简入门 - [💡 rabbitmq-sample](/message-queue-modules/rabbitmq-sample)
 - Spring Boot 消息队列 RabbitMQ 入门 - [💡 spring-boot-rabbitmq-sample](/message-queue-modules/spring-boot-rabbitmq-sample)
 
 ## 设计
@@ -59,4 +70,7 @@
 - Jackson 高性能 JSON 处理类库 - [💡 jackson-sample](/jackson-sample) 
 - Linux 常用脚本集 - [💡 common-shell-scripts](/common-shell-scripts) 
 - Flume 集成 RabbitMQ - [💡 rabbitmq-flume-plugin](/message-queue-modules/rabbitmq-flume-plugin)
+- MySQL 笔记 - [💡 mysql-advanced](/mysql-advanced)
+- Spring Boot + Netty 构建 socket io 极简入门 - [💡 netty-socket-io-demo](/netty-socket-io-demo)
+- 使用 protobuf 序列化和反序列化数据 - [💡 protobuf](/protobuf)
 -  - [💡 ](/)
