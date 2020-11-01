@@ -25,8 +25,55 @@
 - Spring Boot + Vue 单体项目极简示例 - [💡 spring-boot-book-sample](/spring-modules/spring-boot-book-sample)
 - Spring Boot 支持 HTTP2 入门 - [💡 spring-boot-http2-sample](/spring-modules/spring-boot-http2-sample)
 
-### 监控
+### 监控管理
 - Spring Boot Admin 管理和监控 SpringBoot 应用程序 - [💡 spring-boot-admin-samples](/spring-modules/spring-boot-admin-samples)
+
+## Spring Cloud 专栏
+**注册中心**
+- Spring Cloud Alibaba 注册中心 Nacos 入门 - [💡 spring-cloud-eureka-server](/spring-clould-modules/discovery/spring-cloud-discovery-nacos-sample)
+- Spring Cloud Netflix 注册中心 Eureka 入门 - [💡 spring-cloud-eureka-server](/spring-clould-modules/spring-cloud-sample/spring-cloud-eureka-server)
+- Spring Cloud 注册中心 Consul 入门 - [💡 spring-cloud-eureka-server](/spring-clould-modules/discovery/spring-cloud-discovery-consul-sample)
+
+**服务调用**
+- Spring Cloud Netflix 负载均衡 Ribbon 入门 - [💡 spring-cloud-consumer-rest-ribbon](/spring-clould-modules/spring-cloud-sample/spring-cloud-consumer-rest-ribbon)
+- Spring Cloud 声明式调用 Feign 入门 - [💡 spring-cloud-consumer-feign](/spring-clould-modules/spring-cloud-sample/spring-cloud-consumer-feign)
+
+**服务容错**
+- Spring Cloud Alibaba 服务容错 Sentinel 入门 
+- Spring Cloud Netflix 服务容错 Hystrix 入门 
+
+**路由网关**
+- Spring Cloud 服务网关 Spring Cloud Gateway 入门
+- Spring Cloud Netflix 路由网关 Zuul 入门 - [💡 spring-cloud-zuul](/spring-clould-modules/spring-cloud-sample/spring-cloud-zuul)
+
+**配置中心**
+- Spring Cloud Alibaba 配置中心 Nacos 入门
+- Spring Cloud 配置中心 Spring Cloud Config 入门 - [💡 spring-cloud-config-server](/spring-clould-modules/spring-cloud-sample/spring-cloud-config-server)
+
+**消息队列**
+++Spring Cloud Stream++
+
+- Spring Cloud Alibaba 消息队列 RocketMQ 入门
+- Spring Cloud 消息队列 RabbitMQ 入门
+- Spring Cloud 消息队列 Kafka 入门
+- Spring Cloud 消息队列 ActiveMQ 入门
+
+++Spring Cloud Bus++
+
+- Spring Cloud Alibaba 事件总线 Bus RocketMQ 入门
+- Spring Cloud 事件总线 Bus RabbitMQ 入门
+- Spring Cloud 事件总线 Bus Kafka 入门
+
+**分布式事务**
+- Spring Cloud Alibaba 分布式事务 Seata 入门
+
+**链路追踪**
+- Spring Cloud 链路追踪 SkyWalking 入门
+- Spring Cloud 链路追踪 Spring Cloud Sleuth
+
+**监控管理**
+- Spring Boot Admin 管理和监控 SpringBoot 应用程序 - [💡 spring-boot-admin-samples](/spring-modules/spring-boot-admin-samples)
+
 
 ## 配置中心
 - 配置中心 zookeeper 入门 - [💡 apache-zookeeper](/apache_modules/apache-zookeeper) 

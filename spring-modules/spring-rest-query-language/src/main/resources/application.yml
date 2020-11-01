@@ -1,5 +1,4 @@
 spring:
-  #  ≈‰÷√ ˝æ›ø‚
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/wymm?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
     username: root
