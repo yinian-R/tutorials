@@ -67,6 +67,8 @@ public class Http2Config {
                 )
                 .setSSLContext(sslContext)
                 .setSSLHostnameVerifier(NoopHostnameVerifier.INSTANCE)
+                // 驱逐过期连接
+                .evictExpiredConnections()
                 .build();
         
         return new HttpComponentsClientHttpRequestFactory(httpClient);

@@ -27,7 +27,7 @@ public class RenameTest {
         pathStream.forEach(pathFile -> {
             System.out.println(pathFile.toAbsolutePath());
             
-            String replace = pathFile.toAbsolutePath().toString().replace("[高清 1080P]", "");
+            String replace = pathFile.toAbsolutePath().toString().replace(".txt", ".sql");
             File newFile = new File(replace);
             boolean result = pathFile.toFile().renameTo(newFile);
         });
