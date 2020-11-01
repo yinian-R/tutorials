@@ -26,6 +26,7 @@
 ```
 
 ### 关键代码
+主要使用 Java 动态代理技术实现关键代码
 ```
 Proxy.newProxyInstance(this.getClass().getClassLoader(), new Class[]{type}, (proxy, method, args) -> {
     // 根据方法和参数提取调用的信息
