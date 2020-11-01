@@ -17,7 +17,7 @@ class SimpleTestTest {
     }
     
     @Test
-    void test(){
+    void test() {
         log.info("4545");
     }
     

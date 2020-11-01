@@ -1,7 +1,5 @@
 package com.wymm.lambda;
 
-import java.util.function.*;
-
 public class _4MethodRefrenceDemo {
     public static void main(String[] args) {
         // 方法引用
@@ -35,24 +33,24 @@ public class _4MethodRefrenceDemo {
         Function<String, Dog> function4 = Dog::new;
         System.out.println("创建了新对象：" + function4.apply("旺财"));
     }
-
+    
     static class Dog {
         private String name = "中华田园犬";
         // 狗粮剩余数量（斤）
         private int food = 10;
-
+        
         public Dog() {
-
+            
         }
-
+        
         public Dog(String name) {
             this.name = name;
         }
-
+        
         public static void bark(Dog dog) {
             System.out.println(dog + "叫了");
         }
-
+        
         /**
          * 和public int eat(Dog this,int num) 一样，调用的方式依旧是 doy.eat(2)
          * JDK 会把当前成员传递到非静态方法的第一个参数this
@@ -61,12 +59,12 @@ public class _4MethodRefrenceDemo {
             System.out.println("狗吃了" + num + "斤");
             return food -= num;
         }
-
+        
         @Override
         public String toString() {
             return name;
         }
-
+        
     }
 }
 

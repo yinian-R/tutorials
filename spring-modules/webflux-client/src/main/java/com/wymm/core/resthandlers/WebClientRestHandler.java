@@ -7,6 +7,9 @@ import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
+/**
+ * 请求接口调用处理类
+ */
 public class WebClientRestHandler implements RestHandler {
     
     private WebClient client;
@@ -32,7 +35,6 @@ public class WebClientRestHandler implements RestHandler {
         Object result;
         WebClient.RequestBodySpec request = this.client
                 .method(methodInfo.getMethod())
-                //.uri(methodInfo.getUrl())
                 .uri(methodInfo.getUrl(), methodInfo.getParams())
                 .accept(MediaType.APPLICATION_JSON);
         

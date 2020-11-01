@@ -1,4 +1,4 @@
-Spring Boot Admin用于管理和监控SpringBoot应用程序
+Spring Boot Admin 管理和监控 SpringBoot 应用程序
 
 ## admin-server
 

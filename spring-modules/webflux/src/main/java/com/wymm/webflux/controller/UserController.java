@@ -17,27 +17,27 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/users")
 public class UserController {
-
+    
     private final UserRepository userRepository;
-
+    
     @GetMapping
     public Flux<User> findAll() {
         return userRepository.findAll();
     }
-
+    
     @GetMapping(value = "/stream/all", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<User> streamFindAll() {
         return userRepository.findAll();
     }
-
+    
     @GetMapping("/{id}")
     public Mono<ResponseEntity<User>> findUserById(@PathVariable String id) {
         return userRepository.findById(id)
                 .map(user -> new ResponseEntity<>(user, HttpStatus.OK))
                 .defaultIfEmpty(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
-
-
+    
+    
     /**
      * 根据年龄查找用户
      *
@@ -49,7 +49,7 @@ public class UserController {
     public Flux<User> findByAge(@PathVariable int start, @PathVariable int end) {
         return this.userRepository.findByAgeBetween(start, end);
     }
-
+    
     /**
      * 根据年龄查找用户
      *
@@ -61,7 +61,7 @@ public class UserController {
     public Flux<User> streamFindByAge(@PathVariable int start, @PathVariable int end) {
         return this.userRepository.findByAgeBetween(start, end);
     }
-
+    
     /**
      * 得到20~30年龄的用户列表
      *
@@ -71,7 +71,7 @@ public class UserController {
     public Flux<User> oldUser() {
         return this.userRepository.oldUser();
     }
-
+    
     /**
      * 得到20~30年龄的用户列表
      *
@@ -81,15 +81,15 @@ public class UserController {
     public Flux<User> streamOldUser() {
         return this.userRepository.oldUser();
     }
-
+    
     @PostMapping
     public Mono<User> createUser(@RequestBody User user) {
         user.setId(null);
         CheckUtils.checkName(user.getName());
         return userRepository.save(user);
-
+        
     }
-
+    
     @DeleteMapping("/{id}")
     public Mono<ResponseEntity<Void>> deleteUser(@PathVariable String id) {
         return userRepository.findById(id)
@@ -98,9 +98,9 @@ public class UserController {
                 .flatMap(userRepository::delete)
                 .then(Mono.just(new ResponseEntity<Void>(HttpStatus.OK)))
                 .defaultIfEmpty(new ResponseEntity<>(HttpStatus.NOT_FOUND));
-
+        
     }
-
+    
     @PutMapping("/{id}")
     public Mono<ResponseEntity<User>> updateUser(@PathVariable String id, @Valid @RequestBody User user) {
         CheckUtils.checkName(user.getName());
@@ -115,5 +115,5 @@ public class UserController {
                 .map(u -> new ResponseEntity<>(u, HttpStatus.OK))
                 .defaultIfEmpty(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
-
+    
 }

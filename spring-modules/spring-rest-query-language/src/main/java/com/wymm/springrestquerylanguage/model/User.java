@@ -11,16 +11,16 @@ import java.util.Objects;
 @Data
 @Entity
 public class User {
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String firstName;
     private String lastName;
     private String email;
-
+    
     private int age;
-
+    
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -31,7 +31,7 @@ public class User {
                 Objects.equals(lastName, user.lastName) &&
                 Objects.equals(email, user.email);
     }
-
+    
     @Override
     public int hashCode() {
         return Objects.hash(firstName, lastName, email, age);

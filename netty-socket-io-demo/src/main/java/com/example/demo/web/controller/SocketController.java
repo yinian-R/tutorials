@@ -16,7 +16,8 @@ public class SocketController {
     
     /**
      * example: http://localhost:8080/socket/push?loginUserNum=88&content=hello
-     * @param pushMessage 
+     *
+     * @param pushMessage
      */
     @GetMapping("/push")
     public void pushMessage(PushMessage pushMessage) {

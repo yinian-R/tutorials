@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      label: master
+      server:
+        git:
+          uri: https://github.com/yinian-R/tutorials.git
+          search-paths: spring-modules/spring-cloud-sample/spring-cloud-config-server/src/main/resources/config
+
+server:
+  port: 8888

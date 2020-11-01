@@ -12,23 +12,23 @@ import org.springframework.data.elasticsearch.repository.config.EnableElasticsea
 @SpringBootApplication
 @EnableElasticsearchRepositories
 public class SpringDataElasticsearchApplication implements CommandLineRunner {
-
+    
     @Autowired
     EmployeeRepository employeeRepository;
-
+    
     public static void main(String[] args) {
         SpringApplication.run(SpringDataElasticsearchApplication.class, args);
     }
-
+    
     @Bean
     public SampleDataSet dataSet() {
         return new SampleDataSet();
     }
-
+    
     @Override
     public void run(String... args) throws Exception {
-
-        for (Employee employee: employeeRepository.findAll()){
+        
+        for (Employee employee : employeeRepository.findAll()) {
             System.out.println(employee);
         }
     }

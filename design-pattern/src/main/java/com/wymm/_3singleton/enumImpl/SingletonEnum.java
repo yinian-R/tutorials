@@ -6,7 +6,7 @@ package com.wymm._3singleton.enumImpl;
  * 推荐理由：不需要构造函数，更简洁
  */
 public enum SingletonEnum {
-    INSTANCE{
+    INSTANCE {
         public void doSomething() {
             // do something
         }

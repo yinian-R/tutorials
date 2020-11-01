@@ -9,7 +9,6 @@
 2 @EnableReactiveMongoRepositories
 
 3  数据库配置
-
 ```
 spring:
   data:

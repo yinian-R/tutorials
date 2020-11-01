@@ -37,6 +37,7 @@ public class _2OptionalFilterTest {
         }
         return isInRange;
     }
+    
     @Test
     public void whenFiltersWithoutOptional_thenCorrect() {
         assertTrue(priceIsInRange1(new Modem(10.0)));

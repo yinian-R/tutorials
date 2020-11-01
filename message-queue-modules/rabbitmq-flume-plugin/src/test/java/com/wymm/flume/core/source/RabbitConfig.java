@@ -1,7 +1,7 @@
 package com.wymm.flume.core.source;
 
-import com.rabbitmq.client.Consumer;
 import com.rabbitmq.client.*;
+import com.rabbitmq.client.Consumer;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;

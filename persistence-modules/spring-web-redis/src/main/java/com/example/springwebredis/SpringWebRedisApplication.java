@@ -7,9 +7,9 @@ import org.springframework.cache.annotation.EnableCaching;
 @EnableCaching
 @SpringBootApplication
 public class SpringWebRedisApplication {
-
+    
     public static void main(String[] args) {
         SpringApplication.run(SpringWebRedisApplication.class, args);
     }
-
+    
 }

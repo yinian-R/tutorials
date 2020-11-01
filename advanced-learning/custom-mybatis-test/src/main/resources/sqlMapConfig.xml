@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+    <dataSource>
+        <property name="driveClass" value="com.mysql.cj.jdbc.Driver"></property>
+        <property name="url" value="jdbc:mysql://localhost:3306/advanced_learning"></property>
+        <property name="username" value="root"></property>
+        <property name="password" value="root"></property>
+    </dataSource>
+
+    <mapper resource="UserMapper.xml"></mapper>
+</configuration>

@@ -24,11 +24,11 @@ public class SpringBootAdminServerApplication extends WebSecurityConfigurerAdapt
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         String adminContextPath = adminServerProperties.getContextPath();
-    
+        
         SavedRequestAwareAuthenticationSuccessHandler successHandler = new SavedRequestAwareAuthenticationSuccessHandler();
         successHandler.setTargetUrlParameter("redirectTo");
         successHandler.setDefaultTargetUrl(adminContextPath + "/");
-    
+        
         http.authorizeRequests()
                 .antMatchers(adminContextPath + "/assets/**").permitAll()
                 .antMatchers(adminContextPath + "/login").permitAll()

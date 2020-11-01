@@ -7,10 +7,10 @@ import java.util.List;
 
 public interface UserService {
     List<User> findUsers();
-
+    
     User findUser(String id);
-
+    
     boolean addUser(User user);
-
+    
     boolean deleteUser(String id);
 }

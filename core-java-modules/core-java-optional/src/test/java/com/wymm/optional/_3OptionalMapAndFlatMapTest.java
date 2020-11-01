@@ -1,7 +1,6 @@
 package com.wymm.optional;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;

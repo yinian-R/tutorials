@@ -7,10 +7,10 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class RestConfigurer implements RepositoryRestConfigurer {
-
+    
     @Override
     public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
         config.setRepositoryDetectionStrategy(RepositoryDetectionStrategy.RepositoryDetectionStrategies.ANNOTATED);
     }
-
+    
 }

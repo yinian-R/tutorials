@@ -10,7 +10,7 @@ import reactor.core.publisher.Mono;
 import java.util.Map;
 
 /**
- * 方法调用信息类
+ * 请求接口方法调用信息类
  */
 @Data
 @Builder

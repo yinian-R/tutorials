@@ -5,9 +5,9 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class GreeterAutoConfiguration {
-
+    
     @Bean
-    public GreeterBeanFactoryPostProcessor greeterBeanFactoryPostProcessor(){
+    public GreeterBeanFactoryPostProcessor greeterBeanFactoryPostProcessor() {
         return new GreeterBeanFactoryPostProcessor();
     }
 }

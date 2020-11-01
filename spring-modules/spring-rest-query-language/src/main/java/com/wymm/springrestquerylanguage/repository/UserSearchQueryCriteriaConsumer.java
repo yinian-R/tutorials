@@ -13,11 +13,11 @@ import java.util.function.Consumer;
 @Data
 @AllArgsConstructor
 public class UserSearchQueryCriteriaConsumer implements Consumer<SearchCriteria> {
-
+    
     private Predicate predicate;
     private CriteriaBuilder builder;
     private Root<User> r;
-
+    
     @Override
     public void accept(SearchCriteria param) {
         if (param.getOperation().equalsIgnoreCase(">")) {
@@ -32,5 +32,5 @@ public class UserSearchQueryCriteriaConsumer implements Consumer<SearchCriteria>
             }
         }
     }
-
+    
 }

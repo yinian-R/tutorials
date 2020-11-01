@@ -1,7 +1,7 @@
 package com.wymm.flume.core.rabbitmq;
 
-import com.rabbitmq.client.Consumer;
 import com.rabbitmq.client.*;
+import com.rabbitmq.client.Consumer;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -20,6 +20,7 @@ public class RabbitConfig {
     
     /**
      * 创建队列
+     *
      * @throws IOException
      * @throws TimeoutException
      */

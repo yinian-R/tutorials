@@ -1,6 +1,6 @@
 package com.example.demo.socket;
 
-public interface  SocketIOService {
+public interface SocketIOService {
     //推送的事件
     public static final String PUSH_EVENT = "push_event";
     

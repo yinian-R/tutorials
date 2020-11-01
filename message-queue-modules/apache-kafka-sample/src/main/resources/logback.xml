@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+
+    <property name="LOG_PATH" value="./logs"/>
+    <property name="DEFAULT_PATTERN" value="%d %-5p [%t] : %m%n"/>
+
+
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            # Pattern of log message for console appender
+            <Pattern>${DEFAULT_PATTERN}</Pattern>
+        </layout>
+    </appender>
+
+    <root level="info">
+        <appender-ref ref="stdout"/>
+    </root>
+</configuration>

@@ -8,11 +8,11 @@ import java.util.Arrays;
 
 @Component
 public class MyWebMvcConfigurer implements WebMvcConfigurer {
-
+    
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new LoginHandleInterceptor())
                 .excludePathPatterns(Arrays.asList("/webjars/**", "/login")).addPathPatterns("/**");
     }
-
+    
 }
