@@ -25,6 +25,11 @@
 - Spring Boot + Vue 单体项目极简示例 - [💡 spring-boot-book-sample](/spring-modules/spring-boot-book-sample)
 - Spring Boot 支持 HTTP2 入门 - [💡 spring-boot-http2-sample](/spring-modules/spring-boot-http2-sample)
 
+### 
+- Spring Boot webflux 流式服务 - [💡 webflux](/spring-modules/webflux)
+- Spring Boot webflux 流式服务 - [💡 webflux2](/spring-modules/webflux2)
+- Spring Boot webflux 流式服务 WebClient 封装 - [💡 webflux-client](/spring-modules/webflux-client)
+
 ### 监控管理
 - Spring Boot Admin 管理和监控 SpringBoot 应用程序 - [💡 spring-boot-admin-samples](/spring-modules/spring-boot-admin-samples)
 
@@ -126,4 +131,5 @@
 - MySQL 笔记 - [💡 mysql-advanced](/mysql-advanced)
 - Spring Boot + Netty 构建 socket io 极简入门 - [💡 netty-socket-io-demo](/netty-socket-io-demo)
 - 使用 protobuf 序列化和反序列化数据 - [💡 protobuf](/protobuf)
--  - [💡 ](/)
+- REST 语言后端实现 - [💡 spring-rest-query-language](/spring-modules/spring-rest-query-language)
+- Junit5 极简入门 - [💡 junit-5](/test_modules/junit-5)
