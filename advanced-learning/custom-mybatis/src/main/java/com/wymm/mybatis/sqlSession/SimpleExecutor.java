@@ -12,6 +12,7 @@ import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,7 +42,7 @@ public class SimpleExecutor implements Executor {
             // 反射
             Field declaredField = paramterTypeClass.getDeclaredField(content);
             declaredField.setAccessible(true);
-            Object o = declaredField.get(params[i]);
+            Object o = declaredField.get(params[0]);
             
             preparedStatement.setObject(i + 1, o);
         }
