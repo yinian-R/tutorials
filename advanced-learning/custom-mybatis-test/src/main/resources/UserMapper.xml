@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mapper namespace="user">
+<mapper namespace="com.wymm.custom.mybatis.dao.UserDAO">
 
     <select id="finds" resultType="com.wymm.custom.mybatis.entity.User">
         select * from user

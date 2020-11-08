@@ -1,5 +1,6 @@
 package com.wymm.mybatis;
 
+import com.wymm.custom.mybatis.dao.UserDAO;
 import com.wymm.custom.mybatis.entity.User;
 import com.wymm.mybatis.io.Resources;
 import com.wymm.mybatis.sqlSession.SqlSession;
@@ -15,8 +16,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 
 class MybatisTest {
+    
     @Test
-    void test() throws DocumentException, PropertyVetoException, SQLException, IllegalAccessException, NoSuchFieldException, ClassNotFoundException, InvocationTargetException, IntrospectionException, InstantiationException {
+    void test() throws Exception {
         InputStream inputStream = Resources.getResourceAsStream("sqlMapConfig.xml");
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
         SqlSession sqlSession = sqlSessionFactory.openSession();
@@ -24,7 +26,9 @@ class MybatisTest {
         User user = new User();
         user.setId(1);
         user.setName("xiaohui");
-        Object user1 = sqlSession.find("user.findByName", user);
+    
+        UserDAO userDAO = sqlSession.getMapper(UserDAO.class);
+        User user1 = userDAO.findByName(user);
         System.out.println(user1);
     }
 }

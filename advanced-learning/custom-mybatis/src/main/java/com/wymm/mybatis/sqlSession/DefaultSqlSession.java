@@ -5,6 +5,9 @@ import com.wymm.mybatis.pojo.MappedStatement;
 
 import java.beans.IntrospectionException;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Proxy;
+import java.lang.reflect.Type;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -32,5 +35,29 @@ public class DefaultSqlSession implements SqlSession {
         } else {
             throw new RuntimeException("查询结果期望：1，返回：" + objects.size());
         }
+    }
+    
+    /**
+     * 使用 JDK 动态代理来为 Dao 接口生成代理对象，并返回
+     */
+    @Override
+    public <T> T getMapper(Class<?> mapperClass) {
+        Object object = Proxy.newProxyInstance(DefaultSqlSession.class.getClassLoader(), new Class[]{mapperClass}, (proxy, method, args) -> {
+            // 底层还是去执行 JDBC 代码
+            // 根据不同情况调用 selectList 或 selectOne
+            String methodName = method.getName();
+            String className = method.getDeclaringClass().getName();
+            String statementId = className + "." + methodName;
+            
+            // 获取被调用方法返回值类型
+            Type genericReturnType = method.getGenericReturnType();
+            // 判断是否进行了泛型类型参数化
+            if (genericReturnType instanceof ParameterizedType) {
+                return finds(statementId, args);
+            } else {
+                return find(statementId, args);
+            }
+        });
+        return (T) object;
     }
 }
