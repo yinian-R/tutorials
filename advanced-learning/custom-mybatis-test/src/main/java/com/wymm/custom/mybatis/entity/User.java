@@ -1,4 +1,4 @@
-package com.wymm.custom.mybatis;
+package com.wymm.custom.mybatis.entity;
 
 public class User {
     private Integer id;

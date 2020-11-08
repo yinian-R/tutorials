@@ -2,11 +2,11 @@
 
 <mapper namespace="user">
 
-    <select id="findUsers" resultType="com.wymm.custom.mybatis.User">
+    <select id="finds" resultType="com.wymm.custom.mybatis.entity.User">
         select * from user
     </select>
 
-    <select id="findUserByName" resultType="com.wymm.custom.mybatis.User" paramterType="com.wymm.custom.mybatis.User">
+    <select id="findByName" resultType="com.wymm.custom.mybatis.entity.User" paramterType="com.wymm.custom.mybatis.entity.User">
         select * from user where name=#{name}
     </select>
 

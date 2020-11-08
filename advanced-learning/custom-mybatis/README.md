@@ -1,26 +1,29 @@
+
+### 目录结构
 ```
-使用端: (项目) :引入自定义持久层框架的jar包
-    - 提供两部分配置信息:数据库配置信息、sq|配置信息: sql语句、参数类型、返回值类型
-    - 使用配置文件来提供这两部分配置信息:
-        (1) sqlMapConfng.xml :存放数据库配置信息，存放mapper.xml的全路径
-        (2) mapper.xml :存放sq|配置信息
-自定义持久层框架本身: (工程) :本质就是对JDBC代码进行了封装
-    (1)加载配置文件:根据配置文件的路径，加载配置文件成字节输入流，存储在内存中
-        创建Resources类方法: InputSteam getResourceAsSteam(String path)
-    (2)创建两个javaBean: (容器对象) : 存放的就是对配置文件解析出来的内容
-        Confguration:核心配置类:存放sqIMapConfhg.xml解析出来的内容
-        MappedStatement:映射配置类:存放mapper.xml解析 出来的内容
-    (3)解析配置文件: dom4j
-        创建类: SqlSessionFactoryBuilder 方法: build(InputSteam in)
-        第一:使用dom4j解析配置文件，将解析出来的内容封装到容器对象中
-        第二:创建SqlSessionFactory对象;生产sqlSession :会话对象(工厂模式)
-    (4)创建Sq|SessionFactory接口及实现 类DefaultSqlSessionFacotry
-        第一: openSession(): 生产sqlSession
-    (5)创建SqlSession接口及实现类DefaultSession
-        定义对数据库的crud操作: selectlist()
-                                selectOne()
-                                update()
-                                delete()
-    (6)创建Executor接口及实现类SimpleExecutor实现类
-        quer(Confguration,MappedStatement,Objet... params): 执行的就是JDBC代码
+├── config
+│   ├── BoundSql.java           解析后SQL和参数名称
+│   ├── XMLConfigBuilder.java   解析配置文件
+│   └── XMLMapperBuilder.java   解析 Mapper.xml
+├── io
+│   └── Resources.java          资源工具类
+├── pojo
+│   ├── Configuration.java      配置对象（数据源、映射语句）
+│   └── MappedStatement.java    映射语句对象
+├── sqlSession
+│   ├── DefaultSqlSession.java          SqlSession接口实现（持有配置对象、获取 MappedStatement 对象、调用SQL执行方法）
+│   ├── DefaultSqlSessionFactory.java   SqlSessionFactory接口实现（生成 SqlSession 对象）
+│   ├── Executor.java                   访问数据库执行类
+│   ├── SimpleExecutor.java             Executor接口实现（1.获取连接、2.获取转换 SQL、3.获取预处理对象、4.设置参数、5.执行 SQL、6.封装返回结果集）
+│   └── SqlSession.java                 SQL 会话接口
+│   ├── SqlSessionFactory.java          SQL 会话工厂接口
+│   ├── SqlSessionFactoryBuilder.java   SQL 会话工厂建造类
+└── utils
+    ├── GenericTokenParser.java         解析 SQL 文件
+    ├── ParameterMapping.java           参数映射对象
+    ├── ParameterMappingTokenHandler.java   TokenHandler接口实现（参数映射处理类）
+    └── TokenHandler.java               参数映射处理接口
 ```
+
+### 进阶点
+GenericTokenParser 可以总结思路

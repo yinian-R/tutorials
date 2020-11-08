@@ -1,6 +1,6 @@
 package com.wymm.mybatis;
 
-import com.wymm.custom.mybatis.User;
+import com.wymm.custom.mybatis.entity.User;
 import com.wymm.mybatis.io.Resources;
 import com.wymm.mybatis.sqlSession.SqlSession;
 import com.wymm.mybatis.sqlSession.SqlSessionFactory;
@@ -24,7 +24,7 @@ class MybatisTest {
         User user = new User();
         user.setId(1);
         user.setName("xiaohui");
-        Object user1 = sqlSession.find("user.findUserByName", user);
+        Object user1 = sqlSession.find("user.findByName", user);
         System.out.println(user1);
     }
 }
