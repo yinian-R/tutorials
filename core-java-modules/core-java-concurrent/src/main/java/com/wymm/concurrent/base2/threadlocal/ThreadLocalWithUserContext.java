@@ -1,4 +1,4 @@
-package com.wymm.concurrent.base2;
+package com.wymm.concurrent.base2.threadlocal;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -16,7 +16,7 @@ public class ThreadLocalWithUserContext implements Runnable, AutoCloseable {
     @Override
     public void run() {
         try {
-            log.debug(userContext.get() == null ? "null" : userContext.get().toString());
+            log.debug("first:" + (userContext.get() == null ? "null" : userContext.get().toString()));
             String userName = "userName" + userId;
             // userName = userRepository.getUserNameByUserId(userId);
             userContext.set(new Context(userName));

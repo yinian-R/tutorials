@@ -1,11 +1,15 @@
 package com.wymm.concurrent.base.future;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ForkJoinTask;
 import java.util.concurrent.RecursiveTask;
+import java.util.stream.Collectors;
 
+@Slf4j
 public class CustomRecursiveTask extends RecursiveTask<Integer> {
     
     private static final int THRESHOLD = 5;
@@ -28,6 +32,7 @@ public class CustomRecursiveTask extends RecursiveTask<Integer> {
     }
     
     private int processing(int[] arr) {
+        log.info("arr:" + Arrays.stream(arr).mapToObj(String::valueOf).collect(Collectors.joining(",")));
         return Arrays.stream(arr)
                 .filter(i -> i > 10 && i < 27)
                 .sum();

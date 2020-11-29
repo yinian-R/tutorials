@@ -1,4 +1,4 @@
-package com.wymm.concurrent.base._3FutureTest;
+package com.wymm.concurrent.base2;
 
 import com.wymm.concurrent.base.future.CustomRecursiveAction;
 import com.wymm.concurrent.base.future.CustomRecursiveTask;
@@ -6,6 +6,8 @@ import com.wymm.concurrent.base.future.FactorialSquareCalculator;
 import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.ForkJoinPool;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -17,8 +19,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * <p>
  * 为了提供有效的并行执行，fork/join框架使用称为ForkJoinPool的线程池，该线程池管理 ForkJoinWorkerThread 类型的工作线程
  * <p>
- * <p>
- * <p>
  * ForkJoinTask是在ForkJoinPool内部执行的任务的基本类型。
  * 在实践中，它的两个子类之一应该扩展：在RecursiveAction为空隙任务和RecursiveTask <V>该返回值的任务。
  * 它们都有一个抽象方法compute（），其中定义了任务的逻辑
@@ -26,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * - fork（）生成新任务
  * - join（）收集所有结果
  */
-class _2ForkJoinTaskTest {
+class _5ForkJoinTaskTest {
     
     /**
      * 使用 RecursiveTask 来实现递归
@@ -69,5 +69,13 @@ class _2ForkJoinTaskTest {
         Integer result = customRecursiveTask.join();
         
         assertEquals(result, 50);
+    }
+    
+    /**
+     * 使用 Executors 调用 ForkJoinPool 池
+     */
+    @Test
+    void usingExecutorsInit(){
+        ExecutorService executorService = Executors.newWorkStealingPool();
     }
 }

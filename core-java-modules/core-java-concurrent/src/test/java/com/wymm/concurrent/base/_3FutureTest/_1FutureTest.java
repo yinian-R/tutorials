@@ -2,6 +2,8 @@ package com.wymm.concurrent.base._3FutureTest;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.concurrent.*;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
@@ -14,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class _1FutureTest {
     
     @Test
-    void usingFuture() throws ExecutionException, InterruptedException, TimeoutException {
+    void usingFuture() throws ExecutionException, InterruptedException {
         ExecutorService executorService = Executors.newFixedThreadPool(10);
         Future<String> future = executorService.submit(() -> {
             // ...
