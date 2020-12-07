@@ -9,10 +9,10 @@ import org.springframework.boot.autoconfigure.jdbc.JdbcTemplateAutoConfiguration
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class,
         DataSourceTransactionManagerAutoConfiguration.class,
         JdbcTemplateAutoConfiguration.class})
-public class SpringBootMultipleDbApplication {
+public class MultipleDbApplication {
     
     public static void main(String[] args) {
-        SpringApplication.run(SpringBootMultipleDbApplication.class, args);
+        SpringApplication.run(MultipleDbApplication.class, args);
     }
     
 }
