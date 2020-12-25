@@ -1,10 +1,7 @@
 package com.wymm.httpclient4.client;
 
 import lombok.extern.slf4j.Slf4j;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
-import org.apache.http.NameValuePair;
+import org.apache.http.*;
 import org.apache.http.auth.AuthenticationException;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -24,6 +21,8 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.net.Proxy;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,7 +56,8 @@ class _3HttpPostTest {
     @Test
     void whenSendPostRequestWithAuthorizationUsingHttpClient_thenCorrect()
             throws IOException, AuthenticationException {
-        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
+        HttpHost httpHost = new HttpHost("127.0.0.1", 8888);
+        CloseableHttpClient httpClient = HttpClientBuilder.create().setProxy(httpHost).build();
         HttpPost httpPost = new HttpPost("http://127.0.0.1:8080/auth");
         
         httpPost.setEntity(new StringEntity("test post"));

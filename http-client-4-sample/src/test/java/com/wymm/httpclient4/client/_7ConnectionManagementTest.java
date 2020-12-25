@@ -31,7 +31,7 @@ class _7ConnectionManagementTest {
      */
     @Test
     void whenUseHttpClientConnectionManagement() throws InterruptedException {
-        HttpGet get1 = new HttpGet("/");
+        HttpGet get1 = new HttpGet("http://segmentfault.com");
         HttpGet get2 = new HttpGet("http://baidu.com");
         // 使用连接池
         PoolingHttpClientConnectionManager connManager = new PoolingHttpClientConnectionManager();
@@ -118,6 +118,7 @@ class _7ConnectionManagementTest {
         
         // 3. HttpClientBuilder 会根据参数创建一个驱逐连接类（推荐）
         client = HttpClients.custom()
+                .setConnectionManager(connManager)
                 // 驱逐过期连接
                 .evictExpiredConnections()
                 .setKeepAliveStrategy(
