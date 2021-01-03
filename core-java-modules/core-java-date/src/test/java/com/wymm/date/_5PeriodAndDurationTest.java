@@ -77,7 +77,9 @@ class _5PeriodAndDurationTest {
         
         // 使用文本创建 Duration 对象，其格式是“PnDTnHnMn.nS”
         Duration fromChar1 = Duration.parse("P1DT1H10M10.5S");
+        // 十分钟
         Duration fromChar2 = Duration.parse("PT10M");
+        assertEquals(10 * 60, fromChar2.getSeconds());
     
         // 可以使用toDays()，toHours()，toMillis()，toMinutes()将持续时间转换为其他时间单位
         assertEquals(1, fromMinutes.toHours());

@@ -5,7 +5,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.ssl.SSLContextBuilder;
 import org.springframework.beans.factory.annotation.Value;
@@ -53,14 +53,14 @@ public class Http2Config {
             log.error("Exception occurred while creating SSLContext.", e);
         }
         
-        CloseableHttpClient httpClient = HttpClients.custom()
+        CloseableHttpClient httpClient = HttpClientBuilder.create()
                 .evictIdleConnections(30, TimeUnit.SECONDS)
                 .setMaxConnTotal(200)
                 .setMaxConnPerRoute(20)
                 .disableAutomaticRetries()
                 .setKeepAliveStrategy(
                         (response, content) -> Arrays.stream(response.getHeaders(HTTP.CONN_KEEP_ALIVE))
-                                .filter(h -> StringUtils.equalsIgnoreCase(h.getName(), "timeoout") && StringUtils.isNumeric(h.getValue()))
+                                .filter(h -> StringUtils.equalsIgnoreCase(h.getName(), "timeout") && StringUtils.isNumeric(h.getValue()))
                                 .findFirst()
                                 .map(h -> NumberUtils.toLong(h.getValue()))
                                 .orElse(30L) * 1000

@@ -12,7 +12,6 @@ import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.BasicHttpClientConnectionManager;
-import org.apache.http.ssl.SSLContextBuilder;
 import org.apache.http.ssl.SSLContexts;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpMethod;
@@ -49,13 +48,8 @@ class _4SSLTest {
     @Test
     public final void givenAcceptingAllCertificates_whenHttpsUrlIsConsumed_thenOk()
             throws GeneralSecurityException {
-        SSLContext sslContext = SSLContextBuilder.create()
-                // 会校验证书
-                // 证书请求
-                // Url url =
-                //.loadTrustMaterial(url, "storePassword".toCharArray())
-                // 放过所有证书检验
-                .loadTrustMaterial(null, ((cert, s) -> true))
+        SSLContext sslContext = SSLContexts.custom()
+                .loadTrustMaterial(null, (cert, authType) -> true)
                 .build();
         SSLConnectionSocketFactory sslsf = new SSLConnectionSocketFactory(sslContext,
                 NoopHostnameVerifier.INSTANCE);

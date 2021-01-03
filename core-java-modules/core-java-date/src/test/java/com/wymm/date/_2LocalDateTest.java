@@ -3,8 +3,10 @@ package com.wymm.date;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAdjusters;
+import java.time.temporal.WeekFields;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -100,6 +102,13 @@ class _2LocalDateTest {
         System.out.println("年初：" +
                 LocalDate.parse("2019-08-28").with(TemporalAdjusters.firstDayOfYear())
         );
+    
+        // 获取日期是本月的第几周
+        int weekNumber = LocalDate.now().get(WeekFields.ISO.weekOfMonth());
+        System.out.println(weekNumber);
+        
+        // LocalDate 转换 LocalDateTime
+        LocalDateTime localDateTime = LocalDate.now().atStartOfDay();
     }
     
     /**

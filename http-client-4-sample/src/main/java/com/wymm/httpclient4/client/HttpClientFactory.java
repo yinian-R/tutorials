@@ -7,6 +7,7 @@ import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.conn.ConnectionKeepAliveStrategy;
 import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.protocol.HTTP;
@@ -22,6 +23,7 @@ public class HttpClientFactory implements Closeable {
     @Setter
     private PoolingHttpClientConnectionManager connManager;
     
+    @Setter
     private ConnectionKeepAliveStrategy keepAliveStrategy;
     
     @Setter
@@ -56,7 +58,7 @@ public class HttpClientFactory implements Closeable {
                     .build();
         }
     
-        CloseableHttpClient client = HttpClients.custom()
+        CloseableHttpClient client = HttpClientBuilder.create()
                 .setDefaultRequestConfig(requestConfig)
                 .setConnectionManager(connManager)
                 .setKeepAliveStrategy(keepAliveStrategy)

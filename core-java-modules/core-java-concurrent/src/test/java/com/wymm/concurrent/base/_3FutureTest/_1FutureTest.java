@@ -1,5 +1,7 @@
 package com.wymm.concurrent.base._3FutureTest;
 
+import com.wymm.concurrent.base.future.FactorialCallableTask;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.*;
@@ -13,6 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * - isDone() 告诉我们执行者是否已经完成任务
  * - cancel(boolean) 控制执行任务的线程是否应该被中断
  */
+@Slf4j
 class _1FutureTest {
     
     @Test
@@ -34,4 +37,23 @@ class _1FutureTest {
         //String str = future.get(1L, TimeUnit.SECONDS);
         assertEquals(str, "hello world");
     }
+    
+    /**
+     * Callable 简单示例
+     */
+    @Test
+    public void whenException_ThenCallableThrowsIt() throws ExecutionException, InterruptedException {
+        ExecutorService executorService = Executors.newFixedThreadPool(5);
+    
+        FactorialCallableTask task = new FactorialCallableTask(5);
+        Future<Integer> future = executorService.submit(task);
+        Integer result = future.get();
+        log.debug(result.toString());
+        
+        task = new FactorialCallableTask(-5);
+        future = executorService.submit(task);
+        result = future.get();
+        // exception
+    }
+    
 }

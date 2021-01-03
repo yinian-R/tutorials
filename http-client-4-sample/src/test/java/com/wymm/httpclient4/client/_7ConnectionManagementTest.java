@@ -31,7 +31,7 @@ class _7ConnectionManagementTest {
      */
     @Test
     void whenUseHttpClientConnectionManagement() throws InterruptedException {
-        HttpGet get1 = new HttpGet("http://segmentfault.com");
+        HttpGet get1 = new HttpGet("/");
         HttpGet get2 = new HttpGet("http://baidu.com");
         // 使用连接池
         PoolingHttpClientConnectionManager connManager = new PoolingHttpClientConnectionManager();
@@ -118,12 +118,11 @@ class _7ConnectionManagementTest {
         
         // 3. HttpClientBuilder 会根据参数创建一个驱逐连接类（推荐）
         client = HttpClients.custom()
-                .setConnectionManager(connManager)
                 // 驱逐过期连接
                 .evictExpiredConnections()
                 .setKeepAliveStrategy(
                         (response, context) -> Arrays.stream(response.getHeaders(HTTP.CONN_KEEP_ALIVE))
-                                .filter(h -> StringUtils.equalsIgnoreCase(h.getName(), "timeoout") && StringUtils.isNumeric(h.getValue()))
+                                .filter(h -> StringUtils.equalsIgnoreCase(h.getName(), "timeout") && StringUtils.isNumeric(h.getValue()))
                                 .findFirst()
                                 .map(h -> NumberUtils.toLong(h.getValue()))
                                 .orElse(30L) * 1000

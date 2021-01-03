@@ -21,7 +21,7 @@ ScheduledExecutorService | 通过使用CountDownLatch，我们可以导致线程
 Future | 获取异步返回结果
 CountDownLatch | CountDownLatch是一个实用程序类，它将阻塞一组线程，直到完成某些操作为止。<br />CountDownLatch初始化为计数器（整数型）; 随着从属线程完成执行，此计数器递减。但是一旦计数器达到零，其他线程就会被释放
 CyclicBarrier | CyclicBarrier 和 CountDownLatch 几乎相同，只是我们可以重用 CyclicBarrier，与 CountDownLatch 不同，它允许多个线程再调用最终任务之前调用 await() 方法（也称为障碍条件）彼此等待。
-Semaphore | not finish
+Semaphore | 可以使用 Semaphore 来限制访问特定资源的并发线程数
 ThreadFactory | ThreadFactory 充当线程（不存在）的池，可按需创建线程。它消除了实现高效线程创建机制所需的大量样板代码
 BlockingQueue | BlockingQueue 队列，常用于解决并发的生产者-消费者的问题。
 DelayQueue | DelayQueue 是无限大小的阻塞队列，只有元素的到期时间（称为用户定义的延迟）完成时才能拉取元素。
