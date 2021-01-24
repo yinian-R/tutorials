@@ -96,3 +96,17 @@ public class TreeMap<K,V> extends AbstractMap<K,V>
 这会导致它在有大量迭代的情况下性能不佳，因为底层数组的整个容量影响遍历，而不仅仅是 entries 数量。
 - LinkedHashMap 具有哈希映射的良好属性，并且为 entries 添加了顺序。在大量迭代的情况下，它的性能更好，因为无论容量如何，都只考虑 entries 数量。
 - TreeMap 通过提供对键排序方式的完全控制，将排序提升到下一个级别。另一方面，它提供了比其它两种选择更差的总体性能
+
+- 如果要保持条目排序，则应使用 TreeMap
+- 如果我们将性能优先于内存消耗，则应使用 HashMap
+- 由于 TreeMap 具有更重要的局部性，如果我们要根据对象的自然顺序访问相对靠近的对象，则可以考虑使用它
+- 可以使用 initialCapacity 和 loadFactor 调整 HashMap，这对于 TreeMap 是不可能的
+- 如果我们想保留插入顺序，同时受益于恒定的访问时间，则可以使用 LinkedHashMap
+
+## ConcurrentMap
+ConcurrentMap 是 Map 的扩展。它旨在提供一种结构和指南，以解决吞吐量和线程安全的协调问题。
+
+Map 是 Java 中使用最广泛的样式之一。
+重要的是 HashMap 不是线程安全的，而 Hashtable 是通过同步操作来提供线程安全。
+即使 Hashtable 是线程安全的，它也不是效率高的。另一个同步的 Map Collections.synchronizedMap 也不具有很高的效率。如果我们想在高并发下实现高吞吐量的线程安全，那么实现这些可不行。
+为了解决该问题，Java 1.5 引入了 ConcurrentMap。

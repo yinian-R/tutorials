@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * 它不保持插入顺序
  * 它不是线程安全的
  */
-class _5HashMapTest {
+class _5HashSetTest {
     
     @Test
     void simple() {

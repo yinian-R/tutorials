@@ -99,6 +99,35 @@ CountDownLatch 和 CyclicBarrier 几乎相同，区别在于 CyclicBarrier 可�
 ### 扩展 ThreadPoolExecutor
 可以扩展 ThreadPoolExecutor 类，并为 beforeExecute() 和 afterExecute() 方法提供自定义钩子实现
 
+## 线程常用方法
+```
+shutdown()
+将线程池状态置为SHUTDOWN,并不会立即停止：
+- 停止接收外部submit的任务
+- 内部正在跑的任务和队列里等待的任务，会执行完
+- 等到第二步完成后，才真正停止
 
+shutdownNow()
+将线程池状态置为STOP。企图立即停止，事实上不一定：
+- 跟shutdown()一样，先停止接收外部提交的任务
+- 忽略队列里等待的任务
+- 尝试将正在跑的任务interrupt中断
+- 返回未执行的任务列表
+
+awaitTermination(long timeOut, TimeUnit unit)
+当前线程阻塞，直到
+- 等所有已提交的任务（包括正在跑的和队列中等待的）执行完
+- 或者等超时时间到
+- 或者线程被中断，抛出InterruptedException
+- 然后返回true（shutdown请求后所有任务执行完毕）或false（已超时）
+
+shutdown()和shutdownNow()的区别：
+- shutdownNow()能立即停止线程池，正在跑的和正在等待的任务都停下了。这样做立即生效，但是风险也比较大；
+- shutdown()只是关闭了提交通道，用submit()是无效的；而内部该怎么跑还是怎么跑，跑完再停。
+
+shutdown()和awaitTermination()的区别：
+- shutdown()后，不能再提交新的任务进去；但是awaitTermination()后，可以继续提交。
+- awaitTermination()是阻塞的，返回结果是线程池是否已停止（true/false）；shutdown()不阻塞。
+```
 ## 参考
 [java-volatile](https://www.baeldung.com/java-volatile)
