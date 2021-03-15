@@ -81,8 +81,8 @@ class _2ArrayListTest {
     void givenUsingTheJdk_whenUnmodifiableListIsCreated_thenNotModifiable() {
         List<String> list = new ArrayList<>(Arrays.asList("one", "two", "three"));
         List<String> unmodifiableList = Collections.unmodifiableList(list);
-        // exception
-        unmodifiableList.add("four");
+        
+        assertThrows(UnsupportedOperationException.class, () -> unmodifiableList.add("four"));
     }
     
     @Test
