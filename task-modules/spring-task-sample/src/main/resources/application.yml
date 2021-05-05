@@ -1,0 +1,11 @@
+spring:
+  task:
+    scheduling:
+      pool:
+        # Spring Task 最大线程数
+        size: 5
+      shutdown:
+        # 程序在关闭时是否等待定时任务完成，默认 false
+        await-termination: true
+        # 程序在关闭时是否等待定时任务完成的最大等待时间
+        await-termination-period: 10
