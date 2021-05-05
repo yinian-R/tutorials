@@ -14,7 +14,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.sql.DataSource;
 
-@Configuration
+//@Configuration
 @MapperScan(basePackages = "com.wymm.multipledb.web.repository.postgresql", sqlSessionTemplateRef = "postgresqlSqlSessionTemplate")
 public class PostgreSQLConfig {
     

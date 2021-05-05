@@ -13,3 +13,7 @@ spring:
     url: jdbc:postgresql://127.0.0.1:5432/postgres
     username: postgres
     password: postgres
+
+mybatis:
+  # 设置类别名的包。包中的类在 mapper.xml 中可以直接使用类名，比如：resultType="User"，并且不区分大小写
+  type-aliases-package: com.wymm.multipledb.web.model

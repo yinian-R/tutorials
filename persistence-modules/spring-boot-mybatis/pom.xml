@@ -5,14 +5,14 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.4.0</version>
+        <version>2.4.4</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.wymm</groupId>
-    <artifactId>spring-boot-multiple-db</artifactId>
+    <artifactId>spring-boot-mybatis</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>spring-boot-multiple-db</name>
-    <description>Spring Boot中使用多个数据源</description>
+    <name>spring-boot-mybatis</name>
+    <description>Spring Boot Mybatis 示例</description>
 
     <properties>
         <java.version>1.8</java.version>
@@ -71,6 +71,9 @@
                 <includes>
                     <include>**/*.xml</include>
                 </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
             </resource>
         </resources>
         <plugins>
