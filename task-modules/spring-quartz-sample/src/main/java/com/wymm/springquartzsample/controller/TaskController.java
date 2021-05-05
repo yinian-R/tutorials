@@ -16,28 +16,17 @@ public class TaskController {
     
     @PostMapping
     public void addTask(String name, Integer taskId) throws SchedulerException {
-        Scheduler scheduler = schedulerFactoryBean.getScheduler();
-        
-        scheduler.scheduleJob(
-                JobBuilder
-                        .newJob(TaskJob.class)
-                        .withIdentity(TaskUtils.TASK_NAME_PREFIX + taskId, TaskUtils.TASK_GROUP)
-                        .usingJobData(TaskUtils.PARAM_TASK_ID, taskId)
-                        .usingJobData(TaskUtils.PARAM_NAME, name)
-                        .build(),
-                Collections.singleton(TriggerBuilder.newTrigger()
-                        .withIdentity(TaskUtils.TASK_NAME_PREFIX + taskId, TaskUtils.TASK_GROUP)
-                        .withSchedule(CronScheduleBuilder.cronSchedule("0/5 * * * * ?"))
-                        .build()),
-                true
-        );
-        scheduler.start();
+        startTask(name, taskId);
     }
     
     @PutMapping
     public void editTask(String name, Integer taskId) throws SchedulerException {
-        Scheduler scheduler = schedulerFactoryBean.getScheduler();
+        startTask(name, taskId);
+    }
     
+    private void startTask(String name, Integer taskId) throws SchedulerException {
+        Scheduler scheduler = schedulerFactoryBean.getScheduler();
+        
         scheduler.scheduleJob(
                 JobBuilder
                         .newJob(TaskJob.class)
