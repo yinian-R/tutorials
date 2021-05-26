@@ -22,7 +22,7 @@ public class MyBatisGenerator {
         // 作者名称
         String author = "wymm";
         // 指定生成表，不写默认生成所有
-        String[] includeTables = new String[]{};
+        String[] includeTables = new String[]{"book","book_type"};
         
         // 代码生成器
         AutoGenerator generator = new AutoGenerator();

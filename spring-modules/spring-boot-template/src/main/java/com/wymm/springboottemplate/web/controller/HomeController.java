@@ -11,7 +11,7 @@ public class HomeController {
     
     @ApiOperation(value = "获取主页信息")
     @GetMapping
-    public void home(){
+    public void home() {
     
     }
     
