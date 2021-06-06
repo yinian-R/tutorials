@@ -22,7 +22,7 @@ public class MyBatisGenerator {
         // 作者名称
         String author = "wymm";
         // 指定生成表，不写默认生成所有
-        String[] includeTables = new String[]{"book","book_type"};
+        String[] includeTables = new String[]{"book", "book_type"};
         
         // 代码生成器
         AutoGenerator generator = new AutoGenerator();
@@ -51,12 +51,12 @@ public class MyBatisGenerator {
                                 .setBaseResultMap(true)// XML ResultMap
                                 .setBaseColumnList(false)// XML columList
                                 .setAuthor(author)
-                        // 自定义文件命名，注意 %s 会自动填充表实体属性！
-                        
-                        //.setMapperName("%sMapper")
-                        //.setXmlName("%sMapper")
-                        //.setServiceName("%sService")
-                        //.setServiceImplName("%sServiceImpl")
+                                // 自定义文件命名，注意 %s 会自动填充表实体属性！
+                                
+                                //.setMapperName("%sMapper")
+                                //.setXmlName("%sMapper")
+                                .setServiceName("%sService")
+                                .setServiceImplName("%sServiceImpl")
                         //.setControllerName("%sController")
                 )
                 .setPackageInfo(
@@ -64,9 +64,9 @@ public class MyBatisGenerator {
                         new PackageConfig()
                                 .setParent(packagePath)// 自定义包路径
                                 .setEntity("model.entity")
-                                //.setController("controller")// 这里是控制器包名
-                                //.setService("service")
-                                //.setServiceImpl("service.impl")
+                                .setController("controller")// 这里是控制器包名
+                                .setService("service")
+                                .setServiceImpl("service.impl")
                                 .setMapper("mapper")
                                 .setXml("mapper")
                 )

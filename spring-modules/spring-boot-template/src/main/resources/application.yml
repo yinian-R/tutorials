@@ -1,3 +1,7 @@
+server:
+  servlet:
+    context-path: /template
+
 spring:
   profiles:
     active: dev

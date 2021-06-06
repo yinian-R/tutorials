@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.4.5</version>
+        <version>2.5.0</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.wymm</groupId>
@@ -26,6 +26,16 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
+            <optional>true</optional>
         </dependency>
 
         <!-- swagger 增强解决方案 -->
@@ -72,12 +82,12 @@
         <dependency>
             <groupId>org.webjars.npm</groupId>
             <artifactId>vue</artifactId>
-            <version>3.0.11</version>
+            <version>2.6.12</version>
         </dependency>
         <dependency>
             <groupId>org.webjars.npm</groupId>
-            <artifactId>vuetify</artifactId>
-            <version>2.5.0</version>
+            <artifactId>element-ui</artifactId>
+            <version>2.15.1</version>
         </dependency>
         <dependency>
             <groupId>org.webjars.npm</groupId>
@@ -92,11 +102,95 @@
     </dependencies>
 
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <!--包含 mybatis mapper xml-->
+                    <include>**/*.xml</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
+
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <fork>true</fork>
+                    <layout>ZIP</layout>
+                    <includeSystemScope>true</includeSystemScope>
+                </configuration>
             </plugin>
+
+            <!--打包jar文件时，项目启动依赖-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <!--添加classpath路径,让程序能到lib包读取依赖-->
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>lib/</classpathPrefix>
+                        </manifest>
+                    </archive>
+                    <!-- 排除 jar 中的 yml，打包后使用 config 中的 yml -->
+                    <excludes>
+                        <exclude>/**.yml</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <!--依赖jar包的输出目录，根据自己喜好配置-->
+                            <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                            <excludeTransitive>false</excludeTransitive>
+                            <stripVersion>false</stripVersion>
+                            <includeScope>runtime</includeScope>
+                            <!--如果是更新的依赖，覆盖-->
+                            <overWriteIfNewer>true</overWriteIfNewer>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- 打包插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <!--指定压缩包名称-->
+                    <finalName>${project.artifactId}</finalName>
+                    <descriptors>
+                        <!--指定assembly配置文件路径-->
+                        <descriptor>src/main/assembly/assembly.xml</descriptor>
+                    </descriptors>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
         </plugins>
     </build>
 

@@ -1,7 +1,8 @@
-package com.wymm.springboottemplate.web.mapper;
+package com.wymm.springboottemplate.module.manage.mapper;
 
-import com.wymm.springboottemplate.web.model.entity.BookType;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.wymm.springboottemplate.module.manage.model.entity.BookType;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * <p>
@@ -11,6 +12,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author wymm
  * @since 2021-05-27
  */
+@Mapper
 public interface BookTypeMapper extends BaseMapper<BookType> {
 
 }
