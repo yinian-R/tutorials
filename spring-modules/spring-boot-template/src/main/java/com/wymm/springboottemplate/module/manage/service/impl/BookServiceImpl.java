@@ -22,6 +22,7 @@ public class BookServiceImpl extends ServiceImpl<BookMapper, Book> implements Bo
     
     @Autowired
     private BookMapper bookMapper;
+    
     public boolean save(Book entity) {
         entity.setCreateTime(LocalDateTime.now());
         return super.save(entity);

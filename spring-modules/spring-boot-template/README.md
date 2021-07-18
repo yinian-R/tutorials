@@ -29,6 +29,7 @@ springboottemplate
 - Spring Boot - Spring Boot 使得创建独立的、生产级的、基于 Spring 的应用程序变得很容易
 - Knife4j - knife4j是为Java MVC框架集成Swagger生成Api文档的增强解决方案
 - MyBatis-Plus - MyBatis-Plus 只对 MyBatis 增强，不做改变
+- Flyway - 数据库的版本控制
 
 ## 功能
 - [x] Spring Boot 单体应用
@@ -37,3 +38,5 @@ springboottemplate
 - [ ] 基于 Knife4j 操作日志落地数据库
 - [ ] EasyExcel 导入导出 excel
 - [ ] 内存缓存
+- [ ] Flyway 初始化数据库脚本
+- [ ] p6spy 控制数据库日志打印
