@@ -1,0 +1,8 @@
+${AnsiColor.BRIGHT_CYAN} _____   _____   _____    _   __   _   _____       ${AnsiColor.MAGENTA} _          __ __    __      ___  ___       ___  ___
+${AnsiColor.BRIGHT_CYAN}/  ___/ |  _  \ |  _  \  | | |  \ | | /  ___|      ${AnsiColor.MAGENTA}| |        / / \ \  / /     /   |/   |     /   |/   |
+${AnsiColor.BRIGHT_CYAN}| |___  | |_| | | |_| |  | | |   \| | | |          ${AnsiColor.MAGENTA}| |  __   / /   \ \/ /     / /|   /| |    / /|   /| |
+${AnsiColor.BRIGHT_CYAN}\___  \ |  ___/ |  _  /  | | | |\   | | |  _       ${AnsiColor.MAGENTA}| | /  | / /     \  /     / / |__/ | |   / / |__/ | |
+${AnsiColor.BRIGHT_CYAN} ___| | | |     | | \ \  | | | | \  | | |_| |      ${AnsiColor.MAGENTA}| |/   |/ /      / /     / /       | |  / /       | |
+${AnsiColor.BRIGHT_CYAN}/_____/ |_|     |_|  \_\ |_| |_|  \_| \_____/      ${AnsiColor.MAGENTA}|___/|___/      /_/     /_/        |_| /_/        |_|
+
+${AnsiColor.BLUE}:: SpringBlade :: ${spring.application.name}:${AnsiColor.RED}${spring.profiles.active}${AnsiColor.BLUE} :: Running SpringBoot ${spring-boot.version} :: ${AnsiColor.BRIGHT_BLACK}

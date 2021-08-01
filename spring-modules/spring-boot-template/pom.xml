@@ -42,7 +42,7 @@
         <dependency>
             <groupId>com.github.xiaoymin</groupId>
             <artifactId>knife4j-spring-boot-starter</artifactId>
-            <version>3.0.2</version>
+            <version>3.0.3</version>
         </dependency>
 
         <!-- MyBatis 增强解决方案 -->
@@ -79,26 +79,26 @@
         </dependency>
 
 
-        <dependency>
-            <groupId>org.webjars.npm</groupId>
-            <artifactId>vue</artifactId>
-            <version>2.6.12</version>
-        </dependency>
-        <dependency>
-            <groupId>org.webjars.npm</groupId>
-            <artifactId>element-ui</artifactId>
-            <version>2.15.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.webjars.npm</groupId>
-            <artifactId>axios</artifactId>
-            <version>0.21.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.webjars.npm</groupId>
-            <artifactId>qs</artifactId>
-            <version>6.10.1</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.webjars.npm</groupId>-->
+<!--            <artifactId>vue</artifactId>-->
+<!--            <version>2.6.12</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.webjars.npm</groupId>-->
+<!--            <artifactId>element-ui</artifactId>-->
+<!--            <version>2.15.1</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.webjars.npm</groupId>-->
+<!--            <artifactId>axios</artifactId>-->
+<!--            <version>0.21.1</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.webjars.npm</groupId>-->
+<!--            <artifactId>qs</artifactId>-->
+<!--            <version>6.10.1</version>-->
+<!--        </dependency>-->
     </dependencies>
 
     <build>
@@ -123,6 +123,13 @@
                     <fork>true</fork>
                     <layout>ZIP</layout>
                     <includeSystemScope>true</includeSystemScope>
+                    <includes>
+                        <!-- 项目启动jar包中排除依赖包 -->
+                        <include>
+                            <groupId>non-exists</groupId>
+                            <artifactId>non-exists</artifactId>
+                        </include>
+                    </includes>
                 </configuration>
             </plugin>
 
