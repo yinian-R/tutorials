@@ -38,5 +38,7 @@ springboottemplate
 - [ ] 基于 Knife4j 操作日志落地数据库
 - [ ] EasyExcel 导入导出 excel
 - [ ] 内存缓存
-- [ ] Flyway 初始化数据库脚本
+- [x] Flyway 初始化数据库脚本
 - [ ] p6spy 控制数据库日志打印
+- [ ] MapStruct 作为实体映射工具
+- [ ] spring websocket 模板代码
