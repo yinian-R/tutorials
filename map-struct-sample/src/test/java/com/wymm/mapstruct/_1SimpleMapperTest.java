@@ -1,14 +1,18 @@
 package com.wymm.mapstruct;
 
+import com.wymm.mapstruct.simple.*;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * 最简单的示例，属性相同的两个 java bean 之间转换
@@ -106,15 +110,29 @@ class _1SimpleMapperTest {
         transaction.setId(1L);
         transaction.setUuid(UUID.randomUUID().toString());
         transaction.setTotal(new BigDecimal(5));
-    
+        
         TransactionDTO dto = transactionMapper.toTransactionDTO(transaction);
-    
+        
         assertEquals(transaction.getUuid(), dto.getUuid());
         assertEquals(transaction.getTotal().multiply(new BigDecimal("100")).longValue(), dto.getTotalInCents());
-    
+        
         
         List<TransactionDTO> dtoList = transactionMapper.toTransactionDTO(Collections.singleton(transaction));
-    
+        
         assertEquals(dtoList.size(), 1);
+    }
+    
+    /**
+     * 支持defaultExpression
+     * 我们可以使用@Mapping注释的defaultExpression属性来指定一个表达式，如果源字段为null，则该表达式确定目标字段的值。这是对现有defaultValue属性功能的补充
+     */
+    @Test
+    public void givenPersonEntitytoPersonWithExpression_whenMaps_thenCorrect() {
+        Person entity = new Person();
+        entity.setName("Micheal");
+        PersonDTO personDto = PersonMapper.INSTANCE.personToPersonDTO(entity);
+        assertNull(entity.getId());
+        assertNotNull(personDto.getId());
+        assertEquals(personDto.getName(), entity.getName());
     }
 }

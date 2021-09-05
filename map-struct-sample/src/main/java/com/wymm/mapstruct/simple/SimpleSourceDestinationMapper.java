@@ -1,8 +1,6 @@
-package com.wymm.mapstruct;
+package com.wymm.mapstruct.simple;
 
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Mappings;
 
 @Mapper
 public interface SimpleSourceDestinationMapper {

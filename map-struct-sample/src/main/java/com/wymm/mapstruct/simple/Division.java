@@ -1,4 +1,4 @@
-package com.wymm.mapstruct;
+package com.wymm.mapstruct.simple;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
