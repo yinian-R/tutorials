@@ -30,15 +30,17 @@ springboottemplate
 - Knife4j - knife4j是为Java MVC框架集成Swagger生成Api文档的增强解决方案
 - MyBatis-Plus - MyBatis-Plus 只对 MyBatis 增强，不做改变
 - Flyway - 数据库的版本控制
+- MapStruct - Java Bean 之间转换
 
 ## 功能
 - [x] Spring Boot 单体应用
 - [x] MyBatis Plus 操作数据库
 - [x] Knife4j 日志在线文档
-- [ ] 基于 Knife4j 操作日志落地数据库
 - [ ] EasyExcel 导入导出 excel
 - [ ] 内存缓存
 - [x] Flyway 初始化数据库脚本
 - [ ] p6spy 控制数据库日志打印
-- [ ] MapStruct 作为实体映射工具
+- [x] MapStruct 作为实体映射工具
 - [ ] spring websocket 模板代码
+- [ ] 使用 spring flux
+- [ ] 使用 spring 一个安全框架

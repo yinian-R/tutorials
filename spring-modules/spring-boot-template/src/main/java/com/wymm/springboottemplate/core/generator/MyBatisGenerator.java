@@ -2,13 +2,16 @@ package com.wymm.springboottemplate.core.generator;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
-import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
-import com.baomidou.mybatisplus.generator.config.GlobalConfig;
-import com.baomidou.mybatisplus.generator.config.PackageConfig;
-import com.baomidou.mybatisplus.generator.config.StrategyConfig;
+import com.baomidou.mybatisplus.generator.InjectionConfig;
+import com.baomidou.mybatisplus.generator.config.*;
 import com.baomidou.mybatisplus.generator.config.converts.MySqlTypeConvert;
+import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
+
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * MyBatis 代码生成器
@@ -18,7 +21,7 @@ public class MyBatisGenerator {
     public static void main(String[] args) {
         String projectPath = System.getProperty("user.dir");
         // 生成文件所在包名
-        String packagePath = "com.wymm.springboottemplate.web";
+        String packagePath = "com.wymm.springboottemplate.module.web";
         // 作者名称
         String author = "wymm";
         // 指定生成表，不写默认生成所有
@@ -95,28 +98,28 @@ public class MyBatisGenerator {
                                 
                                 .setRestControllerStyle(true)
                 )
-        //.setCfg(
-        //        //注入自定义配置，可以在 VM 中使用 cfg.abc 设置的值
-        //        new InjectionConfig() {
-        //            @Override
-        //            public void initMap() {
-        //                Map<String, Object> map = new HashMap<>();
-        //                map.put("abc", this.getConfig().getGlobalConfig().getAuthor() + "");
-        //                this.setMap(map);
-        //            }
-        //        }
-        //                .setFileOutConfigList(Collections.singletonList(new FileOutConfig("/templates/mapper.xml.ftl") {
-        //                    // 自定义输出文件目录
-        //                    @Override
-        //                    public String outputFile(TableInfo tableInfo) {
-        //                        return projectPath + "/src/main/java" + "/" + packagePath + "/" + tableInfo.getEntityName() + "Dao.xml";
-        //                    }
-        //                }))
-        //)
-        //.setTemplate(
-        //        // 关闭默认 xml 生成，调整生成 至 根目录
-        //        new TemplateConfig().setXml(null)
-        //)
+        .setCfg(
+                //注入自定义配置，可以在 VM 中使用 cfg.abc 设置的值
+                new InjectionConfig() {
+                    @Override
+                    public void initMap() {
+                        Map<String, Object> map = new HashMap<>();
+                        map.put("abc", this.getConfig().getGlobalConfig().getAuthor() + "");
+                        this.setMap(map);
+                    }
+                }
+                        .setFileOutConfigList(Collections.singletonList(new FileOutConfig("/templates/mapper.xml.ftl") {
+                            // 自定义输出文件目录
+                            @Override
+                            public String outputFile(TableInfo tableInfo) {
+                                return projectPath + "/src/main/java" + "/" + packagePath + "/" + tableInfo.getEntityName() + "Dao.xml";
+                            }
+                        }))
+        )
+        .setTemplate(
+                // 关闭默认 xml 生成，调整生成 至 根目录
+                new TemplateConfig().setXml(null)
+        )
         ;
         
         // 执行生成
