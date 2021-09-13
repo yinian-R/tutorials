@@ -2,7 +2,7 @@ package com.wymm.springboottemplate.module.manage.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.wymm.springboottemplate.module.manage.mapper.BookTypeMapper;
-import com.wymm.springboottemplate.module.manage.model.entity.BookType;
+import com.wymm.springboottemplate.module.manage.entity.BookType;
 import com.wymm.springboottemplate.module.manage.service.BookTypeService;
 import org.springframework.stereotype.Service;
 

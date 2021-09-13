@@ -1,7 +1,7 @@
 package com.wymm.springboottemplate.module.manage.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.wymm.springboottemplate.module.manage.model.entity.BookType;
+import com.wymm.springboottemplate.module.manage.entity.BookType;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

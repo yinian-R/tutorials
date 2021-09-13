@@ -1,4 +1,4 @@
-package com.wymm.springboottemplate.module.manage.model.entity;
+package com.wymm.springboottemplate.module.manage.entity;
 
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;

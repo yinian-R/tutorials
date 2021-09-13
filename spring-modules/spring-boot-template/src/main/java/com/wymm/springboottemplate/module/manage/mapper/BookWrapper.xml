@@ -3,7 +3,7 @@
 <mapper namespace="com.wymm.springboottemplate.module.manage.mapper.BookMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.wymm.springboottemplate.module.manage.model.entity.Book">
+    <resultMap id="BaseResultMap" type="com.wymm.springboottemplate.module.manage.entity.Book">
         <id column="id" property="id"/>
         <result column="book_name" property="bookName"/>
         <result column="author" property="author"/>

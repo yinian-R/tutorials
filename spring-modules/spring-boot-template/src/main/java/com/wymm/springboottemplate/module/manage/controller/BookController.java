@@ -3,11 +3,10 @@ package com.wymm.springboottemplate.module.manage.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
-import com.wymm.springboottemplate.module.manage.model.entity.Book;
+import com.wymm.springboottemplate.module.manage.entity.Book;
 import com.wymm.springboottemplate.module.manage.service.BookService;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 

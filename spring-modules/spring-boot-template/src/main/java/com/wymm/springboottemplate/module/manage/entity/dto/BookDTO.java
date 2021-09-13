@@ -1,6 +1,5 @@
-package com.wymm.springboottemplate.module.manage.model.dto;
+package com.wymm.springboottemplate.module.manage.entity.dto;
 
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data

@@ -1,7 +1,7 @@
 package com.wymm.springboottemplate.module.manage.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.wymm.springboottemplate.module.manage.model.entity.BookType;
+import com.wymm.springboottemplate.module.manage.entity.BookType;
 
 /**
  * <p>

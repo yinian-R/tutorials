@@ -15,12 +15,11 @@ springboottemplate
 │   ├── resource            文件模块
 │   └── manage              后端管理模块
 │       ├── controller      控制层
+│       │   └── qo          查询对象
 │       ├── excel           easyexcel 导入导出相关类 ***Excel、***ImportListener
 │       ├── mapper          持久层 - interface、xml
-│       ├── model           数据模型
-│       │   ├── dto         数据传输
-│       │   ├── entity      实体对象 - 与数据库表结构一一对应
-│       │   └── qo          查询对象
+│       ├── entity          实体对象 - 与数据库表结构一一对应
+│       │   └── dto         数据传输
 │       └── service         逻辑层
 │           └── impl        逻辑实现类
 └── Application.java        项目启动类
@@ -44,3 +43,6 @@ springboottemplate
 - [ ] spring websocket 模板代码
 - [ ] 使用 spring flux
 - [ ] 使用 spring 一个安全框架
+
+## 代码生成
+关于代码生成，使用的是 IDEA 的插件 EasyCode 对代码进行生成

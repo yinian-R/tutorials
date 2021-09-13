@@ -1,7 +1,7 @@
 package com.wymm.springboottemplate.module.manage.wrapper;
 
-import com.wymm.springboottemplate.module.manage.model.dto.BookDTO;
-import com.wymm.springboottemplate.module.manage.model.entity.Book;
+import com.wymm.springboottemplate.module.manage.entity.dto.BookDTO;
+import com.wymm.springboottemplate.module.manage.entity.Book;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

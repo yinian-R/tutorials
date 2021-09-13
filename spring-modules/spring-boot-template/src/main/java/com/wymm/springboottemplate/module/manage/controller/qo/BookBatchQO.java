@@ -1,4 +1,4 @@
-package com.wymm.springboottemplate.module.manage.model.qo;
+package com.wymm.springboottemplate.module.manage.controller.qo;
 
 /**
  * 图书批量对象
