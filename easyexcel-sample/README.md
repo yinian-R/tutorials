@@ -1,0 +1,16 @@
+
+- write() 写文件
+- excludeColumnFiledNames() 传入忽略字段
+- includeColumnFiledNames() 传入仅要导出字段
+- @ExcelProperty 不连续的index会有空列 和 不连续的order不会有空列
+- HyperlinkData - 超链接
+- CommentData - 备注
+- FormulaData - 公式
+- WriteCellStyle - 指定单个单元格的样式
+- RichTextStringData - 单个单元格多种样式
+- @HeadRowHeight - 自定义标题行高
+- @ContentRowHeight - 自定义内容行高
+- @ColumnWidth - 自定义列宽
+- @HeadStyle - 自定义标题头样式
+- @HeadFontStyle - 自定义标题头字体样式
+- @ContentFontStyle - 自定义内容样式
