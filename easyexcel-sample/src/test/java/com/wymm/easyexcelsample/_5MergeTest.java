@@ -1,23 +1,30 @@
 package com.wymm.easyexcelsample;
 
 import com.alibaba.excel.EasyExcel;
-import com.alibaba.excel.write.merge.LoopMergeStrategy;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wymm.easyexcelsample.excel.merger.BackRouteDTO;
+import com.wymm.easyexcelsample.excel.merger.strategy.MergeStrategy;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MergerTest {
+public class _5MergeTest {
     ObjectMapper objectMapper = new ObjectMapper();
     
     
+    /**
+     * 自定义合并策略
+     */
     @Test
-    void merger() throws JsonProcessingException {
+    void merge() {
+        MergeStrategy mergeStrategy = new MergeStrategy();
+        mergeStrategy.addIgnoreMergeRow("identityTypeCollect", "identityNumberCollect");
+        
         List<BackRouteDTO> list = new ArrayList<>();
+        Integer headerRow = 1;
+        Integer excelRowIndex = headerRow;
         for (int i = 1; i < 5; i++) {
             for (int j = 0; j < i; j++) {
                 BackRouteDTO dto = new BackRouteDTO();
@@ -28,20 +35,18 @@ public class MergerTest {
                 dto.setIdentityTypeCollectView("4");
                 dto.setIdentityNumberCollect("5");
                 list.add(dto);
+                
+                mergeStrategy.addMergeRow(new MergeStrategy.MergeRow(i, excelRowIndex, i));
+                excelRowIndex++;
             }
         }
         String path = System.getProperty("user.dir") + File.separator + "target" + File.separator;
-        String fileName = path + "write" + System.currentTimeMillis() + ".xlsx";
-    
-    
-        LoopMergeStrategy loopMergeStrategy = new LoopMergeStrategy(2, 0);
+        String fileName = path + "merge" + System.currentTimeMillis() + ".xlsx";
         
         EasyExcel.write(fileName, BackRouteDTO.class)
-                .registerWriteHandler(loopMergeStrategy)
+                .registerWriteHandler(mergeStrategy)
                 .sheet("模板").doWrite(list);
     }
-    
-    
     
     
 }
