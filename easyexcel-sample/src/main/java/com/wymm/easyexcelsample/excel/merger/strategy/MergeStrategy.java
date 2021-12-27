@@ -3,6 +3,7 @@ package com.wymm.easyexcelsample.excel.merger.strategy;
 import com.alibaba.excel.metadata.Head;
 import com.alibaba.excel.write.merge.AbstractMergeStrategy;
 import lombok.Getter;
+import lombok.Setter;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.util.CellRangeAddress;
@@ -14,27 +15,46 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class MergeStrategy extends AbstractMergeStrategy {
+    /**
+     * 默认标题总行数 1
+     */
+    public static final Integer DEFAULT_HEADER_ROW_TOTAL = 1;
+    
+    /**
+     * 标题总行数
+     */
+    @Setter
+    private Integer headerRowTotal = DEFAULT_HEADER_ROW_TOTAL;
     
     /**
      * 合并列表
      */
     private final List<MergeRow> mergeRows = new ArrayList<>();
     
+    /**
+     * 忽略合并行
+     */
     private final List<String> ignoreMergeRows = new ArrayList<>();
     
-    public boolean addMergeRow(MergeRow mergeRow) {
+    /**
+     * @param unique      唯一标识
+     * @param dataIndex   数据行标，从 0 开始递增
+     * @param mergeRowNum 合并行数
+     */
+    public void addMergeRow(Object unique, Integer dataIndex, Integer mergeRowNum) {
+        this.addMergeRow(new MergeRow(unique, dataIndex, mergeRowNum));
+    }
+    
+    public void addMergeRow(MergeRow mergeRow) {
         boolean exists = mergeRows.stream().anyMatch(item -> item.getUnique().equals(mergeRow.getUnique()));
-        if (exists) {
-            return false;
-        } else {
+        if (!exists) {
             mergeRows.add(mergeRow);
-            return true;
         }
     }
     
     public Map<Integer, Integer> toMergeRowMap() {
         return mergeRows.stream()
-                .collect(Collectors.toMap(MergeRow::getRowIndex, MergeRow::getMergeRowNum));
+                .collect(Collectors.toMap(item -> item.getDataIndex() + headerRowTotal, MergeRow::getMergeRowNum));
     }
     
     public void addIgnoreMergeRow(String... ignoreMergeRow) {
@@ -82,25 +102,25 @@ public class MergeStrategy extends AbstractMergeStrategy {
         /**
          * 行标
          */
-        private final Integer rowIndex;
+        private final Integer dataIndex;
         
         /**
          * 合并行数
          */
         private final Integer mergeRowNum;
         
-        public MergeRow(Object unique, Integer rowIndex, Integer mergeRowNum) {
+        public MergeRow(Object unique, Integer dataIndex, Integer mergeRowNum) {
             if (unique == null) {
                 throw new IllegalArgumentException("unique is not can null");
             }
-            if (rowIndex < 0) {
-                throw new IllegalArgumentException("rowIndex must be greater than or equal 0");
+            if (dataIndex < 0) {
+                throw new IllegalArgumentException("dataIndex must be greater than or equal 0");
             }
             if (mergeRowNum < 1) {
                 throw new IllegalArgumentException("mergeRowNum must be greater than or equal 1");
             }
             this.unique = unique;
-            this.rowIndex = rowIndex;
+            this.dataIndex = dataIndex;
             this.mergeRowNum = mergeRowNum;
         }
     }

@@ -11,6 +11,7 @@ import com.alibaba.excel.util.FileUtils;
 import com.alibaba.excel.util.ListUtils;
 import com.alibaba.excel.write.merge.LoopMergeStrategy;
 import com.alibaba.excel.write.metadata.WriteSheet;
+import com.alibaba.excel.write.metadata.WriteTable;
 import com.alibaba.excel.write.metadata.style.WriteCellStyle;
 import com.alibaba.excel.write.metadata.style.WriteFont;
 import com.wymm.easyexcelsample.excel.DemoData;
@@ -353,28 +354,31 @@ public class _3WriteTest {
     }
     
     /**
-     * 合并单元格
-     * 方法1 使用{@link DemoMergeData}
-     * 方法2 创建一个merge策略并注册
+     * 使用table去写入
+     * <p>1. 创建excel对应的实体对象 参照{@link DemoData}
+     * <p>2. 然后写入table即可
      */
     @Test
-    public void mergeWrite() {
-        // 方法1 注解
-        String fileName = TestFileUtil.getPath() + "mergeWrite" + System.currentTimeMillis() + ".xlsx";
-        // 在DemoStyleData里面加上ContentLoopMerge注解
-        // 这里 需要指定写用哪个class去写，然后写到第一个sheet，名字为模板 然后文件流会自动关闭
-        EasyExcel.write(fileName, DemoMergeData.class)
-                .sheet("模板")
-                .doWrite(data());
-        
-        // 方法2 自定义合并单元格策略
-        fileName = TestFileUtil.getPath() + "mergeWrite" + System.currentTimeMillis() + ".xlsx";
-        // 每隔2行会合并 把eachColumn 设置成 3 也就是我们数据的长度，所以就第一列会合并。当然其他合并策略也可以自己写
-        LoopMergeStrategy loopMergeStrategy = new LoopMergeStrategy(2, 0);
-        // 这里 需要指定写用哪个class去写，然后写到第一个sheet，名字为模板 然后文件流会自动关闭
-        EasyExcel.write(fileName, DemoData.class)
-                .registerWriteHandler(loopMergeStrategy)
-                .sheet("模板")
-                .doWrite(data());
+    public void tableWrite() {
+        String fileName = TestFileUtil.getPath() + "tableWrite" + System.currentTimeMillis() + ".xlsx";
+        ExcelWriter excelWriter = null;
+        try {
+            excelWriter = EasyExcel.write(fileName, DemoData.class).build();
+            // 把sheet设置为不需要头 不然会输出sheet的头 这样看起来第一个table 就有2个头了
+            WriteSheet writeSheet = EasyExcel.writerSheet("模板").needHead(Boolean.FALSE).build();
+            // 这里必须指定需要头，table 会继承sheet的配置，sheet配置了不需要，table 默认也是不需要
+            WriteTable writeTable0 = EasyExcel.writerTable(0).needHead(Boolean.TRUE).build();
+            WriteTable writeTable1 = EasyExcel.writerTable(1).needHead(Boolean.TRUE).build();
+            // 第一次写入会创建头
+            excelWriter.write(data(), writeSheet, writeTable0);
+            // 第二次写如也会创建头，然后在第一次的后面写入数据
+            excelWriter.write(data(), writeSheet, writeTable1);
+        } finally {
+            // 千万别忘记finish 会帮忙关闭流
+            if (excelWriter != null) {
+                excelWriter.finish();
+            }
+        }
     }
+    
 }
