@@ -14,3 +14,6 @@
 - @HeadStyle - 自定义标题头样式
 - @HeadFontStyle - 自定义标题头字体样式
 - @ContentFontStyle - 自定义内容样式
+- head() - 设置动态表头
+- registerWriteHandler() - 注册拦截器
+- LongestMatchColumnWidthStyleStrategy - 自动列宽，不是很准确，但是可以作为默认使用

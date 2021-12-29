@@ -9,11 +9,11 @@ import com.alibaba.excel.enums.CellDataTypeEnum;
 import com.alibaba.excel.metadata.data.*;
 import com.alibaba.excel.util.FileUtils;
 import com.alibaba.excel.util.ListUtils;
-import com.alibaba.excel.write.merge.LoopMergeStrategy;
 import com.alibaba.excel.write.metadata.WriteSheet;
 import com.alibaba.excel.write.metadata.WriteTable;
 import com.alibaba.excel.write.metadata.style.WriteCellStyle;
 import com.alibaba.excel.write.metadata.style.WriteFont;
+import com.alibaba.excel.write.style.column.LongestMatchColumnWidthStyleStrategy;
 import com.wymm.easyexcelsample.excel.DemoData;
 import com.wymm.easyexcelsample.excel.TestFileUtil;
 import com.wymm.easyexcelsample.excel.write.*;
@@ -24,10 +24,7 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static com.wymm.easyexcelsample.excel.TestFileUtil.data;
 
@@ -355,8 +352,7 @@ public class _3WriteTest {
     
     /**
      * 使用table去写入
-     * <p>1. 创建excel对应的实体对象 参照{@link DemoData}
-     * <p>2. 然后写入table即可
+     * 一个 sheet 中可同时写入多个表格（包含表头）
      */
     @Test
     public void tableWrite() {
@@ -374,11 +370,120 @@ public class _3WriteTest {
             // 第二次写如也会创建头，然后在第一次的后面写入数据
             excelWriter.write(data(), writeSheet, writeTable1);
         } finally {
-            // 千万别忘记finish 会帮忙关闭流
             if (excelWriter != null) {
                 excelWriter.finish();
             }
         }
     }
     
+    /**
+     * 自动列宽(不太精确)
+     * 这个目前不是很好用，比如有数字就会导致换行。而且长度也不是刚好和实际长度一致。 所以需要精确到刚好列宽的慎用。 当然也可以自己参照
+     * {@link LongestMatchColumnWidthStyleStrategy}重新实现.
+     */
+    @Test
+    public void longestMatchColumnWidthWrite() {
+        String fileName = TestFileUtil.getPath() + "longestMatchColumnWidthWrite" + System.currentTimeMillis() + ".xlsx";
+        EasyExcel.write(fileName, LongestMatchColumnWidthData.class)
+                .registerWriteHandler(new LongestMatchColumnWidthStyleStrategy())
+                .sheet("模板")
+                .doWrite(dataLong());
+    }
+    
+    private List<LongestMatchColumnWidthData> dataLong() {
+        List<LongestMatchColumnWidthData> list = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            LongestMatchColumnWidthData data = new LongestMatchColumnWidthData();
+            data.setString("测试很长的字符串测试很长的字符串测试很长的字符串" + i);
+            data.setDate(new Date());
+            data.setDoubleData(1000000000000.0);
+            list.add(data);
+        }
+        return list;
+    }
+    
+    /**
+     * 下拉，超链接等自定义拦截器（上面几点都不符合但是要对单元格进行操作的参照这个）
+     * demo这里实现2点。
+     * 1. 对第一行第一列的头超链接到:https://github.com/alibaba/easyexcel
+     * 2. 对第一列第一行和第二行的数据新增下拉框，显示 测试1 测试2
+     */
+    @Test
+    public void customHandlerWrite() {
+        String fileName = TestFileUtil.getPath() + "customHandlerWrite" + System.currentTimeMillis() + ".xlsx";
+        // 这里 需要指定写用哪个class去写，然后写到第一个sheet，名字为模板 然后文件流会自动关闭
+        EasyExcel.write(fileName, DemoData.class)
+                .registerWriteHandler(new CustomSheetWriteHandler())
+                .registerWriteHandler(new CustomCellWriteHandler())
+                .sheet("模板")
+                .doWrite(data());
+    }
+    
+    /**
+     * 使用拦截器插入批注
+     */
+    @Test
+    public void commentWrite() {
+        String fileName = TestFileUtil.getPath() + "commentWrite" + System.currentTimeMillis() + ".xlsx";
+        // 这里要注意inMemory 要设置为true，才能支持批注。目前没有好的办法解决 不在内存处理批注。这个需要自己选择。
+        EasyExcel.write(fileName, DemoData.class)
+                .inMemory(Boolean.TRUE)
+                .registerWriteHandler(new CommentWriteHandler())
+                .sheet("模板")
+                .doWrite(data());
+    }
+    
+    /**
+     * 可变标题处理（方法1）
+     */
+    @Test
+    public void dynamicHeadWrite() {
+        String fileName = TestFileUtil.getPath() + "dynamicHeadWrite" + System.currentTimeMillis() + ".xlsx";
+        EasyExcel.write(fileName)
+                // 这里放入动态头
+                .head(head())
+                .sheet("模板")
+                // 当然这里数据也可以用 List<List<String>> 去传入
+                .doWrite(data());
+    }
+    
+    private List<List<String>> head() {
+        List<List<String>> list = new ArrayList<>();
+        List<String> head0 = new ArrayList<>();
+        head0.add("字符串" + System.currentTimeMillis());
+        List<String> head1 = new ArrayList<>();
+        head1.add("数字" + System.currentTimeMillis());
+        List<String> head2 = new ArrayList<>();
+        head2.add("日期" + System.currentTimeMillis());
+        list.add(head0);
+        list.add(head1);
+        list.add(head2);
+        return list;
+    }
+    
+    /**
+     * 可变标题处理（方法2）
+     */
+    @Test
+    public void variableTitleWrite() {
+        String fileName = TestFileUtil.getPath() + "variableTitleWrite" + System.currentTimeMillis() + ".xlsx";
+        EasyExcel.write(fileName, ConverterData.class)
+                .head(variableTitleHead())
+                .sheet("模板")
+                .doWrite(data());
+    }
+    
+    private List<List<String>> variableTitleHead() {
+        List<List<String>> list = ListUtils.newArrayList();
+        List<String> head0 = ListUtils.newArrayList();
+        head0.add("string" + System.currentTimeMillis());
+        List<String> head1 = ListUtils.newArrayList();
+        head1.add("number" + System.currentTimeMillis());
+        List<String> head2 = ListUtils.newArrayList();
+        head2.add("date" + System.currentTimeMillis());
+        list.add(head0);
+        list.add(head1);
+        list.add(head2);
+        return list;
+    }
 }
