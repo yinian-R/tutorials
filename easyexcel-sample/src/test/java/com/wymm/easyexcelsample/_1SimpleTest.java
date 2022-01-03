@@ -7,7 +7,11 @@ import com.wymm.easyexcelsample.excel.simple.DemoDataListener;
 import org.junit.jupiter.api.Test;
 
 import java.io.InputStream;
+import java.util.Collections;
 
+/**
+ * 简单示例
+ */
 public class _1SimpleTest {
     
     /**
@@ -18,9 +22,11 @@ public class _1SimpleTest {
      */
     @Test
     public void simpleRead() {
-        InputStream inputStream = this.getClass().getResourceAsStream("/excel/simple/demo.xlsx");
+        InputStream inputStream = this.getClass().getResourceAsStream("/simple/demo.xlsx");
         // 这里 需要指定读用哪个class去读，然后读取第一个sheet 文件流会自动关闭
-        EasyExcel.read(inputStream, DemoData.class, new DemoDataListener()).sheet().doRead();
+        EasyExcel.read(inputStream, DemoData.class, new DemoDataListener())
+                .sheet()
+                .doRead();
     }
     
     /**
@@ -32,8 +38,10 @@ public class _1SimpleTest {
     public void simpleWrite() {
         String fileName = TestFileUtil.getPath() + "write" + System.currentTimeMillis() + ".xlsx";
         // 这里 需要指定写用哪个class去读，然后写到第一个sheet，名字为模板 然后文件流会自动关闭
-        // 如果这里想使用03 则 传入excelType参数即可
-        EasyExcel.write(fileName, DemoData.class).sheet("模板").doWrite(TestFileUtil.data());
+        // 如果这里想使用03 则传入excelType参数即可
+        EasyExcel.write(fileName, DemoData.class)
+                .sheet("模板")
+                .doWrite(TestFileUtil.data());
     }
     
 }

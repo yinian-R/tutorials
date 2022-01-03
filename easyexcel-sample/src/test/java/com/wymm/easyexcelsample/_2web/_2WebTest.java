@@ -24,8 +24,6 @@ import java.util.Map;
 
 /**
  * web读写案例
- *
- * @author Jiaju Zhuang
  **/
 @Controller
 public class _2WebTest {

@@ -14,7 +14,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class MergeStrategy extends AbstractMergeStrategy {
+/**
+ * 用于对象中嵌套列表的结构合并导出
+ */
+public class ObjectAndListMergeStrategy extends AbstractMergeStrategy {
+    
     /**
      * 默认标题总行数 1
      */
@@ -24,7 +28,7 @@ public class MergeStrategy extends AbstractMergeStrategy {
      * 标题总行数
      */
     @Setter
-    private Integer headerRowTotal = DEFAULT_HEADER_ROW_TOTAL;
+    private Integer headerRowTotal;
     
     /**
      * 合并列表
@@ -32,9 +36,30 @@ public class MergeStrategy extends AbstractMergeStrategy {
     private final List<MergeRow> mergeRows = new ArrayList<>();
     
     /**
-     * 忽略合并行
+     * 忽略合并列
      */
-    private final List<String> ignoreMergeRows = new ArrayList<>();
+    private final List<String> ignoreMergeColumnFiledNames = new ArrayList<>();
+    private final List<String> includeMergeColumnFiledNames = new ArrayList<>();
+    
+    private Integer getHeaderRowTotal() {
+        if (headerRowTotal == null) {
+            return DEFAULT_HEADER_ROW_TOTAL;
+        }
+        return headerRowTotal;
+    }
+    
+    /**
+     * @see ObjectAndListEntity
+     */
+    public void addMergeRow(List<? extends ObjectAndListEntity> objectAndListEntityList) {
+        if (objectAndListEntityList == null) {
+            return;
+        }
+        for (int i = 0; i < objectAndListEntityList.size(); i++) {
+            ObjectAndListEntity entity = objectAndListEntityList.get(i);
+            this.addMergeRow(entity.getUnique(), i, entity.getMergeRowNum());
+        }
+    }
     
     /**
      * @param unique      唯一标识
@@ -54,12 +79,23 @@ public class MergeStrategy extends AbstractMergeStrategy {
     
     public Map<Integer, Integer> toMergeRowMap() {
         return mergeRows.stream()
-                .collect(Collectors.toMap(item -> item.getDataIndex() + headerRowTotal, MergeRow::getMergeRowNum));
+                .collect(Collectors.toMap(item -> item.getDataIndex() + getHeaderRowTotal(), MergeRow::getMergeRowNum));
     }
     
-    public void addIgnoreMergeRow(String... ignoreMergeRow) {
-        ignoreMergeRows.addAll(Arrays.asList(ignoreMergeRow));
+    public void ignoreMergeColumnFiledNames(String... ignoreMergeColumnFiledName) {
+        if (includeMergeColumnFiledNames.size() > 0) {
+            throw new IllegalArgumentException("ignoreMergeColumnFiledNames and includeMergeColumnFiledNames select one to use");
+        }
+        ignoreMergeColumnFiledNames.addAll(Arrays.asList(ignoreMergeColumnFiledName));
     }
+    
+    public void includeMergeColumnFiledNames(String... includeMergeColumnFiledName) {
+        if (ignoreMergeColumnFiledNames.size() > 0) {
+            throw new IllegalArgumentException("ignoreMergeColumnFiledNames and includeMergeColumnFiledNames select one to use");
+        }
+        includeMergeColumnFiledNames.addAll(Arrays.asList(includeMergeColumnFiledName));
+    }
+    
     
     /**
      * merge
@@ -74,9 +110,13 @@ public class MergeStrategy extends AbstractMergeStrategy {
         if (relativeRowIndex <= 0) {
             return;
         }
-        if (ignoreMergeRows.contains(head.getFieldName())) {
+        if (ignoreMergeColumnFiledNames.size() > 0 && ignoreMergeColumnFiledNames.contains(head.getFieldName())) {
             return;
         }
+        if (includeMergeColumnFiledNames.size() > 0 && !includeMergeColumnFiledNames.contains(head.getFieldName())) {
+            return;
+        }
+        
         Map<Integer, Integer> mergeRowMap = toMergeRowMap();
         if (mergeRowMap.containsKey(relativeRowIndex)) {
             Integer mergeRowNum = mergeRowMap.get(relativeRowIndex);

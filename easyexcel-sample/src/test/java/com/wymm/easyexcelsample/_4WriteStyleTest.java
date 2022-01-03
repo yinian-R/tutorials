@@ -22,7 +22,6 @@ import static com.wymm.easyexcelsample.excel.TestFileUtil.data;
 
 /**
  * 设置 Excel 样式
- * 指定单个单元格样式 {@link _3WriteTest#writeCellDataWrite}
  */
 public class _4WriteStyleTest {
     

@@ -28,6 +28,9 @@ import java.util.*;
 
 import static com.wymm.easyexcelsample.excel.TestFileUtil.data;
 
+/**
+ * 写入 Excel 示例
+ */
 public class _3WriteTest {
     
     /**
@@ -196,7 +199,7 @@ public class _3WriteTest {
     public void imageWrite() throws Exception {
         String fileName = TestFileUtil.getPath() + "imageWrite" + System.currentTimeMillis() + ".xlsx";
         
-        String imagePath = TestFileUtil.getResourcePath() + "converter" + File.separator + "img.png";
+        String imagePath = TestFileUtil.getPath() + "converter" + File.separator + "img.png";
         try (InputStream inputStream = FileUtils.openInputStream(new File(imagePath))) {
             List<ImageDemoData> list = ListUtils.newArrayList();
             ImageDemoData imageDemoData = new ImageDemoData();
@@ -342,7 +345,7 @@ public class _3WriteTest {
      */
     @Test
     public void templateWrite() {
-        String templateFileName = TestFileUtil.getResourcePath() + "write" + File.separator + "demo.xlsx";
+        String templateFileName = TestFileUtil.getPath() + "write" + File.separator + "demo.xlsx";
         String fileName = TestFileUtil.getPath() + "templateWrite" + System.currentTimeMillis() + ".xlsx";
         EasyExcel.write(fileName, DemoData.class)
                 .withTemplate(templateFileName)
