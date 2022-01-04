@@ -129,7 +129,7 @@ public class _7FillTest {
         excelWriter.fill(data(), writeSheet);
         
         // 写入list之前的数据
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, Object> map = new HashMap<>();
         map.put("date", "2019年10月9日13:28:28");
         excelWriter.fill(map, writeSheet);
         
@@ -202,7 +202,7 @@ public class _7FillTest {
         excelWriter.fill(new FillWrapper("data3", data()), writeSheet);
         excelWriter.fill(new FillWrapper("data3", data()), writeSheet);
         
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, Object> map = new HashMap<>();
         //map.put("date", "2019年10月9日13:28:28");
         map.put("date", new Date());
         
