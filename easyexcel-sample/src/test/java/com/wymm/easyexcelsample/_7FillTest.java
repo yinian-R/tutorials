@@ -97,7 +97,9 @@ public class _7FillTest {
         // forceNewRow 如果设置了true,有个缺点 就是他会把所有的数据都放到内存了，所以慎用
         // 简单的说 如果你的模板有list,且list不是最后一行，下面还有数据需要填充 就必须设置 forceNewRow=true 但是这个就会把所有数据放到内存 会很耗内存
         // 如果数据量大 list不是最后一行 参照下一个示例
-        FillConfig fillConfig = FillConfig.builder().forceNewRow(Boolean.TRUE).build();
+        FillConfig fillConfig = FillConfig.builder()
+                .forceNewRow(Boolean.TRUE)
+                .build();
         excelWriter.fill(data(), fillConfig, writeSheet);
         excelWriter.fill(data(), fillConfig, writeSheet);
         Map<String, Object> map = MapUtils.newHashMap();
@@ -118,8 +120,11 @@ public class _7FillTest {
                 TestFileUtil.getPath() + "fill" + File.separator + "complexFillWithTable.xlsx";
         
         String fileName = TestFileUtil.getPath() + "complexFillWithTable" + System.currentTimeMillis() + ".xlsx";
-        ExcelWriter excelWriter = EasyExcel.write(fileName).withTemplate(templateFileName).build();
-        WriteSheet writeSheet = EasyExcel.writerSheet().build();
+        ExcelWriter excelWriter = EasyExcel.write(fileName)
+                .withTemplate(templateFileName)
+                .build();
+        WriteSheet writeSheet = EasyExcel.writerSheet()
+                .build();
         excelWriter.fill(data(), writeSheet);
         excelWriter.fill(data(), writeSheet);
         
