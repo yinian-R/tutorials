@@ -7,7 +7,6 @@ import com.wymm.easyexcelsample.excel.simple.DemoDataListener;
 import org.junit.jupiter.api.Test;
 
 import java.io.InputStream;
-import java.util.Collections;
 
 /**
  * 简单示例

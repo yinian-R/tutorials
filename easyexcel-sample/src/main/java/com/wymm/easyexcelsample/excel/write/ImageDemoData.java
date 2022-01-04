@@ -42,7 +42,7 @@ public class ImageDemoData {
      * @since 2.1.1
      */
     private URL url;
-
+    
     /**
      * 根据文件导出 并设置导出的位置。
      *

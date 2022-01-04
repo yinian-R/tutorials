@@ -23,23 +23,20 @@ public class ObjectAndListMergeStrategy extends AbstractMergeStrategy {
      * 默认标题总行数 1
      */
     public static final Integer DEFAULT_HEADER_ROW_TOTAL = 1;
-    
-    /**
-     * 标题总行数
-     */
-    @Setter
-    private Integer headerRowTotal;
-    
     /**
      * 合并列表
      */
     private final List<MergeRow> mergeRows = new ArrayList<>();
-    
     /**
      * 忽略合并列
      */
     private final List<String> ignoreMergeColumnFiledNames = new ArrayList<>();
     private final List<String> includeMergeColumnFiledNames = new ArrayList<>();
+    /**
+     * 标题总行数
+     */
+    @Setter
+    private Integer headerRowTotal;
     
     private Integer getHeaderRowTotal() {
         if (headerRowTotal == null) {

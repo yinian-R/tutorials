@@ -15,13 +15,13 @@ import java.util.List;
  */
 @Slf4j
 public class ConverterDataListener implements ReadListener<ConverterData> {
-
+    
     /**
      * 每隔5条存储数据库，实际使用中可以100条，然后清理list ，方便内存回收
      */
     private static final int BATCH_COUNT = 5;
     private List<ConverterData> cachedDataList = ListUtils.newArrayListWithExpectedSize(BATCH_COUNT);
-
+    
     @Override
     public void invoke(ConverterData data, AnalysisContext context) {
         log.info("解析到一条数据:{}", JSON.toJSONString(data));
@@ -31,13 +31,13 @@ public class ConverterDataListener implements ReadListener<ConverterData> {
             cachedDataList = ListUtils.newArrayListWithExpectedSize(BATCH_COUNT);
         }
     }
-
+    
     @Override
     public void doAfterAllAnalysed(AnalysisContext context) {
         saveData();
         log.info("所有数据解析完成！");
     }
-
+    
     /**
      * 加上存储数据库
      */

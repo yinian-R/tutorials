@@ -20,7 +20,7 @@ public class IndexOrNameDataListener extends AnalysisEventListener<IndexOrNameDa
      */
     private static final int BATCH_COUNT = 5;
     private List<IndexOrNameData> cachedDataList = ListUtils.newArrayListWithExpectedSize(BATCH_COUNT);
-
+    
     @Override
     public void invoke(IndexOrNameData data, AnalysisContext context) {
         log.info("解析到一条数据:{}", JSON.toJSONString(data));
@@ -30,13 +30,13 @@ public class IndexOrNameDataListener extends AnalysisEventListener<IndexOrNameDa
             cachedDataList = ListUtils.newArrayListWithExpectedSize(BATCH_COUNT);
         }
     }
-
+    
     @Override
     public void doAfterAllAnalysed(AnalysisContext context) {
         saveData();
         log.info("所有数据解析完成！");
     }
-
+    
     /**
      * 加上存储数据库
      */

@@ -14,7 +14,7 @@ import org.apache.poi.ss.usermodel.Hyperlink;
  */
 @Slf4j
 public class CustomCellWriteHandler implements CellWriteHandler {
-
+    
     @Override
     public void afterCellDispose(CellWriteHandlerContext context) {
         Cell cell = context.getCell();
@@ -27,5 +27,5 @@ public class CustomCellWriteHandler implements CellWriteHandler {
             cell.setHyperlink(hyperlink);
         }
     }
-
+    
 }

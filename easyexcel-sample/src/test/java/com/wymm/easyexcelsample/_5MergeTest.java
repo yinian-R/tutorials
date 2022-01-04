@@ -78,7 +78,7 @@ public class _5MergeTest {
         return bookExcel;
     }
     
-    private List<BookExcel> toBookExcelList(List<BookType> list){
+    private List<BookExcel> toBookExcelList(List<BookType> list) {
         List<BookExcel> exportList = new ArrayList<>();
         if (!ObjectUtils.isEmpty(list)) {
             for (BookType bookType : list) {

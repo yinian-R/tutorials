@@ -16,9 +16,9 @@ import java.util.List;
 @Slf4j
 public class CellDataDemoHeadDataListener implements ReadListener<CellDataReadDemoData> {
     private static final int BATCH_COUNT = 100;
-
+    
     private List<CellDataReadDemoData> cachedDataList = ListUtils.newArrayListWithExpectedSize(BATCH_COUNT);
-
+    
     @Override
     public void invoke(CellDataReadDemoData data, AnalysisContext context) {
         log.info("解析到一条数据:{}", JSON.toJSONString(data));
@@ -27,13 +27,13 @@ public class CellDataDemoHeadDataListener implements ReadListener<CellDataReadDe
             cachedDataList = ListUtils.newArrayListWithExpectedSize(BATCH_COUNT);
         }
     }
-
+    
     @Override
     public void doAfterAllAnalysed(AnalysisContext context) {
         saveData();
         log.info("所有数据解析完成！");
     }
-
+    
     /**
      * 加上存储数据库
      */
