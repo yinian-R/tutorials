@@ -1,0 +1,10 @@
+server:
+  servlet:
+    context-path: /
+
+spring:
+  profiles:
+    active: dev
+  flyway:
+    table: flyway_schema_history
+    baselineOnMigrate: true

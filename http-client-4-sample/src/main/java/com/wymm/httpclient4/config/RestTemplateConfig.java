@@ -3,6 +3,8 @@ package com.wymm.httpclient4.config;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.DefaultConnectionKeepAliveStrategy;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.protocol.HTTP;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -27,13 +29,13 @@ public class RestTemplateConfig {
     }
     
     private ClientHttpRequestFactory requestFactory() {
-        CloseableHttpClient httpClient = HttpClients.custom()
+        CloseableHttpClient httpClient = HttpClientBuilder.create()
                 .setMaxConnTotal(100)
                 .setMaxConnPerRoute(10)
                 .disableAutomaticRetries()
                 .setKeepAliveStrategy(
                         (response, context) -> Arrays.stream(response.getHeaders(HTTP.CONN_KEEP_ALIVE))
-                                .filter(h -> StringUtils.equalsIgnoreCase(h.getName(), "timeoout") && StringUtils.isNumeric(h.getValue()))
+                                .filter(h -> StringUtils.equalsIgnoreCase(h.getName(), "timeout") && StringUtils.isNumeric(h.getValue()))
                                 .findFirst()
                                 .map(h -> NumberUtils.toLong(h.getValue()))
                                 .orElse(30L) * 1000

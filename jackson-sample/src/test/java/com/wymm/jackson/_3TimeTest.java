@@ -117,6 +117,7 @@ class _3TimeTest {
         // 自定义日期格式
         //javaTimeModule.addSerializer(LocalDateTime.class, new LocalDateTimeSerializer(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
         mapper.registerModule(javaTimeModule);
+        // 不设置这个，并且没有 @JsonFormat，日期会被序列化成时间戳数组
         mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         
         String jsonString = mapper.writeValueAsString(date);

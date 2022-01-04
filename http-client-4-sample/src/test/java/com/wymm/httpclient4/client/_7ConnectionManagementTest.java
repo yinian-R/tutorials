@@ -122,7 +122,7 @@ class _7ConnectionManagementTest {
                 .evictExpiredConnections()
                 .setKeepAliveStrategy(
                         (response, context) -> Arrays.stream(response.getHeaders(HTTP.CONN_KEEP_ALIVE))
-                                .filter(h -> StringUtils.equalsIgnoreCase(h.getName(), "timeoout") && StringUtils.isNumeric(h.getValue()))
+                                .filter(h -> StringUtils.equalsIgnoreCase(h.getName(), "timeout") && StringUtils.isNumeric(h.getValue()))
                                 .findFirst()
                                 .map(h -> NumberUtils.toLong(h.getValue()))
                                 .orElse(30L) * 1000

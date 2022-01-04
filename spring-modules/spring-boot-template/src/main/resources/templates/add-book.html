@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <title>新增图书</title>
+
+    <link rel="stylesheet" th:href="@{/webjars/element-ui/2.15.1/lib/theme-chalk/index.css}">
+
+    <script th:src="@{/webjars/vue/2.6.12/dist/vue.js}"></script>
+    <script th:src="@{/webjars/axios/0.21.1/dist/axios.min.js}"></script>
+    <script th:src="@{/webjars/qs/6.10.1/dist/qs.js}"></script>
+    <script th:src="@{/webjars/element-ui/2.15.1/lib/index.js}"></script>
+</head>
+<body>
+
+<div id="app">
+    <el-row type="flex" class="row-bg" justify="center">
+        <el-col :sm="24" :md="12" :lg="10">
+            <el-form ref="form" :model="form" :rules="rules" label-width="80px">
+                <el-form-item label="书名" prop="bookName">
+                    <el-input v-model="form.bookName"></el-input>
+                </el-form-item>
+                <el-form-item label="作者" prop="author">
+                    <el-input v-model="form.author"></el-input>
+                </el-form-item>
+                <el-form-item label="出版日期" prop="publishedDate">
+                    <el-date-picker type="date" placeholder="选择日期" v-model="form.publishedDate"></el-date-picker>
+                </el-form-item>
+                <el-form-item label="摘要" prop="synopsis">
+                    <el-input type="textarea" v-model="form.synopsis"></el-input>
+                </el-form-item>
+                <el-form-item>
+                    <el-button type="primary" @click="onSubmit('form')">立即创建</el-button>
+                    <el-button>取消</el-button>
+                </el-form-item>
+            </el-form>
+        </el-col>
+    </el-row>
+
+
+</div>
+
+<script type="text/javascript" th:src="@{/js/common.js}"></script>
+<script type="text/javascript" th:inline="javascript">
+    /*<![CDATA[*/
+    var ctxPath = /*[[@{/}]]*/ '';
+    /*]]>*/
+
+    new Vue({
+        el: '#app',
+        data: function () {
+            return {
+                form: {
+                    bookName: '',
+                    author: '',
+                    synopsis: '',
+                    publishedDate: ''
+                },
+                rules: {
+                    bookName: [
+                        {required: true, message: '请输入书名', trigger: 'blur'},
+                        {min: 1, max: 10, message: '长度在 1 到 10 个字符', trigger: 'blur'}
+                    ],
+                    author: [
+                        {required: true, message: '请输入作者', trigger: 'blur'},
+                        {min: 1, max: 10, message: '长度在 1 到 10 个字符', trigger: 'blur'}
+                    ],
+                    synopsis: [
+                        {required: true, message: '请输入摘要', trigger: 'blur'},
+                        {min: 1, max: 200, message: '长度在 1 到 200 个字符', trigger: 'blur'}
+                    ],
+                    publishedDate: [
+                        {type: 'date', required: true, message: '请选择出版日期', trigger: 'change'}
+                    ],
+                }
+            }
+        },
+        created: function () {
+        },
+        methods: {
+            onSubmit(formName) {
+                this.$refs[formName].validate((valid) => {
+                    if (valid) {
+                        http.post(ctxPath + "books", this.form)
+                            .then(function (response) {
+                                console.log(response.data)
+                            })
+                            .catch(function (error) {
+                                console.error(error);
+                            });
+                    } else {
+                        return false;
+                    }
+                });
+            }
+        }
+    })
+</script>
+</body>
+</html>

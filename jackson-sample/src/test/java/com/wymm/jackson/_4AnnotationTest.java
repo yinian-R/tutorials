@@ -113,7 +113,7 @@ class _4AnnotationTest {
      */
     @Test
     void whenSerializingUsingJsonRootName_thenCorrect()
-            throws JsonProcessingException {
+            throws JsonProcessingException, JsonMappingException {
         UserWithRoot user = new UserWithRoot(1, "John");
         
         ObjectMapper mapper = new ObjectMapper();
@@ -122,6 +122,12 @@ class _4AnnotationTest {
         
         assertTrue(result.contains("user"));
         // {"user":{"id":1,"name":"John"}}
+    
+        // 反序列化
+        mapper.enable(DeserializationFeature.UNWRAP_ROOT_VALUE);
+        UserWithRoot userWithRoot = mapper.readValue(result, UserWithRoot.class);
+        assertEquals(userWithRoot.id, 1);
+        assertEquals(userWithRoot.name, "John");
     }
     
     /**
@@ -240,7 +246,6 @@ class _4AnnotationTest {
         String result = new ObjectMapper()
                 .writeValueAsString(user);
         
-        System.out.println(result);
         assertTrue(result.contains("1"));
         assertFalse(result.contains("name"));
         assertFalse(result.contains("John"));
@@ -431,7 +436,7 @@ class _4AnnotationTest {
         BeanWithFilter bean = new BeanWithFilter(1, "My bean");
         
         FilterProvider filters = new SimpleFilterProvider().addFilter(
-                "myFilter",
+                "myFilter",// 和 @JsonFilter 设置相同
                 SimpleBeanPropertyFilter.filterOutAllExcept("name")
         );
         

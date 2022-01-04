@@ -122,6 +122,7 @@ java.awt.headless: 激活headless模式
 
 > 确保消息消费完成再提交。Consumer 端有个参数 enable.auto.commit，最好把它设置成 false，并采用手动提交位移的方式。就像前面说的，这对于单 Consumer 多线程处理的场景而言是至关重要的。
 
+如果我有10个副本，isr=10，然后我配置ack=all，min.insync.replicas=5
 > min.insync.replicas是保证下限的。acks=all的含义是producer会等ISR中所有副本都写入成功才返回，但如果不设置min.insync.replicas = 5，默认是1，
 那么假设ISR中只有1个副本，只要写入这个副本成功producer也算其正常写入，因此min.insync.replicas保证的写入副本的下限。
 

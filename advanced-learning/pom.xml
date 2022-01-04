@@ -21,5 +21,6 @@
     <modules>
         <module>custom-mybatis</module>
         <module>custom-mybatis-test</module>
+        <module>mybatis-sample</module>
     </modules>
 </project>

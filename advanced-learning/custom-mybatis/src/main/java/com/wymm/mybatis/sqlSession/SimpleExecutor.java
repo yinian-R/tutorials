@@ -12,6 +12,7 @@ import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,9 +21,9 @@ public class SimpleExecutor implements Executor {
     public <E> List<E> find(Configuration configuration, MappedStatement mappedStatement, Object... params) throws SQLException, ClassNotFoundException, NoSuchFieldException, IllegalAccessException, InstantiationException, IntrospectionException, InvocationTargetException {
         // 1.注册驱动，获取连接
         Connection connection = configuration.getDataSource().getConnection();
+        
         // 2.获取 SQL :select * from user where name=#{name}
         //   转换 SQL :select * from user where name=? 转换过程中还需要对 #{} 中的值进行解析存储
-        
         String sql = mappedStatement.getSql();
         BoundSql boundSql = getBoundSql(sql);
         

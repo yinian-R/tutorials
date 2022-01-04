@@ -21,7 +21,7 @@ ScheduledExecutorService | 通过使用CountDownLatch，我们可以导致线程
 Future | 获取异步返回结果
 CountDownLatch | CountDownLatch是一个实用程序类，它将阻塞一组线程，直到完成某些操作为止。<br />CountDownLatch初始化为计数器（整数型）; 随着从属线程完成执行，此计数器递减。但是一旦计数器达到零，其他线程就会被释放
 CyclicBarrier | CyclicBarrier 和 CountDownLatch 几乎相同，只是我们可以重用 CyclicBarrier，与 CountDownLatch 不同，它允许多个线程再调用最终任务之前调用 await() 方法（也称为障碍条件）彼此等待。
-Semaphore | not finish
+Semaphore | 可以使用 Semaphore 来限制访问特定资源的并发线程数
 ThreadFactory | ThreadFactory 充当线程（不存在）的池，可按需创建线程。它消除了实现高效线程创建机制所需的大量样板代码
 BlockingQueue | BlockingQueue 队列，常用于解决并发的生产者-消费者的问题。
 DelayQueue | DelayQueue 是无限大小的阻塞队列，只有元素的到期时间（称为用户定义的延迟）完成时才能拉取元素。
@@ -85,10 +85,49 @@ CountDownLatch 和 CyclicBarrier 几乎相同，区别在于 CyclicBarrier 可�
 - **使用合理的阈值**将ForkJoinTask拆分为子任务
 - **避免ForkJoinTasks中的任何阻塞**
 
+## 线程池
+在Java中，线程被映射到作为操作系统资源的系统级线程。如果无法控制创建线程，则可能很快耗尽这些资源。
 
+线程之前的上下文切换也是有操作系统完成的，目的是模拟并行性。一个简单的观点是，你生成的线程越多，每个线程在实际工作上花费的时间就越少。
 
+线程池模式有助于在多线程应用程序中节省资源，并将并行性控制在某些预定义的限制内。
 
+使用线程池时，以并行任务的形式编写并发代码，并将其提交给线程池实例执行。这个实例控制几个重复使用的线程来执行这些任务。
 
+该模式允许您控制应用程序正在创建的线程的数量及其生命周期，以及计划任务的执行，并将传入的任务保持在队列中。
 
+### 扩展 ThreadPoolExecutor
+可以扩展 ThreadPoolExecutor 类，并为 beforeExecute() 和 afterExecute() 方法提供自定义钩子实现
+
+## 线程常用方法
+```
+shutdown()
+将线程池状态置为SHUTDOWN,并不会立即停止：
+- 停止接收外部submit的任务
+- 内部正在跑的任务和队列里等待的任务，会执行完
+- 等到第二步完成后，才真正停止
+
+shutdownNow()
+将线程池状态置为STOP。企图立即停止，事实上不一定：
+- 跟shutdown()一样，先停止接收外部提交的任务
+- 忽略队列里等待的任务
+- 尝试将正在跑的任务interrupt中断
+- 返回未执行的任务列表
+
+awaitTermination(long timeOut, TimeUnit unit)
+当前线程阻塞，直到
+- 等所有已提交的任务（包括正在跑的和队列中等待的）执行完
+- 或者等超时时间到
+- 或者线程被中断，抛出InterruptedException
+- 然后返回true（shutdown请求后所有任务执行完毕）或false（已超时）
+
+shutdown()和shutdownNow()的区别：
+- shutdownNow()能立即停止线程池，正在跑的和正在等待的任务都停下了。这样做立即生效，但是风险也比较大；
+- shutdown()只是关闭了提交通道，用submit()是无效的；而内部该怎么跑还是怎么跑，跑完再停。
+
+shutdown()和awaitTermination()的区别：
+- shutdown()后，不能再提交新的任务进去；但是awaitTermination()后，可以继续提交。
+- awaitTermination()是阻塞的，返回结果是线程池是否已停止（true/false）；shutdown()不阻塞。
+```
 ## 参考
 [java-volatile](https://www.baeldung.com/java-volatile)

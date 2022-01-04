@@ -1,10 +1,12 @@
 package com.wymm.concurrent.base2;
 
+import com.wymm.concurrent.base2.threadlocal.ThreadLocalAwareThreadPool;
+import com.wymm.concurrent.base2.threadlocal.ThreadLocalWithUserContext;
+import com.wymm.concurrent.base2.threadlocal.ThreadLocalWithUserContext2;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.*;
 
 /**
  * ThreadLocal 能够为当前线程存储数据，并将其包装在特殊类型的对象中。
@@ -18,6 +20,14 @@ class _2ThreadLocalTest {
     
     /**
      * 使用 ThreadLocal 和线程池
+     *
+     * 当我们一起使用ThreadLocal和线程池时，我们应该格外小心，注意清除数据
+     * 为了更好地理解可能的警告，让我们考虑下列情形：
+     * 1.首先，应用程序从池中借用一个线程
+     * 2.使用ThreadLocal存储限制的数据
+     * 3.当前执行完毕，应用程序将借用的线程返回到池中
+     * 4.一段时间后，应用程序借用同一个线程来处理另一个请求
+     * 5.由于应用程序上次执行未执行必要的清除，因此它可能会为新请求重新使用相同的ThreadLoad数据
      */
     @Test
     void usingThreadLocalAndThreadPoolExecutor() throws InterruptedException {
@@ -25,6 +35,23 @@ class _2ThreadLocalTest {
         
         for (int i = 0; i < 5; i++) {
             ThreadLocalWithUserContext context = new ThreadLocalWithUserContext(i);
+            executorService.submit(context);
+        }
+        
+        executorService.shutdown();
+    }
+    
+    /**
+     * 扩展 ThreadPoolExecutor 使用 afterExecute() 钩子清除 ThreadLocal 数据
+     */
+    @Test
+    void usingThreadLocalAndThreadPoolExecutor_afterExecuteClear() throws InterruptedException {
+        ExecutorService executorService = new ThreadLocalAwareThreadPool(2, 2,
+                0L, TimeUnit.MILLISECONDS,
+                new LinkedBlockingQueue<>());
+        
+        for (int i = 0; i < 5; i++) {
+            ThreadLocalWithUserContext2 context = new ThreadLocalWithUserContext2(i);
             executorService.submit(context);
         }
         

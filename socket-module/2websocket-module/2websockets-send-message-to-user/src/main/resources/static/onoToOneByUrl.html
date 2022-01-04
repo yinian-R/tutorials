@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello WebSocket</title>
+    <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script src="/webjars/jquery/jquery.min.js"></script>
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+</head>
+<body>
+<label><input id="uid"/></label>
+<button onclick="login()" id="login">登录</button>
+<label><input id="msg" placeholder="信息后加 -id，发给指定人"/></label>
+<button onclick="sendMsg()">发送</button>
+<div id="user"></div>
+<div id="greet"></div>
+<script>
+    let stompClient
+    function login() {
+        var socket = new SockJS(`/guide-websocket`);
+        stompClient = Stomp.over(socket)
+        stompClient.connect({}, function () {
+            // 由于使用了 convertAndSend, 这里就不再需要加 /user 前缀了
+            // 只要在订阅地址后加上自己的 id 即可发送给自己的信息
+            stompClient.subscribe(`/queue/chat/contact2/${document.getElementById('uid').value}`, function (frame) {
+                let entity = JSON.parse(frame.body)
+                showGreeting(`收到用户${entity.from}的信息: ${entity.message}`)
+            })
+        })
+
+        document.getElementById('user').innerText = `当前用户为：${document.getElementById('uid').value}`
+
+        function showGreeting(clientMessage) {
+            document.getElementById("greet").innerText += `${clientMessage}\n`
+        }
+    }
+
+    function sendMsg() {
+        const msg = document.getElementById('msg').value
+        stompClient.send("/app/sendMsg2", {}, JSON.stringify({
+            from: document.getElementById('uid').value,
+            to: msg.substring(msg.lastIndexOf('-') + 1),
+            message: msg.substring(0, msg.lastIndexOf('-')),
+            time: new Date()
+        }))
+    }
+</script>
+</body>
+</html>
