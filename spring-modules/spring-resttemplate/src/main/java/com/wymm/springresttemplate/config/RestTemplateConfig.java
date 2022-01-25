@@ -35,10 +35,7 @@ public class RestTemplateConfig {
     @Bean
     @Primary
     public RestTemplate restTemplate(RestTemplateBuilder builder) {
-        RestTemplate restTemplate = builder.setConnectTimeout(Duration.ofSeconds(2))
-                .setReadTimeout(Duration.ofSeconds(10))
-                .requestFactory(this::requestFactory)
-                .build();
+        RestTemplate restTemplate = builder.build();
         
         // 添加日志拦截器
         if (log.isDebugEnabled()) {
@@ -71,7 +68,10 @@ public class RestTemplateConfig {
                 .evictExpiredConnections()
                 //.setProxy(new HttpHost("127.0.0.1", 8888))
                 .build();
-        return new HttpComponentsClientHttpRequestFactory(httpClient);
+        HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory(httpClient);
+        factory.setConnectTimeout(Math.toIntExact(Duration.ofSeconds(2).toMillis()));
+        factory.setReadTimeout(Math.toIntExact(Duration.ofSeconds(2).toMillis()));
+        return factory;
     }
     
 }

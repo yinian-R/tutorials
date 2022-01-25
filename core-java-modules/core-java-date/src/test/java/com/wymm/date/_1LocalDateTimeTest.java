@@ -2,7 +2,9 @@ package com.wymm.date;
 
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -56,6 +58,14 @@ class _1LocalDateTimeTest {
         // Getter 可以提取特定的单位，例如提取年
         System.out.println("\n获取年：" +
                 LocalDateTime.now().getYear()
+        );
+    
+        System.out.println("\n获取一天中最小的时间：" +
+                LocalDateTime.of(LocalDate.now(), LocalTime.MIN)
+        );
+        
+        System.out.println("获取一天中最大的时间：" +
+                 LocalDateTime.of(LocalDate.now(), LocalTime.MAX)
         );
     }
     

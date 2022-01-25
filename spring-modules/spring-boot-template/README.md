@@ -40,7 +40,7 @@ springboottemplate
 - [x] Flyway 初始化数据库脚本
 - [ ] p6spy 控制数据库日志打印
 - [x] MapStruct 作为实体映射工具
-- [ ] spring websocket 模板代码
+- [x] spring websocket 模板代码
 - [ ] 使用 spring flux
 - [ ] 使用 spring 一个安全框架
 
