@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/hsom_flyway?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: root
+
+  flyway:
+    table: flyway_schema_history
+    baselineOnMigrate: true
+    # 在 flyway 执行 migrate 操作之前执行 repair 操作。修复 flyway.table 中的记录
+    beforeMigrate: repair
+    locations:
+      - classpath:db/migration
+      - classpath:db/migration_gz
