@@ -37,6 +37,7 @@ class _4ZoreDateTimeTest {
         Instant instant = Instant.ofEpochMilli(now.toEpochMilli());
         LocalDateTime localDateTime1 = LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
         System.out.println("毫秒转换的时间：" + localDateTime1);
-        
+    
+        System.out.println("时区转换：" + ZonedDateTime.now().withZoneSameInstant(ZoneOffset.UTC));
     }
 }

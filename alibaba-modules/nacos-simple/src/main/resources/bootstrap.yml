@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: nacos-simple
+  cloud:
+    nacos:
+      config:
+        # 是否获取 nacos 配置
+        enabled: true
+        # nacos server
+        server-addr: 127.0.0.1:8848
+        # 命名空间ID，不同环境的分离配置。默认 public
+        namespace: a85a37ef-5bec-478c-a60f-0b11f10b3da4
+        # 配置内容的元数据
+        group: TEST_GROUP
+        # 配置内容的文件扩展名，启动后读取 dataId = {spring.application.name}.{file-extension} 例如：nacos-simple.yml
+        file-extension: yml
+        # 刷新主配置开关，默认 true。主配置： {spring.application.name}.{file-extension}
+        refresh-enabled: true
+        # 一组共享配置
+        # 优先级：shared-configs < extension-configs < {spring.application.name}.{file-extension}，配置列表中在下面的配置优先级高
+        # 后加载的优先级高，因此 shared-configs 最先加载，{spring.application.name}.{file-extension} 最后加载
+        shared-configs:
+          - dataId: common.yml
+        # 一组扩展配置
+        extension-configs:
+          # 使用默认组，即：DEFAULT_GROUP
+          - dataId: spring-redis.yml
+          - dataId: spring-mq.yml
+            # 使用自定义组
+            group: TEST_GROUP
+            # 支持动态更新，默认 false
+            refresh: true
