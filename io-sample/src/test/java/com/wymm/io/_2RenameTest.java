@@ -8,11 +8,14 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
 
-public class RenameTest {
+/**
+ * 批量修改文件名称
+ */
+public class _2RenameTest {
     
     @Test
     public void rename() throws Exception {
-        Path path = Paths.get("D:\\BaiduNetdiskDownload\\Java");
+        Path path = Paths.get("D:\\Java");
         
         Stream<Path> pathStream = Files.find(path, 5, (p, attributes) -> {
             if (p.toString().contains(".flv")) {

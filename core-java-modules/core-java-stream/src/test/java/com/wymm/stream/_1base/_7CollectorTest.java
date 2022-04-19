@@ -5,7 +5,11 @@ import lombok.Data;
 import org.apache.commons.collections4.MapUtils;
 import org.junit.jupiter.api.Test;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.IntSummaryStatistics;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -27,7 +31,7 @@ class _7CollectorTest {
                 new Student("小红", 14, Student.Gender.FEMALE, Student.Grade.TWO)
         );
         
-        // 得到所有学生的年龄列表
+        // 转换列表类型
         Set<Integer> ages = students.stream().map(Student::getAge).collect(Collectors.toSet());
         System.out.println("所有学生的年龄：" + ages);
         
@@ -43,10 +47,14 @@ class _7CollectorTest {
         Map<Student.Grade, List<Student>> grades = students.stream().collect(Collectors.groupingBy(Student::getGrade));
         MapUtils.verbosePrint(System.out, "学生班级列表", grades);
         
-        // 得到所有班级学生的个数
+        // 分组后，统计
         Map<Student.Grade, Long> gradesCount = students.stream().collect(Collectors.groupingBy(Student::getGrade, Collectors.counting()));
         MapUtils.verbosePrint(System.out, "班级学生个数列表", gradesCount);
         
+        // 分组后，对值进行映射收集
+        Map<Student.Gender, String> names = students.stream()
+                .collect(Collectors.groupingBy(Student::getGender, Collectors.mapping(Student::getName, Collectors.joining(","))));
+        MapUtils.verbosePrint(System.out, "班级男女名称列表", names);
     }
     
     @Data
