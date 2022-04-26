@@ -22,8 +22,7 @@ public class _7DistinctByTest {
     static List<Person> LIST = Arrays.asList(new Person("A", 18), new Person("A", 20), new Person("B", 22));
     
     /**
-     * 使用 Stream API
-     * <p>
+     * 使用 Stream API 自定义
      * Stream API 提供distinct()方法，该方法基于Object类的equals()方法返回列表的不同元素。
      * 但是，如果我们想按特定属性进行过滤，它就会变得不那么灵活。我们的替代方法之一是编写一个保持状态的过滤器。
      */
