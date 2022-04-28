@@ -2,8 +2,6 @@ package com.wymm.stream;
 
 import com.wymm.stream._7distinctby.Person;
 import one.util.streamex.StreamEx;
-import org.eclipse.collections.impl.block.factory.HashingStrategies;
-import org.eclipse.collections.impl.utility.ListIterate;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;

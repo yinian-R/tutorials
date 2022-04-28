@@ -9,14 +9,12 @@ import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ConcurrentMap;
 
-import static java.util.Comparator.comparingInt;
 import static java.util.stream.Collectors.*;
-import static java.util.stream.Collectors.maxBy;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 /**
  * 了解 groupingBy 收集器
