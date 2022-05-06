@@ -42,6 +42,11 @@
             <version>0.9.0</version>
         </dependency>
     
-        
+        <dependency>
+            <groupId>com.pivovarit</groupId>
+            <artifactId>throwing-function</artifactId>
+            <version>1.5.1</version>
+        </dependency>
+
     </dependencies>
 </project>
