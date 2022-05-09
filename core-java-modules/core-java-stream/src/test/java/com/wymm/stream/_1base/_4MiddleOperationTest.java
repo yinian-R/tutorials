@@ -8,7 +8,7 @@ import java.util.stream.Stream;
 /**
  * Stream 中间操作
  */
-class _4StreamTest {
+class _4MiddleOperationTest {
     @Test
     void test() {
         String str = "my name is word";

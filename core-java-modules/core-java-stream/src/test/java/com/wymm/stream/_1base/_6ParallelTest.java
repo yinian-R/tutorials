@@ -2,13 +2,14 @@ package com.wymm.stream._1base;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ForkJoinPool;
 import java.util.stream.IntStream;
 
 /**
  * 并行流
  */
-class _6StreamTest {
+class _6ParallelTest {
     private static void debug(int i) {
         System.out.println(i);
         try {
@@ -36,8 +37,12 @@ class _6StreamTest {
         }
     }
     
+    /**
+     * 使用自定义并行流
+     * 建议使用默认的全局线程池，我们应该有充分的理由在自定义线程池中运行并行流
+     */
     @Test
-    void main() {
+    void usingParallelStreamApi() throws ExecutionException, InterruptedException {
 //        // 调用parallel产生一个并行流
 //        long count1 = IntStream.range(1, 100).parallel().peek(_6StreamDemo::debug).count();
 //
@@ -59,7 +64,7 @@ class _6StreamTest {
         // 使用自定义的线程池，防止任务被别的任务堵塞
         // 线程名称前缀 ForkJoinPool-1-worker-
         ForkJoinPool pool = new ForkJoinPool(20);
-        pool.submit(() -> IntStream.range(1, 100).parallel().peek(_6StreamTest::debug3).count());
+        Long count = pool.submit(() -> IntStream.range(1, 100).parallel().peek(_6ParallelTest::debug3).count()).get();
         pool.shutdown();
         synchronized (pool) {
             try {
@@ -68,5 +73,6 @@ class _6StreamTest {
                 e.printStackTrace();
             }
         }
+        System.out.println(count);
     }
 }

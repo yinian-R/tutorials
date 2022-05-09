@@ -12,7 +12,7 @@ import java.util.stream.Stream;
 /**
  * 终止操作
  */
-class _5StreamTest {
+class _5TerminationOperationTest {
     @Test
     void main() {
         String str = "my name is 007";

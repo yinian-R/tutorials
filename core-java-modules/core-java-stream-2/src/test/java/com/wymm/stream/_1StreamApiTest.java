@@ -1,6 +1,7 @@
 package com.wymm.stream;
 
 import com.wymm.stream._1stream.Product;
+import com.wymm.stream._1stream.User;
 import org.apache.commons.collections4.MapUtils;
 import org.junit.jupiter.api.Test;
 
@@ -33,7 +34,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * Stream 基础 API
  * Stream API 是一套功能强大但易于理解的用于处理元素序列的工具。如果使用得当，它可以让我们减少大量样板代码，创建更具可读性的程序，并提高应用程序的生产力。
- *
+ * <p>
  * 在本文中显示的大多数代码示例中，我们没有使用流（我们没有应用close()方法或终端操作）。
  * 在真正的应用程序中，不要让实例化的流未被使用，因为这会导致内存泄漏。
  */
@@ -112,8 +113,14 @@ public class _1StreamApiTest {
     }
     
     /**
+     * Stream.reduce() 是对流的元素执行归约的终端操作。
      * 使用 reduce() ，必须使用并行流才能生效
-     *  reduce(int identity, IntBinaryOperator op); 第一个参数是起始值、第二个参数是累加器函数
+     * reduce(int identity, IntBinaryOperator op); 第一个参数是起始值、第二个参数是累加器函数（二元运算符，第一个操作数是前一个应用程序的返回值，第二个是当前流元素）
+     * <p>
+     * 关键概念：identity 标识、accumulator 累加器、combiner 组合器
+     * Identity – 一个元素，它是归约操作的初始值，如果流为空，则为默认结果
+     * Accumulator – 采用两个参数的函数：归约操作的部分结果和流的下一个元素
+     * Combiner – 一个函数，用于在归约被并行化或累加器参数类型与累加器实现类型不匹配时合并归约操作的部分结果
      */
     @Test
     void reduce() {
@@ -144,6 +151,16 @@ public class _1StreamApiTest {
         // 这里通过以下算法进行归约：累加器通过将流的每个元素添加到identity运行了 3 次。这些行动是并行进行的。
         // 结果，它们有 (10 + 1 = 11; 10 + 2 = 12; 10 + 3 = 13;)
         // 现在 combiner 可以合并这三个结果。它需要两次迭代（12 + 13 = 25；25 + 11 = 36）
+        
+        
+        List<User> users = Arrays.asList(new User("John", 30), new User("Julie", 35));
+        // 这段代码无法编译
+        //int computedAges = users.stream().reduce(0, (partialAgeResult, user) -> partialAgeResult + user.getAge());
+        // 在这种情况下，我们拥有一个用户流，累加器参数类型是整数和用户。但是，累加器实现是整数的总和，因此编译器无法推断用户参数的类型
+        // 我们可以通过使用组合器来解决这个问题：
+        int result = users.stream()
+                .reduce(0, (partialAgeResult, user) -> partialAgeResult + user.getAge(), Integer::sum);
+        // 如果我们使用顺序流并且累加器的类型和它的实现类型匹配，我们就不需要使用组合器
     }
     
     @Test
