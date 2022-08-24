@@ -121,4 +121,25 @@ class _2LocalDateTest {
         List<LocalDate> dates = getDatesBetweenUsingJava8(startDate, endDate);
         System.out.println(dates);
     }
+    
+    @Test
+    void week(){
+        System.out.println("\n获取星期几：" +
+                LocalDate.now().getDayOfWeek()
+        );
+        
+        
+        // 周一、周二、周三，see DayOfWeek
+        String week = "MONDAY,TUESDAY,WEDNESDAY";
+    
+        for (String dayOfWeek : week.split(",")) {
+            if (LocalDate.now().getDayOfWeek().toString().equals(dayOfWeek)) {
+                System.out.println("符合" + dayOfWeek);
+                
+                // todo something
+            } else {
+                System.out.println("不符合"+dayOfWeek);
+            }
+        }
+    }
 }

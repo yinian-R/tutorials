@@ -22,9 +22,7 @@ public class RestTemplateConfig {
     
     @Bean
     public RestTemplate restTemplate(RestTemplateBuilder builder) {
-        return builder.setConnectTimeout(Duration.ofSeconds(2))
-                .setReadTimeout(Duration.ofSeconds(5))
-                .requestFactory(this::requestFactory)
+        return builder.requestFactory(this::requestFactory)
                 .build();
     }
     
@@ -43,7 +41,10 @@ public class RestTemplateConfig {
                 // 驱逐过期连接
                 .evictExpiredConnections()
                 .build();
-        return new HttpComponentsClientHttpRequestFactory(httpClient);
+        HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory(httpClient);
+        factory.setConnectTimeout(Math.toIntExact(Duration.ofSeconds(2).toMillis()));
+        factory.setReadTimeout(Math.toIntExact(Duration.ofSeconds(5).toMillis()));
+        return factory;
     }
     
 }

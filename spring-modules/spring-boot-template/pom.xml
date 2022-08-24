@@ -126,6 +126,13 @@
             <artifactId>qs</artifactId>
             <version>6.10.1</version>
         </dependency>
+    
+        <!--Java 工具库-->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>5.7.22</version>
+        </dependency>
     </dependencies>
 
     <build>

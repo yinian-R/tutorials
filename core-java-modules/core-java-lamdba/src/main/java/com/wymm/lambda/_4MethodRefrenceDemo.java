@@ -1,5 +1,12 @@
 package com.wymm.lambda;
 
+import java.util.function.BiFunction;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.IntUnaryOperator;
+import java.util.function.Supplier;
+import java.util.function.UnaryOperator;
+
 public class _4MethodRefrenceDemo {
     public static void main(String[] args) {
         // 方法引用

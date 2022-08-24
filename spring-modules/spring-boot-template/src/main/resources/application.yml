@@ -1,6 +1,11 @@
 server:
   servlet:
     context-path: /
+  tomcat:
+    max-connections: 8192
+    threads:
+      max: 200
+
 
 spring:
   profiles:
