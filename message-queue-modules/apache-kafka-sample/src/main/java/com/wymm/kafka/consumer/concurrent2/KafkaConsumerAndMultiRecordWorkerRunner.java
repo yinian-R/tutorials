@@ -34,7 +34,7 @@ public class KafkaConsumerAndMultiRecordWorkerRunner<T, R> implements Runnable {
                 ConsumerRecords<T, R> records = consumer.poll(Duration.ofSeconds(1));
                 // 执行消息处理逻辑
                 for (ConsumerRecord<T, R> record : records) {
-                    recordExecutors.submit(new RecordWorker(record));
+                    recordExecutors.submit(new RecordWorker<>(record));
                 }
             }
         } catch (WakeupException e) {

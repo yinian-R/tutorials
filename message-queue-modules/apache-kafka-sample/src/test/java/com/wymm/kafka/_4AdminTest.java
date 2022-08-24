@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
@@ -64,6 +65,19 @@ class _4AdminTest {
                         .sum();
             }
             System.out.println(size);
+        }
+    }
+    
+    
+    @Test
+    void listTopic() throws InterruptedException, ExecutionException, TimeoutException {
+        Properties props = new Properties();
+        props.put(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, KafkaConfig.BOOTSTRAP_SERVERS);
+        try (AdminClient adminClient = KafkaAdminClient.create(props)) {
+            ListTopicsResult result = adminClient.listTopics();
+            Set<String> topics = result.names().get(5, TimeUnit.SECONDS);
+    
+            System.out.println(topics);
         }
     }
     

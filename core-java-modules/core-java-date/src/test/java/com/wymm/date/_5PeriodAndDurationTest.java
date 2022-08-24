@@ -90,5 +90,9 @@ class _5PeriodAndDurationTest {
         // 我们还可以将plus（）和minus（）方法与指定TemporalUnit的参数一起使用来进行加法或减法
         assertEquals(120, duration.plus(60, ChronoUnit.SECONDS).getSeconds());
         assertEquals(30, duration.minus(30, ChronoUnit.SECONDS).getSeconds());
+        
+        // 根据对象输出字符串
+        Duration printDuration = Duration.ofMinutes(1);
+        System.out.println(printDuration);
     }
 }
