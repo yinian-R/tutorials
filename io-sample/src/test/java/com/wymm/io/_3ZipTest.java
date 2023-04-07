@@ -1,19 +1,32 @@
 package com.wymm.io;
 
+import cn.hutool.core.io.IoUtil;
+import com.sun.xml.internal.messaging.saaj.util.ByteOutputStream;
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
 /**
  * Java 中的压缩和解压
+ *
+ * ZipOutputStream 用于以 ZIP 文件格式写入文件。
+ * - putNextEntry() 开始编写新的 ZIP 文件条目，并将流定位到条目数据的开头。
+ * - flush() 如果构建输出流 syncFlush 为 true 时，flush() 强制将待定数据冲洗到输出流，然后冲洗输出流
+ * - closeEntry() 关闭当前条目并定位流以写入下一个数据
  */
 public class _3ZipTest {
     
@@ -174,6 +187,45 @@ public class _3ZipTest {
             throw new IOException("Entry is outside of the target dir: " + zipEntry.getName());
         }
         return destFile;
+    }
+    
+    /**
+     * 动态压缩多个文本
+     */
+    @Test
+    void zipManyText() throws IOException {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        ZipOutputStream zos = new ZipOutputStream(outputStream);
+    
+        Map<String, String> pathAndContentMap = new HashMap<>();
+        pathAndContentMap.put("/controller/controller.java", "a controller");
+        pathAndContentMap.put("/service/service.java", "a service");
+        pathAndContentMap.put("/mapper/mapper.java", "a mapper");
+        for (Map.Entry<String, String> mapEntry : pathAndContentMap.entrySet()) {
+            // 设置路径和文件名
+            ZipEntry entry = new ZipEntry(mapEntry.getKey());
+            zos.putNextEntry(entry);
+            // 设置内容
+            IoUtil.writeUtf8(zos, false, mapEntry.getValue());
+            zos.flush();
+            zos.closeEntry();
+        }
+    
+        IoUtil.close(zos);
+    
+        // 压缩包内容
+        byte[] data = outputStream.toByteArray();
+    
+        System.out.println();
+    
+        // 第一种：web 导出
+        //IoUtil.write(response.getOutputStream(), false, data);
+    
+        
+        // 第二种：导出到文件
+        String targetFile = TestFileUtil.getTargetPath() + "zip/zipManyText.zip";
+        FileOutputStream fos = new FileOutputStream(targetFile);
+        IoUtil.write(fos, true, data);
     }
     
 }

@@ -5,12 +5,23 @@ source "`dirname "$0"`"/service-env.sh
 cd $(dirname $0)/..
 base_dir=`pwd`
 
+# 判断是否存在日志目录，若不存在则创建并建立软连接
+function setup() {
+  if [ -d "${base_dir}/logs" ]; then
+    echo "info: ${base_dir}/logs already exists"
+  else
+    mkdir -p /data-logs/wymm/${SERVICE_NAME}/logs
+    ln -s  /data-logs/wymm/${SERVICE_NAME}/logs ${base_dir}/logs
+  fi
+}
+
 PIDS=""
 function findPid() {
   PIDS=$(ps ax | grep -i "${base_dir}/${JAR_NAME}" | grep java | grep -v grep | awk '{print $1}')
 }
 
 if [ "$1" = "start" ] ; then
+  setup
   findPid
   if [ "x${PIDS}" != 'x' ]; then
     echo ${JAR_NAME} has been running!!!!!

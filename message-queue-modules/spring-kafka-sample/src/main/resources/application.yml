@@ -1,13 +1,25 @@
 spring:
   kafka:
-    producer:
-      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    bootstrap-servers: 10.1.3.25:9092,10.1.3.24:9092,10.1.3.23:9092
+#    bootstrap-servers: 172.25.22.98:9092
+#    producer:
+    #      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
     consumer:
-      group-id: group1
-      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
-      properties:
-        spring:
-          json:
-            trusted:
-              packages: com.example.kafka.kafka.modal
+      group-id: test-group
+#      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+#      properties:
+#        spring:
+#          json:
+#            trusted:
+#              packages: com.example.kafka.kafka.modal
 
+
+logging:
+  level:
+    # 根路径日志级别
+    root: warn
+    com.alibaba.nacos: info
+    org.apache.kafka: debug
+    org.springframework.kafka.listener: debug
+    # 本程序最上层日志级别
+    com.example.kafka.kafka: debug
