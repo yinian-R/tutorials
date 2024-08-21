@@ -7,7 +7,7 @@ O="YourCompany"
 L="Beijing"
 ST="Beijing"
 C="CN"
-BASE_DIR=/home/yi/source/kafkaenv #你需要修改此处
+BASE_DIR=`cd $(dirname $0)/; pwd`
 PASSWORD=pwd123456
 
 CERT_OUTPUT_PATH="$BASE_DIR/certificates"

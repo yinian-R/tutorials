@@ -12,7 +12,7 @@ import com.wymm._2abstract_factory.model.shape.Square;
  */
 public class ShapeFactory extends AbstractFactory {
     
-    // 仅实现不错处理，将由另外一个工厂使用
+    // 仅实现不做处理，将由另外一个工厂使用
     @Override
     public Color getColor(String color) {
         return null;

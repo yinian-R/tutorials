@@ -1,20 +1,17 @@
 package com.example.springwebredis;
 
 import com.example.springwebredis.web.model.User;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.*;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest
 public class RedisTemplateTests {
     
@@ -30,8 +27,7 @@ public class RedisTemplateTests {
         ValueOperations<String, Object> valueOperations = redisTemplate.opsForValue();
         
         valueOperations.set("str:user", "huang");
-        
-        Assert.assertEquals(valueOperations.get("username"), "huang");
+        Assertions.assertEquals(valueOperations.get("str:user"), "huang");
     }
     
     @Test
@@ -42,7 +38,7 @@ public class RedisTemplateTests {
         
         valueOperations.set("obj:user", user);
         
-        Assert.assertEquals(valueOperations.get("user"), user);
+        Assertions.assertEquals(valueOperations.get("obj:user"), user);
     }
     
     /**
@@ -59,7 +55,7 @@ public class RedisTemplateTests {
         hashOperations.put("hash:user", "user1", user1);
         hashOperations.put("hash:user", "user2", user2);
         
-        Assert.assertEquals(hashOperations.get("hash:user", "user1"), user1);
+        Assertions.assertEquals(hashOperations.get("hash:user", "user1"), user1);
     }
     
     /**
@@ -82,8 +78,8 @@ public class RedisTemplateTests {
         
         listOperations.leftPushAll("list:users2", users);
         
-        Assert.assertEquals(listOperations.leftPop("list:users"), user2);
-        Assert.assertEquals(listOperations.leftPop("list:users"), user1);
+        Assertions.assertEquals(listOperations.leftPop("list:users"), user2);
+        Assertions.assertEquals(listOperations.leftPop("list:users"), user1);
         
         System.out.println(listOperations.range("list:users2", 0, listOperations.size("list:user2") - 1));
     }
@@ -107,7 +103,7 @@ public class RedisTemplateTests {
         
         System.out.println(setOperations.members("set:user"));
         
-        Assert.assertEquals(setOperations.members("set:user2"), users);
+        Assertions.assertEquals(setOperations.members("set:user2"), users);
     }
     
     /**

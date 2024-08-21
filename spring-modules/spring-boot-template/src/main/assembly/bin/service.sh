@@ -8,7 +8,7 @@ base_dir=`pwd`
 # 判断是否存在日志目录，若不存在则创建并建立软连接
 function setup() {
   if [ -d "${base_dir}/logs" ]; then
-    echo "info: ${base_dir}/logs already exists"
+    echo "info: ${base_dir}/logs exists"
   else
     mkdir -p /data-logs/wymm/${SERVICE_NAME}/logs
     ln -s  /data-logs/wymm/${SERVICE_NAME}/logs ${base_dir}/logs
@@ -29,19 +29,18 @@ if [ "$1" = "start" ] ; then
   fi
 
   while [ $# -gt 0 ]; do
-    COMMAND=$1
-    case $COMMAND in
-      -name)
+    case $1 in
+      --name) # 程序通用命名，目前仅 GC 日志名称使用到
         DAEMON_NAME=$2
         shift 2
         ;;
-      -loggc)
+      --loggc) # 是否打印 GC 日志
         if [ -z "$SERVICE_GC_LOG_OPTS" ]; then
           GC_LOG_ENABLED="true"
         fi
         shift
         ;;
-      -daemon)
+      --daemon) # 是否后台运行
         DAEMON_MODE="true"
         shift
         ;;
@@ -66,7 +65,7 @@ if [ "$1" = "start" ] ; then
   # JVM performance options
   # MaxInlineLevel=15 is the default since JDK 14 and can be removed once older JDKs are no longer supported
   if [ -z "$SERVICE_JVM_PERFORMANCE_OPTS" ]; then
-    SERVICE_JVM_PERFORMANCE_OPTS="-server -XX:+UseG1GC -XX:MaxGCPauseMillis=20 -Djava.awt.headless=true"
+    SERVICE_JVM_PERFORMANCE_OPTS="-server -XX:+UseG1GC -XX:MaxGCPauseMillis=20 -Djava.awt.headless=true -XX:MetaspaceSize=512m -XX:MaxMetaspaceSize=512m"
   fi
 
   # GC options
@@ -105,7 +104,7 @@ if [ "$1" = "start" ] ; then
   fi
 
   # Launch mode
-    COMMAND="${JAVA} ${SERVICE_HEAP_OPTS} ${SERVICE_JVM_PERFORMANCE_OPTS} ${SERVICE_GC_LOG_OPTS} ${SERVICE_OPTS} -jar ${base_dir}/${JAR_NAME} ${SPRING_CONFIG_OPTS}"
+  COMMAND="${JAVA} ${SERVICE_HEAP_OPTS} ${SERVICE_JVM_PERFORMANCE_OPTS} ${SERVICE_GC_LOG_OPTS} ${SERVICE_OPTS} -jar ${base_dir}/${JAR_NAME} ${SPRING_CONFIG_OPTS}"
   if [ "x$DAEMON_MODE" = "xtrue" ]; then
     nohup $COMMAND >/dev/null 2>&1 & echo $COMMAND' >/dev/null 2>&1 &'
   else
@@ -123,6 +122,7 @@ elif [ "$1" = "stop" ] ; then
   if [ "x${PIDS}" != 'x' ]; then
     echo pid: $PIDS
     echo kill ${JAR_NAME}
+    # 支持 kill 多个 pid
     kill ${PIDS}
     echo 'stopping...'
     while [ -n "$PIDS" ]; do

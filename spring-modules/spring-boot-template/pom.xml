@@ -133,6 +133,14 @@
             <artifactId>hutool-all</artifactId>
             <version>5.7.22</version>
         </dependency>
+
+        <!-- 流式断言 -->
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>3.11.0</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -204,9 +212,10 @@
                             <classpathPrefix>lib/</classpathPrefix>
                         </manifest>
                     </archive>
-                    <!-- 排除 jar 中的 yml，打包后使用 config 中的 yml -->
+                    <!-- 排除 jar 中的 yml/properties，打包后使用 config 中的 yml/properties -->
                     <excludes>
                         <exclude>/**.yml</exclude>
+                        <exclude>/**.properties</exclude>
                     </excludes>
                 </configuration>
             </plugin>
