@@ -15,6 +15,8 @@ import com.wymm.easyexcelsample.excel.DemoData;
 import com.wymm.easyexcelsample.excel.TestFileUtil;
 import com.wymm.easyexcelsample.excel.write.DemoStyleData;
 import com.wymm.easyexcelsample.excel.write.WidthAndHeightData;
+import com.wymm.easyexcelsample.style.StyleCellStyleStrategy;
+import com.wymm.easyexcelsample.style.StyleSheetWriteHandler;
 import org.apache.poi.ss.usermodel.*;
 import org.junit.jupiter.api.Test;
 
@@ -148,6 +150,25 @@ public class _4WriteStyleTest {
                         }
                     }
                 }).sheet("模板")
+                .doWrite(data());
+    }
+    
+    
+    /**
+     * 覆盖基础样式
+     */
+    @Test
+    public void handlerStyleWrite2() {
+        // 方法1 使用已有的策略（推荐）
+        // HorizontalCellStyleStrategy 每一行的样式都一样 或者隔行一样
+        // AbstractVerticalCellStyleStrategy 每一列的样式都一样 需要自己回调每一页
+        String fileName = TestFileUtil.getPath() + "write/handlerStyleWrite2" + System.currentTimeMillis() + ".xlsx";
+        
+        EasyExcel.write(fileName, DemoData.class)
+                // 覆盖基础样式
+                .registerWriteHandler(new StyleCellStyleStrategy())
+                .registerWriteHandler(new StyleSheetWriteHandler())
+                .sheet("模板")
                 .doWrite(data());
     }
     

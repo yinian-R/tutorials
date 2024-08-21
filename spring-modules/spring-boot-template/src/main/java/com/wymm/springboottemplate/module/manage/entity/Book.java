@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import javax.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -29,6 +30,7 @@ public class Book extends Model<Book> {
      * 编码
      */
     @ApiModelProperty("编码")
+    @NotNull(message = "id不能为空")
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
     

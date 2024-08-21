@@ -1,8 +1,8 @@
 项目 | 描述 |---
 ---|---|---
 **创建型模式** |
-Abstract Factory Pattern | 抽象工厂模式
 Factory Pattern | 工厂模式 | 再创建对象时不会暴露创建逻辑，并且是通过一个共同的接口来指向新对象创建
+Abstract Factory Pattern | 抽象工厂模式
 Singleton Pattern | 单例模式
 Builder Pattern | 建造者模式
 Prototype Pattern | 原型模式
