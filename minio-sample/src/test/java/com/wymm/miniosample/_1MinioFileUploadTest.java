@@ -83,7 +83,7 @@ public class _1MinioFileUploadTest {
         MinioClient minioClient =
                 MinioClient.builder()
                         .endpoint("http://172.25.22.28:9000")
-                        .credentials("minio", "Suntek123")
+                        .credentials("minio", "password")
                         .build();
     
         //ObjectWriteResponse asiatrip = minioClient.uploadObject(

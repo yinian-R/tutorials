@@ -22,8 +22,8 @@ class MybatisPlusServiceImplTest {
     
         User user = new User();
         user.setId(0L);
-        user.setFirst_name("F");
-        user.setLast_name("A");
+        user.setFirstName("F");
+        user.setLastName("A");
         user.setEmail("@");
         user.setAge("12");
     

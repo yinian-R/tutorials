@@ -5,8 +5,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @SpringBootTest
 class UserMapperTest {
     @Autowired
@@ -16,8 +14,8 @@ class UserMapperTest {
     void test(){
         User user = new User();
         user.setId(0L);
-        user.setFirst_name("F");
-        user.setLast_name("A");
+        user.setFirstName("F");
+        user.setLastName("A");
         user.setEmail("@");
         user.setAge("12");
         

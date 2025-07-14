@@ -111,10 +111,12 @@ class _3HttpPostTest {
         HttpPost httpPost = new HttpPost("http://127.0.0.1:8080/multipart");
         
         File file = new File(this.getClass().getResource("/test.txt").getPath());
+        File file2 = new File(this.getClass().getResource("/test1111.txt").getPath());
         MultipartEntityBuilder builder = MultipartEntityBuilder.create();
         builder.addTextBody("username", "guest");
         builder.addTextBody("password", "pass");
         builder.addBinaryBody("file", file, ContentType.APPLICATION_OCTET_STREAM, "file.txt");
+        builder.addBinaryBody("file2", file2, ContentType.APPLICATION_OCTET_STREAM, "file2.txt");
         
         HttpEntity build = builder.build();
         httpPost.setEntity(build);

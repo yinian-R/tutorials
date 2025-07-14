@@ -4,6 +4,7 @@ create table book
     name        varchar(50),
     book_type   varchar(50),
     author      varchar(50),
+    pic      text,
     description text,
     create_time datetime,
     primary key (id)
