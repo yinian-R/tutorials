@@ -1,0 +1,286 @@
+{
+  "author" : "hrj",
+  "version" : "1.0.0",
+  "fileVersion" : "",
+  "userSecure" : "",
+  "currTypeMapperGroupName" : "PCI-U",
+  "currTemplateGroupName" : "PCI",
+  "currColumnConfigGroupName" : "PCI-U",
+  "currGlobalConfigGroupName" : "PCI-U",
+  "typeMapper" : {
+    "PCI-U" : {
+      "name" : "PCI-U",
+      "elementList" : [ {
+        "matchType" : "REGEX",
+        "columnType" : "varchar(\\(\\d+\\))?",
+        "javaType" : "java.lang.String"
+      }, {
+        "matchType" : "REGEX",
+        "columnType" : "char(\\(\\d+\\))?",
+        "javaType" : "java.lang.String"
+      }, {
+        "matchType" : "REGEX",
+        "columnType" : "(tiny|medium|long)*text(\\(max\\))*",
+        "javaType" : "java.lang.String"
+      }, {
+        "matchType" : "REGEX",
+        "columnType" : "(String|FixedString)(\\(\\d+\\))?",
+        "javaType" : "java.lang.String"
+      }, {
+        "matchType" : "ORDINARY",
+        "columnType" : "string",
+        "javaType" : "java.lang.String"
+      }, {
+        "matchType" : "REGEX",
+        "columnType" : "Decimal|Decimal\\d+\\(\\d+\\)?|decimal(\\(\\d+,\\d+\\))?",
+        "javaType" : "java.math.BigDecimal"
+      }, {
+        "matchType" : "ORDINARY",
+        "columnType" : "integer",
+        "javaType" : "java.lang.Integer"
+      }, {
+        "matchType" : "REGEX",
+        "columnType" : "(tiny|small|medium)*int(\\(\\d+\\))?",
+        "javaType" : "java.lang.Integer"
+      }, {
+        "matchType" : "REGEX",
+        "columnType" : "(uint|int)16?",
+        "javaType" : "java.lang.Integer"
+      }, {
+        "matchType" : "ORDINARY",
+        "columnType" : "int4",
+        "javaType" : "java.lang.Integer"
+      }, {
+        "matchType" : "ORDINARY",
+        "columnType" : "int8",
+        "javaType" : "java.lang.Long"
+      }, {
+        "matchType" : "REGEX",
+        "columnType" : "(uint|int)(32|64)?",
+        "javaType" : "java.lang.Long"
+      }, {
+        "matchType" : "REGEX",
+        "columnType" : "bigint(\\(\\d+\\))?",
+        "javaType" : "java.lang.Long"
+      }, {
+        "matchType" : "REGEX",
+        "columnType" : "float|float32|float64|float\\d+",
+        "javaType" : "java.lang.Double"
+      }, {
+        "matchType" : "ORDINARY",
+        "columnType" : "date",
+        "javaType" : "java.time.LocalDate"
+      }, {
+        "matchType" : "REGEX",
+        "columnType" : "datetime|datetime\\d+|datetime(\\(\\d+\\))?|datetime(\\(\\d+\\,\\d+\\))?",
+        "javaType" : "java.time.LocalDateTime"
+      }, {
+        "matchType" : "ORDINARY",
+        "columnType" : "timestamp",
+        "javaType" : "java.time.LocalDateTime"
+      }, {
+        "matchType" : "ORDINARY",
+        "columnType" : "time",
+        "javaType" : "java.time.LocalTime"
+      }, {
+        "matchType" : "ORDINARY",
+        "columnType" : "boolean",
+        "javaType" : "java.lang.Boolean"
+      }, {
+        "matchType" : "ORDINARY",
+        "columnType" : "double(10,2)",
+        "javaType" : "java.math.BigDecimal"
+      }, {
+        "matchType" : "ORDINARY",
+        "columnType" : "double(10,3)",
+        "javaType" : "java.lang.String"
+      }, {
+        "matchType" : "ORDINARY",
+        "columnType" : "TIMESTAMP(39,6)",
+        "javaType" : "java.time.LocalDateTime"
+      }, {
+        "matchType" : "ORDINARY",
+        "columnType" : "TIMESTAMP(32)",
+        "javaType" : "java.time.LocalDateTime"
+      }, {
+        "matchType" : "ORDINARY",
+        "columnType" : "NUMBER(22)",
+        "javaType" : "java.lang.String"
+      }, {
+        "matchType" : "ORDINARY",
+        "columnType" : "double",
+        "javaType" : "java.lang.String"
+      }, {
+        "matchType" : "ORDINARY",
+        "columnType" : "DATE(13)",
+        "javaType" : "java.lang.String"
+      }, {
+        "matchType" : "ORDINARY",
+        "columnType" : "DEC(10,4)",
+        "javaType" : "java.lang.String"
+      }, {
+        "matchType" : "ORDINARY",
+        "columnType" : "CLOB",
+        "javaType" : "java.lang.String"
+      }, {
+        "matchType" : "ORDINARY",
+        "columnType" : "VARCHAR2(32)",
+        "javaType" : "java.lang.String"
+      }, {
+        "matchType" : "ORDINARY",
+        "columnType" : "VARCHAR2(16)",
+        "javaType" : "java.lang.String"
+      }, {
+        "matchType" : "ORDINARY",
+        "columnType" : "VARCHAR2(64)",
+        "javaType" : "java.lang.String"
+      }, {
+        "matchType" : "ORDINARY",
+        "columnType" : "BYTE(3)",
+        "javaType" : "java.lang.String"
+      }, {
+        "matchType" : "ORDINARY",
+        "columnType" : "VARCHAR2(8)",
+        "javaType" : "java.lang.String"
+      }, {
+        "matchType" : "ORDINARY",
+        "columnType" : "numeric(10,2)",
+        "javaType" : "java.lang.String"
+      }, {
+        "matchType" : "ORDINARY",
+        "columnType" : "numeric(10,3)",
+        "javaType" : "java.lang.String"
+      }, {
+        "matchType" : "ORDINARY",
+        "columnType" : "timestamp(6)",
+        "javaType" : "java.lang.String"
+      }, {
+        "matchType" : "ORDINARY",
+        "columnType" : "geometry(LineString,4326)",
+        "javaType" : "java.lang.String"
+      }, {
+        "matchType" : "ORDINARY",
+        "columnType" : "VARCHAR2(2048)",
+        "javaType" : "java.lang.String"
+      }, {
+        "matchType" : "ORDINARY",
+        "columnType" : "NUMBER(10,3)",
+        "javaType" : "java.lang.String"
+      }, {
+        "matchType" : "ORDINARY",
+        "columnType" : "TIME(15)",
+        "javaType" : "java.time.LocalTime"
+      }, {
+        "matchType" : "ORDINARY",
+        "columnType" : "NUMBER(13,10)",
+        "javaType" : "java.math.BigDecimal"
+      }, {
+        "matchType" : "ORDINARY",
+        "columnType" : "numeric",
+        "javaType" : "java.lang.String"
+      }, {
+        "matchType" : "ORDINARY",
+        "columnType" : "numeric(16,8)",
+        "javaType" : "java.lang.Double"
+      }, {
+        "matchType" : "ORDINARY",
+        "columnType" : "numeric(16,9)",
+        "javaType" : "java.lang.Double"
+      }, {
+        "matchType" : "ORDINARY",
+        "columnType" : "geometry(MultiPolygon,4326)",
+        "javaType" : "java.lang.String"
+      } ]
+    }
+  },
+  "template" : {
+    "hrj-debug" : {
+      "name" : "hrj-debug",
+      "elementList" : [ {
+        "name" : "debug.json",
+        "code" : "$!tool.toJson($tableInfo)\n\n表名\n$!tableInfo.obj.dasParent\n      \n列名| 列名 | type |     隐藏列     |     显示在筛选     |     字典类型\n#foreach ($column in $tableInfo.fullColumn)\n$column.name | $column.obj.name | $column.shortType |     $!{column.ext.get(\"隐藏列\")}     |     $!{column.ext.get(\"显示在筛选\")}     |     $!{column.ext.get(\"dictType\")}\n#end\n\n\n"
+      }, {
+        "name" : "excelTemp.csv",
+        "code" : "##导入宏定义\n$!{define.vm}\n$!{init.vm}\n##设置表后缀（宏定义）\n#setTableSuffix(\"Excel\")\n##保存文件（宏定义）\n#save(\"/model/excel\", \"Excel.csv\")\n\n#set($newList = [])\n#foreach($element in $tableInfo.fullColumn)\n    #if($!{element.ext.get(\"导出\")})\n        $tool.call($newList.add($element))\n    #end\n#end\n\n\n\n#foreach ($column in $newList)\n$!{tool.escapeDoubleQuotes($!{column.comment})}#if($foreach.hasNext),#end#end\n\n#foreach ($column in $newList)\n#if($!{column.ext.get(\"dictType\")}){data.$!{column.name}View}#if($foreach.hasNext),#end#else{data.$!{column.name}}#if($foreach.hasNext),#end#end\n#end\n\n"
+      } ]
+    },
+    "PCI" : {
+      "name" : "PCI",
+      "elementList" : [ {
+        "name" : "Controller.java.vm",
+        "code" : "##导入宏定义\n$!{define.vm}\n##设置表后缀（宏定义）\n#setTableSuffix(\"Controller\")\n##保存文件（宏定义）\n#save(\"/controller\", \"Controller.java\")\n##包路径（宏定义）\n#setPackageSuffix(\"controller\")\n##定义包路径\n#set($package = $!{tableInfo.savePackageName})\n##定义类名\n#set($className = $!{tableInfo.name})\n##定义注释内容\n#set($comments = $!{tableInfo.comment})\n##定义服务名\n#set($serviceName = $!tool.append($!tool.firstLowerCase($!tableInfo.name), \"Service\"))\n##定义实体对象名\n#set($entityName = $!tool.firstLowerCase($!tableInfo.name))\n##初始化列状态\n#initColumnState()\n\n$!{autoImport.vm}\nimport com.suntek.common.core.base.Result;\nimport com.suntek.common.core.base.ReqBody;\nimport com.suntek.common.core.constant.PublicConstants;\nimport com.suntek.common.core.util.CopyUtil;\nimport com.suntek.common.dao.base.PageDTO;\nimport com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;\nimport com.alibaba.excel.EasyExcel;\nimport com.alibaba.excel.write.metadata.fill.FillWrapper;\nimport com.alibaba.excel.support.ExcelTypeEnum;\nimport com.suntek.common.web.constant.TemplateConstants;\nimport com.suntek.common.web.excel.enhance.annotation.ExcelResponse;\nimport com.suntek.common.web.excel.enhance.annotation.FillSheetParam;\nimport com.suntek.common.web.excel.enhance.processor.ExcelWriterProcess;\nimport com.suntek.common.web.excel.enhance.annotation.WriteSheetParam;\nimport com.suntek.common.export.util.DownloadUtil;\nimport javax.servlet.http.HttpServletResponse;\nimport ${package}.model.po.${className}PO;\nimport ${package}.model.dto.${className}DTO;\nimport ${package}.model.excel.${className}Excel;\nimport ${package}.model.vo.${className}AddVO;\nimport ${package}.model.vo.${className}UpdateVO;\nimport ${package}.model.vo.${className}PageVO;\nimport ${package}.service.${className}Service;\nimport org.springframework.validation.annotation.Validated;\nimport org.springframework.web.bind.annotation.*;\nimport io.swagger.annotations.Api;\nimport io.swagger.annotations.ApiOperation;\nimport io.swagger.annotations.ApiImplicitParam;\nimport io.swagger.annotations.ApiImplicitParams;\nimport lombok.extern.slf4j.Slf4j;\nimport com.suntek.common.core.annotation.TranslateDict;\n\nimport javax.annotation.Resource;\nimport java.io.File;\nimport java.util.List;\n\n##表注释（宏定义）\n#tableComment(\"控制层\")\n@Slf4j\n@RestController\n@RequestMapping(\"/$!tool.firstLowerCase($!tableInfo.name)\")\n@Api(tags = \"${comments}\")\npublic class ${className}Controller {\n\n    private static final String DESC = \"【字典】#foreach ($column in $tableInfo.fullColumn)#if($!{column.ext.get(\"dictType\")})$!{column.comment}:$!{column.ext.get(\"dictType\")}、#end#end\";\n\n    @Resource\n    private $!{tableInfo.name}Service $!{serviceName};\n\n    @PostMapping(\"/page\")\n    @ApiOperation(value = \"${comments} 获取列表分页\", notes = DESC)\n    @ApiOperationSupport(order = 1)\n    public Result<PageDTO<${className}DTO>> listPage(@RequestBody ReqBody<${className}PageVO> param) {\n        return Result.success($!{serviceName}.listPage(param.getData()));\n    }\n\n#if(!$tableInfo.pkColumn.isEmpty())\n    #set($pk = $!{tableInfo.pkColumn.get(0)})\n\n    @GetMapping(\"/getById\")\n    @ApiOperation(value = \"${comments} 获取信息\")\n    @ApiOperationSupport(order = 2)\n    @TranslateDict\n    public Result<${className}DTO> getById(@RequestParam(\"${pk.name}\") ${pk.shortType} ${pk.name}) {\n        return Result.success($!{serviceName}.getBy(${pk.name}));\n    }\n#end\n\n\n    @PostMapping(\"/save\")\n    @ApiOperation(value = \"${comments} 添加\", notes = DESC)\n    @ApiOperationSupport(order = 3)\n    public Result<Boolean> save(@Validated @RequestBody ReqBody<${className}AddVO> param) {\n        return Result.success($!{serviceName}.add(param.getData()));\n    }\n\n    @PostMapping(\"/update\")\n    @ApiOperation(value = \"${comments} 更新\", notes = DESC)\n    @ApiOperationSupport(order = 6)\n    public Result<Boolean> update(@Validated @RequestBody ReqBody<${className}UpdateVO> param) {\n        return Result.success($!{serviceName}.updateBy(param.getData()));\n    }\n\n\n#if(!$tableInfo.pkColumn.isEmpty())\n    #set($pk = $!{tableInfo.pkColumn.get(0)})\n    #if($hasStatusColumn)\n\n    @PostMapping(\"/delete\")\n    @ApiOperation(value = \"${comments} 删除\")\n    @ApiOperationSupport(order = 8)\n    public Result<Boolean> delete(@RequestParam(\"${pk.name}\") ${pk.shortType} ${pk.name}) {\n        return Result.success($!{serviceName}.logicalRemoveById(${pk.name}));\n    }\n\n\n    @PostMapping(\"/batch/delete\")\n    @ApiOperation(value = \"${comments} 批量删除\")\n    @ApiOperationSupport(order = 9)\n    public Result<Boolean> deleteBatch(@RequestBody ReqBody<List<${pk.shortType}>> params) {\n        return Result.success(${serviceName}.logicalRemoveByIds(params.getData()));\n    }\n    #else\n\n    @PostMapping(\"/delete\")\n    @ApiOperation(value = \"${comments} 删除\")\n    @ApiOperationSupport(order = 10)\n    public Result<Boolean> delete(@RequestParam(\"${pk.name}\") ${pk.shortType} ${pk.name}) {\n        return Result.success($!{serviceName}.removeById(${pk.name}));\n    }\n\n\n    @PostMapping(\"/batch/delete\")\n    @ApiOperation(value = \"${comments} 批量删除\")\n    @ApiOperationSupport(order = 11)\n    public Result<Boolean> deleteBatch(@RequestBody ReqBody<List<${pk.shortType}>> params) {\n        return Result.success(${serviceName}.removeBatchByIds(params.getData()));\n    }\n    #end\n#end\n\n#if($callback.exportExcelWithTemplate)\n\n    @PostMapping(\"/export\")\n    @ApiOperation(value = \"${comments} 导出Excel\", notes = \"导出${comments}\")\n    @ApiOperationSupport(order = 12)\n    @ExcelResponse(fileName = \"${comments}记录导出\", template = {TemplateConstants.ExcelConstants.FILL_TEMPLATE_DIR, \"${comments}导出模板.xlsx\"})\n    public ExcelWriterProcess export(@RequestBody ReqBody<${className}PageVO> param) {\n        ${className}PageVO vo = param.getData();\n        vo.setCurrent(1L);\n        vo.setSize(PublicConstants.Excel.DEFAULT_MAX_EXPORT_TOTAL);\n        List<${className}DTO> list = $!{serviceName}.listPage(vo).getRecords();\n        return excelWriter -> {\n            excelWriter.fill(new FillWrapper(\"data1\", list), EasyExcel.writerSheet(0)\n                    .build()\n            );\n        };\n    }\n#else\n\n    @ExcelResponse(\n            fileName = \"${comments}导出\",\n            writeSheets = @WriteSheetParam(head = ${className}Excel.class)\n    )\n    @PostMapping(\"/export\")\n    @ApiOperation(value = \"${comments} 导出Excel\")\n    @ApiOperationSupport(order = 13)\n    public List<${className}Excel> export(@RequestBody ReqBody<${className}PageVO> param) {\n        ${className}PageVO vo = param.getData();\n        vo.setCurrent(1L);\n        vo.setSize(PublicConstants.Excel.DEFAULT_MAX_EXPORT_TOTAL);\n        List<${className}DTO> list = $!{serviceName}.listPage(vo).getRecords();\n        return CopyUtil.copyList(list, ${className}Excel.class);\n    }\n#end\n}\n"
+      }, {
+        "name" : "Service.java.vm",
+        "code" : "##导入宏定义\n$!{define.vm}\n##设置表后缀（宏定义）\n#setTableSuffix(\"Service\")\n##保存文件（宏定义）\n#save(\"/service\", \"Service.java\")\n##包路径（宏定义）\n#setPackageSuffix(\"service\")\n##定义包路径\n#set($package = $!{tableInfo.savePackageName})\n##定义类名\n#set($className = $!{tableInfo.name})\n##定义注释内容\n#set($comments = $!{tableInfo.comment})\n##初始化列状态\n#initColumnState()\n##定义实体对象名\n#set($entityName = $!tool.firstLowerCase($!tableInfo.name))\n$!autoImport\nimport com.baomidou.mybatisplus.extension.service.IService;\nimport ${package}.model.po.${className}PO;\nimport ${package}.model.dto.${className}DTO;\nimport ${package}.model.vo.${className}PageVO;\nimport ${package}.model.vo.${className}AddVO;\nimport ${package}.model.vo.${className}UpdateVO;\nimport com.suntek.common.dao.base.PageDTO;\n#if(!$callback.exportExcelWithTemplate)\nimport java.io.File;\n#end\nimport java.util.Collection;\n\n##表注释（宏定义）\n#tableComment(\"服务定义层\")\npublic interface ${className}Service extends IService<${className}PO> {\n\n    /**\n     * 分页查询${comments}\n     *\n     * @param vo 分页对象\n     * @return PageDTO<${className}DTO>\n     */\n    PageDTO<${className}DTO> listPage(${className}PageVO vo);\n\n#if(!$tableInfo.pkColumn.isEmpty())\n    #set($pk = $!{tableInfo.pkColumn.get(0)})\n    /**\n     * 根据主键编号获取${comments}\n     *\n     * @param ${pk.name} 主键编号\n     */\n    ${className}DTO getBy($!{pk.shortType} ${pk.name});\n#end\n\n    /**\n     * 新增${comments}\n     *\n     * @param vo 新增对象\n     * @return PageDTO<${className}DTO>\n     */\n    boolean add(${className}AddVO vo);\n\n    /**\n     * 批量新增${comments}\n     *\n     * @param voList 新增对象列表\n     * @return PageDTO<${className}DTO>\n     */\n    boolean addBatch(Collection<${className}AddVO> voList);\n    \n    /**\n     * 修改${comments}\n     *\n     * @param vo 修改对象\n     * @return PageDTO<${className}DTO>\n     */\n    boolean updateBy(${className}UpdateVO vo);\n\n\n#if(!$tableInfo.pkColumn.isEmpty())\n    #set($pk = $!{tableInfo.pkColumn.get(0)})\n    #if($hasStatusColumn)\n    /**\n     * 根据主键编号逻辑删除${comments}\n     *\n     * @param $!{pk.name} 主键编号\n     */\n    boolean logicalRemoveById($!{pk.shortType} $!{pk.name});\n\n    /**\n     * 根据主键编号集合批量逻辑删除${comments}\n     *\n     * @param idList 主键编号集合\n     */\n    boolean logicalRemoveByIds(Collection<$!{pk.shortType}> idList);\n    #end\n#end\n}\n"
+      }, {
+        "name" : "ServiceImpl.java.vm",
+        "code" : "##导入宏定义\n$!{define.vm}\n##设置表后缀（宏定义）\n#setTableSuffix(\"Service\")\n##保存文件（宏定义）\n#save(\"/service/impl\", \"ServiceImpl.java\")\n##包路径（宏定义）\n#setPackageSuffix(\"service.impl\")\n##定义包路径\n#set($package = $!{tableInfo.savePackageName})\n##定义类名\n#set($className = $!{tableInfo.name})\n##定义注释内容\n#set($comments = $!{tableInfo.comment})\n##初始化列状态\n#initColumnState()\n##定义实体对象名\n#set($entityName = $!tool.firstLowerCase($!tableInfo.name))\n$!autoImport\nimport cn.hutool.core.bean.BeanUtil;\nimport cn.hutool.core.date.DatePattern;\nimport cn.hutool.core.date.DateUtil;\nimport cn.hutool.core.lang.Assert;\nimport cn.hutool.core.util.ObjectUtil;\nimport com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;\n#if(${hasStatusColumn})\nimport com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;\n#end\nimport com.baomidou.mybatisplus.core.metadata.IPage;\nimport com.baomidou.mybatisplus.core.toolkit.Wrappers;\nimport com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;\nimport com.google.common.collect.ImmutableMap;\nimport com.google.common.collect.Maps;\nimport com.suntek.common.core.constant.PublicConstants;\nimport ${package}.model.po.${className}PO;\nimport ${package}.model.dto.${className}DTO;\nimport ${package}.model.vo.${className}PageVO;\nimport ${package}.model.vo.${className}AddVO;\nimport ${package}.model.vo.${className}UpdateVO;\nimport ${package}.mapper.${className}Mapper;\nimport ${package}.service.${className}Service;\nimport com.suntek.common.core.util.CopyUtil;\nimport com.suntek.common.dao.base.PageDTO;\nimport com.suntek.common.dao.util.PageUtil;\n#if(!$callback.exportExcelWithTemplate)\nimport com.suntek.common.export.service.delegate.NormalExcelExportDelegate;\n#end\nimport org.springframework.stereotype.Service;\nimport org.springframework.transaction.annotation.Transactional;\nimport lombok.extern.slf4j.Slf4j;\nimport com.suntek.common.core.annotation.TranslateDict;\n\nimport java.util.Collection;\nimport java.util.Date;\n#if(!$callback.exportExcelWithTemplate)\nimport java.io.File;\n#end\nimport java.util.List;\nimport java.util.Map;\nimport java.util.concurrent.atomic.AtomicInteger;\nimport java.util.stream.Collectors;\n\n##表注释（宏定义）\n#tableComment(\"服务实现层\")\n@Service\n@Slf4j\npublic class ${className}ServiceImpl extends ServiceImpl<${className}Mapper, ${className}PO> implements ${className}Service {\n\n    @Override\n    @TranslateDict\n    public PageDTO<${className}DTO> listPage(${className}PageVO vo) {\n        IPage<${className}DTO> pageResult = baseMapper.pageList(vo, PageUtil.page(vo));\n        return PageDTO.toPage(pageResult, ${className}DTO.class);\n    }\n\n#if(!$tableInfo.pkColumn.isEmpty())\n    #set($pk = $!{tableInfo.pkColumn.get(0)})\n    @Override\n    public ${className}DTO getBy($!{pk.shortType} ${pk.name}) {\n        Assert.notNull(${pk.name}, \"查询ID不允许为空\");\n        ${className}PO po = baseMapper.selectById(${pk.name});\n        if (ObjectUtil.isEmpty(po)) {\n            return null;\n        }\n        return CopyUtil.toBean(po, ${className}DTO.class);\n    }\n#end\n\n    @Override\n    public boolean add(${className}AddVO vo) {\n        if (null == vo) {\n            return false;\n        }\n        ${className}PO po = CopyUtil.toBean(vo, ${className}PO.class);\n        #if(${hasStatusColumn})\n        po.setStatus(PublicConstants.STATUS.S0A);\n        #end\n        return super.save(po);\n    }\n\n    @Transactional(\n            rollbackFor = {Exception.class}\n    )\n    @Override\n    public boolean addBatch(Collection<${className}AddVO> voList) {\n        if (null == voList || voList.isEmpty()) {\n            return false;\n        }\n        List<${className}PO> poList = CopyUtil.copyList(voList, ${className}PO.class);\n        #if(${hasStatusColumn})\n        poList.forEach(po -> po.setStatus(PublicConstants.STATUS.S0A));\n        #end\n        return super.saveBatch(poList);\n    }\n\n    @Override\n    public boolean updateBy(${className}UpdateVO vo) {\n        if (null == vo) {\n            return false;\n        }\n        ${className}PO po = CopyUtil.toBean(vo, ${className}PO.class);\n        return super.updateById(po);\n    }\n    \n#if(!$tableInfo.pkColumn.isEmpty())\n    #set($pk = $!{tableInfo.pkColumn.get(0)})\n    #if($hasStatusColumn)\n    @Override\n    public boolean logicalRemoveById(${pk.shortType} ${pk.name}) {\n            ${className}PO updateOne = new ${className}PO();\n        updateOne.setId(${pk.name});\n        //设置为逻辑删除\n        updateOne.setStatus(PublicConstants.STATUS.S0D);\n        int i = baseMapper.updateById(updateOne);\n\n        return i > 0;\n    }\n\n    @Override\n    public boolean logicalRemoveByIds(Collection<${pk.shortType}> idList) {\n            ${className}PO updateOne = new ${className}PO();\n        //设置为逻辑删除\n        updateOne.setStatus(PublicConstants.STATUS.S0D);\n        LambdaUpdateWrapper<${className}PO> updateWrapper = new LambdaUpdateWrapper<>();\n        updateWrapper.in(${className}PO::getId, idList);\n        int i = baseMapper.update(updateOne, updateWrapper);\n\n        return i > 0;\n    }\n    #end\n#end\n}\n"
+      }, {
+        "name" : "Mapper.java.vm",
+        "code" : "##导入宏定义\n$!{define.vm}\n##设置表后缀（宏定义）\n#setTableSuffix(\"Mapper\")\n##保存文件（宏定义）\n#save(\"/mapper\", \"Mapper.java\")\n##包路径（宏定义）\n#setPackageSuffix(\"mapper\")\n##定义包路径\n#set($package = $!{tableInfo.savePackageName})\n##定义类名\n#set($className = $!{tableInfo.name})\n$!autoImport\nimport com.baomidou.mybatisplus.core.mapper.BaseMapper;\nimport com.baomidou.mybatisplus.extension.plugins.pagination.Page;\nimport com.baomidou.mybatisplus.core.metadata.IPage;\nimport org.apache.ibatis.annotations.Mapper;\nimport org.apache.ibatis.annotations.Param;\nimport java.time.LocalDateTime;\nimport ${package}.model.po.${className}PO;\nimport ${package}.model.dto.${className}DTO;\nimport ${package}.model.vo.${className}PageVO;\n\n##表注释（宏定义）\n#tableComment(\"映射类\")\n@Mapper\npublic interface ${className}Mapper extends BaseMapper<${className}PO> {\n\n    IPage<${className}DTO> pageList(@Param(\"vo\")${className}PageVO vo, @Param(\"page\")Page page);\n}\n"
+      }, {
+        "name" : "Mapper.xml.vm",
+        "code" : "##引入mybatis支持\n$!{mybatisSupport.vm}\n##设置保存名称与保存位置\n$!callback.setFileName($tool.append($!{tableInfo.name}, \"Mapper.xml\"))\n$!callback.setSavePath($tool.append($modulePath, \"/src/main/resources/mapper\"))\n##定义包路径\n#set($package = $!{tableInfo.savePackageName})\n##定义类名\n#set($className = $!{tableInfo.name})\n\n<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE mapper PUBLIC \"-//mybatis.org//DTD Mapper 3.0//EN\" \"http://mybatis.org/dtd/mybatis-3-mapper.dtd\">\n<mapper namespace=\"${package}.mapper.${className}Mapper\">\n\n    <select id=\"pageList\" resultType=\"${package}.model.dto.${className}DTO\">\n        SELECT \n            *\n        FROM\n            ${tableInfo.obj.name}\n        <where>\n#foreach ($column in $tableInfo.fullColumn)\n  #if($!{column.ext.get(\"显示在筛选\")} == \"文本输入（=）\")\n    #if($!{column.shortType} == \"String\")\n        <if test=\"vo.$!{column.name} != null and vo.$!{column.name} != ''\">\n             and $column.obj.name = #{vo.$!{column.name}}\n        </if>\n    #else\n        <if test=\"vo.$!{column.name} != null\">\n             and $column.obj.name = #{vo.$!{column.name}}\n        </if>\n    #end\n  #elseif($!{column.ext.get(\"显示在筛选\")} == \"文本输入（like）\")\n    #if($!{column.shortType} == \"String\")\n        <if test=\"vo.$!{column.name}RangeLike != null and vo.$!{column.name}RangeLike != ''\">\n             and $column.obj.name like concat('%', #{vo.$!{column.name}RangeLike}, '%')\n        </if>\n    #else\n        未知异常\n    #end\n  #elseif($!{column.ext.get(\"显示在筛选\")} == \"下拉选择器（且）\")\n        <if test=\"vo.$!{column.name}List != null and vo.$!{column.name}List.size() > 0\">\n            and $column.obj.name in\n            <foreach collection=\"vo.$!{column.name}List\" item=\"item\" separator=\",\" open=\"(\" close=\")\">\n                #{item}\n            </foreach>\n        </if>\n  #elseif($!{column.ext.get(\"显示在筛选\")} == \"下拉选择器（或）\")\n        <if test=\"vo.$!{column.name}List != null and vo.$!{column.name}List.size() > 0\">\n            and <foreach collection=\"vo.$!{column.name}List\" item=\"item\" separator=\" or \" open=\"(\" close=\")\">\n                ($column.obj.name = #{item})\n            </foreach>\n        </if>\n  #elseif($!{column.ext.get(\"显示在筛选\")} == \"范围选择器\")\n          <if test=\"vo.$!{column.name}RangeFrom != null and vo.$!{column.name}RangeTo != null\">\n             and $column.obj.name <![CDATA[ >= ]]> #{vo.$!{column.name}RangeFrom}\n             and $column.obj.name <![CDATA[ <= ]]> #{vo.$!{column.name}RangeTo}\n        </if>\n  #end\n#end\n        </where>\n    </select>\n    \n</mapper>\n"
+      }, {
+        "name" : "Entity.java.vm",
+        "code" : "##导入宏定义\n$!{define.vm}\n$!{init.vm}\n##设置表后缀（宏定义）\n#setTableSuffix(\"PO\")\n##保存文件（宏定义）\n#save(\"/model/po\", \"PO.java\")\n##包路径（宏定义）\n#setPackageSuffix(\"model.po\")\n##定义包路径\n#set($package = $!{tableInfo.savePackageName})\n##定义类名\n#set($className = $!{tableInfo.name})\n\n##自动导入包（全局变量）\n$!autoImport\nimport com.baomidou.mybatisplus.annotation.TableField;\nimport com.baomidou.mybatisplus.annotation.TableName;\nimport lombok.Data;\nimport lombok.EqualsAndHashCode;\nimport com.suntek.common.dao.base.BasePO;\nimport java.math.BigDecimal;\nimport cn.hutool.core.date.DatePattern;\nimport com.fasterxml.jackson.annotation.JsonFormat;\nimport java.util.Date;\nimport java.time.LocalDateTime;\n\nimport io.swagger.annotations.ApiModel;\nimport io.swagger.annotations.ApiModelProperty;\nimport lombok.NoArgsConstructor;\n\n##表注释（宏定义）\n#tableComment(\"实体类\")\n@Data\n@NoArgsConstructor\n@TableName(\"${tableInfo.obj.name}\")\n@EqualsAndHashCode(callSuper = true)\npublic class ${className}PO extends BasePO {\n\n    private static final long serialVersionUID = 1L;\n\n    #foreach ($column in $tableInfo.otherColumn)\n    #if($pk.name == $column.name)\n    @TableId\n    #else\n    @TableField(\"$column.obj.name\")\n    #end\n    #if($!{column.shortType} == \"Date\")\n    @JsonFormat(pattern = DatePattern.NORM_DATETIME_PATTERN, timezone = \"Asia/Shanghai\")\n    #end\n    @ApiModelProperty(value = \"$!{tool.escapeDoubleQuotes($!{column.comment})}\")\n    private $!{column.shortType} $!{column.name};\n\n    #end\n\n}\n"
+      }, {
+        "name" : "EntityDTO.java.vm",
+        "code" : "##导入宏定义\n$!{define.vm}\n$!{init.vm}\n##设置表后缀（宏定义）\n#setTableSuffix(\"DTO\")\n##保存文件（宏定义）\n#save(\"/model/dto\", \"DTO.java\")\n##包路径（宏定义）\n#setPackageSuffix(\"model.dto\")\n##定义包路径\n#set($package = $!{tableInfo.savePackageName})\n##定义类名\n#set($className = $!{tableInfo.name})\n##初始化列状态\n#initColumnState()\n##自动导入包（全局变量）\n$!autoImport\nimport lombok.Data;\nimport lombok.EqualsAndHashCode;\nimport com.alibaba.excel.metadata.data.FormulaData;\nimport com.alibaba.excel.metadata.data.WriteCellData;\nimport com.suntek.common.core.base.BaseDTO;\nimport cn.hutool.core.date.DatePattern;\nimport java.math.BigDecimal;\nimport com.fasterxml.jackson.annotation.JsonFormat;\nimport com.suntek.common.core.annotation.DictParam;\nimport com.fasterxml.jackson.annotation.JsonIgnore;\nimport java.util.Date;\nimport java.time.LocalDateTime;\nimport io.swagger.annotations.ApiModel;\nimport io.swagger.annotations.ApiModelProperty;\nimport java.io.Serializable;\n\n##表注释（宏定义）\n#tableComment(\"数据传输类\")\n@Data\npublic class ${className}DTO implements Serializable {\n    private static final long serialVersionUID = 1L;\n    \n#foreach ($column in $tableInfo.fullColumn)\n    \n #if(!$!{column.ext.get(\"隐藏列\")})\n    #if($!{column.ext.get(\"dictType\")})\n    @DictParam(dictType = \"$!{column.ext.get(\"dictType\")}\", dictNameFiled = \"$!{column.name}View\")\n    #end\n    #if($!{column.shortType} == \"Date\")\n    @JsonFormat(pattern = DatePattern.NORM_DATETIME_PATTERN, timezone = \"Asia/Shanghai\" )\n    @ApiModelProperty(value = \"$!{tool.escapeDoubleQuotes($!{column.comment})}\" )\n    private $!{column.shortType} $!{column.name};\n  #elseif($!{column.shortType} == \"LocalDateTime\")\n    @ApiModelProperty(value = \"$!{tool.escapeDoubleQuotes($!{column.comment})} \" + DatePattern.NORM_DATETIME_PATTERN)\n    private $!{column.shortType} $!{column.name};\n  #else\n    @ApiModelProperty(value = \"$!{tool.escapeDoubleQuotes($!{column.comment})}\" )\n    private $!{column.shortType} $!{column.name};\n  #end\n    #if($!{column.ext.get(\"dictType\")})\n    @ApiModelProperty(value = \"$!{tool.escapeDoubleQuotes($!{column.comment})}（中文）\" )\n    private String $!{column.name}View;\n    #end\n #end\n#end\n\n#if($callback.exportExcelWithTemplate)\n    /**\n     * excel row\n     */\n    @ApiModelProperty(value = \"导出使用\" , hidden = true)\n    @JsonIgnore\n    private transient WriteCellData<String> idx;\n\n    public ${className}DTO() {\n        WriteCellData<String> formula = new WriteCellData<>();\n        FormulaData formulaData = new FormulaData();\n        formulaData.setFormulaValue(\"ROW()-1\" );\n        formula.setFormulaData(formulaData);\n        idx = formula;\n    }\n#end\n}\n"
+      }, {
+        "name" : "EntityPageVO.java.vm",
+        "code" : "##导入宏定义\n$!{define.vm}\n$!{init.vm}\n##设置表后缀（宏定义）\n#setTableSuffix(\"PageVO\")\n##保存文件（宏定义）\n#save(\"/model/vo\", \"PageVO.java\")\n##包路径（宏定义）\n#setPackageSuffix(\"model.vo\")\n##定义包路径\n#set($package = $!{tableInfo.savePackageName})\n##定义类名\n#set($className = $!{tableInfo.name})\n##自动导入包（全局变量）\n$!autoImport\nimport lombok.Data;\nimport lombok.EqualsAndHashCode;\nimport com.suntek.common.core.base.BasePageVO;\nimport cn.hutool.core.date.DatePattern;\nimport java.math.BigDecimal;\nimport cn.hutool.core.date.DatePattern;\nimport com.fasterxml.jackson.annotation.JsonFormat;\nimport java.time.LocalDateTime;\nimport java.util.Date;\nimport io.swagger.annotations.ApiModel;\nimport io.swagger.annotations.ApiModelProperty;\nimport lombok.NoArgsConstructor;\nimport java.util.List;\n\n##表注释（宏定义）\n#tableComment(\"分页值对象类\")\n@Data\n@NoArgsConstructor\n@EqualsAndHashCode(callSuper = true)\npublic class ${className}PageVO extends BasePageVO {\n    private static final long serialVersionUID = 1L;\n\n#foreach ($column in $tableInfo.fullColumn)\n #if($!{column.ext.get(\"显示在筛选\")})\n  #if($!{column.shortType} == \"Date\")\n    @JsonFormat(pattern = DatePattern.NORM_DATETIME_PATTERN, timezone = \"Asia/Shanghai\" )\n  #end\n  #if($!{column.ext.get(\"显示在筛选\")} == \"文本输入（=）\")\n    @ApiModelProperty(value = \"$!{tool.escapeDoubleQuotes($!{column.comment})}\" )\n    private $!{column.shortType} $!{column.name};\n  #elseif($!{column.ext.get(\"显示在筛选\")} == \"文本输入（like）\")\n    @ApiModelProperty(value = \"$!{tool.escapeDoubleQuotes($!{column.comment})}\" )\n    private $!{column.shortType} $!{column.name}RangeLike;\n  #elseif($!{column.ext.get(\"显示在筛选\")} == \"下拉选择器（且）\")\n    @ApiModelProperty(value = \"$!{tool.escapeDoubleQuotes($!{column.comment})}\" )\n    private List<$!{column.shortType}> $!{column.name}List;\n  #elseif($!{column.ext.get(\"显示在筛选\")} == \"下拉选择器（或）\")\n    @ApiModelProperty(value = \"$!{tool.escapeDoubleQuotes($!{column.comment})}\" )\n    private List<$!{column.shortType}> $!{column.name}List;\n  #elseif($!{column.ext.get(\"显示在筛选\")} == \"范围选择器\")\n    #if($!{column.shortType} == \"Date\")\n    @JsonFormat(pattern = DatePattern.NORM_DATETIME_PATTERN, timezone = \"Asia/Shanghai\" )\n    #end\n    @ApiModelProperty(value = \"$!{tool.escapeDoubleQuotes($!{column.comment})}（>=） \" #dateDesc($!{column.shortType}))\n    private $!{column.shortType} $!{column.name}RangeFrom;\n    #if($!{column.shortType} == \"Date\")\n    @JsonFormat(pattern = DatePattern.NORM_DATETIME_PATTERN, timezone = \"Asia/Shanghai\" )\n    #end\n    @ApiModelProperty(value = \"$!{tool.escapeDoubleQuotes($!{column.comment})}（<=） \" #dateDesc($!{column.shortType}))\n    private $!{column.shortType} $!{column.name}RangeTo;\n  #end\n\n #end\n#end\n}\n\n"
+      }, {
+        "name" : "EntityAddVO.java.vm",
+        "code" : "##导入宏定义\n$!{define.vm}\n$!{init.vm}\n##设置表后缀（宏定义）\n#setTableSuffix(\"AddVO\")\n##保存文件（宏定义）\n#save(\"/model/vo\", \"AddVO.java\")\n##包路径（宏定义）\n#setPackageSuffix(\"model.vo\")\n##定义包路径\n#set($package = $!{tableInfo.savePackageName})\n##定义类名\n#set($className = $!{tableInfo.name})\n##初始化列状态\n#initColumnState()\n##自动导入包（全局变量）\n$!autoImport\nimport lombok.Data;\nimport lombok.EqualsAndHashCode;\nimport com.suntek.common.core.base.BaseVO;\nimport java.math.BigDecimal;\nimport cn.hutool.core.date.DatePattern;\nimport com.fasterxml.jackson.annotation.JsonFormat;\nimport java.util.Date;\nimport java.time.LocalDateTime;\nimport io.swagger.annotations.ApiModel;\nimport io.swagger.annotations.ApiModelProperty;\nimport lombok.NoArgsConstructor;\n\n##表注释（宏定义）\n#tableComment(\"值对象类\")\n@Data\n@NoArgsConstructor\npublic class ${className}AddVO {\n\n#foreach ($column in $tableInfo.otherColumn)\n\n #if(!$!{column.ext.get(\"隐藏列\")})\n  #if($!{column.shortType} == \"Date\")\n    @JsonFormat(pattern = DatePattern.NORM_DATETIME_PATTERN, timezone = \"Asia/Shanghai\" )\n    @ApiModelProperty(value = \"$!{tool.escapeDoubleQuotes($!{column.comment})}\" )\n    private $!{column.shortType} $!{column.name};\n  #elseif($!{column.shortType} == \"LocalDateTime\")\n    @ApiModelProperty(value = \"$!{tool.escapeDoubleQuotes($!{column.comment})} \" + DatePattern.NORM_DATETIME_PATTERN)\n    private $!{column.shortType} $!{column.name};\n  #else\n    @ApiModelProperty(value = \"$!{tool.escapeDoubleQuotes($!{column.comment})}\" )\n    private $!{column.shortType} $!{column.name};\n  #end\n #end\n#end\n}\n"
+      }, {
+        "name" : "EntityUpdateVO.java.vm",
+        "code" : "##导入宏定义\n$!{define.vm}\n$!{init.vm}\n##设置表后缀（宏定义）\n#setTableSuffix(\"UpdateVO\")\n##保存文件（宏定义）\n#save(\"/model/vo\", \"UpdateVO.java\")\n##包路径（宏定义）\n#setPackageSuffix(\"model.vo\")\n##定义包路径\n#set($package = $!{tableInfo.savePackageName})\n##定义类名\n#set($className = $!{tableInfo.name})\n##初始化列状态\n#initColumnState()\n##自动导入包（全局变量）\n$!autoImport\nimport lombok.Data;\nimport lombok.EqualsAndHashCode;\nimport com.suntek.common.core.base.BaseVO;\nimport java.math.BigDecimal;\nimport cn.hutool.core.date.DatePattern;\nimport com.fasterxml.jackson.annotation.JsonFormat;\nimport java.util.Date;\nimport java.time.LocalDateTime;\nimport io.swagger.annotations.ApiModel;\nimport io.swagger.annotations.ApiModelProperty;\nimport lombok.NoArgsConstructor;\nimport ${package}.model.vo.${className}AddVO;\n\n##表注释（宏定义）\n#tableComment(\"值对象类\")\n@Data\n@EqualsAndHashCode(callSuper = true)\n@NoArgsConstructor\npublic class ${className}UpdateVO extends ${className}AddVO {\n\n#foreach ($column in $tableInfo.pkColumn)\n    @ApiModelProperty(value = \"$!{tool.escapeDoubleQuotes($!{column.comment})}\" )\n    private $!{column.shortType} $!{column.name};\n\n#end\n}\n"
+      }, {
+        "name" : "EntityExcel.java.vm",
+        "code" : "##导入宏定义\n$!{define.vm}\n$!{init.vm}\n##设置表后缀（宏定义）\n#setTableSuffix(\"Excel\")\n##保存文件（宏定义）\n#save(\"/model/excel\", \"Excel.java\")\n##包路径（宏定义）\n#setPackageSuffix(\"model.excel\")\n##定义包路径\n#set($package = $!{tableInfo.savePackageName})\n##定义类名\n#set($className = $!{tableInfo.name})\n##初始化列状态\n#initColumnState()\n##自动导入包（全局变量）\n$!autoImport\nimport lombok.Data;\nimport lombok.EqualsAndHashCode;\nimport com.alibaba.excel.metadata.data.FormulaData;\nimport com.alibaba.excel.metadata.data.WriteCellData;\nimport com.suntek.common.core.base.BaseDTO;\nimport com.alibaba.excel.annotation.ExcelIgnore;\nimport com.alibaba.excel.annotation.ExcelProperty;\nimport java.math.BigDecimal;\nimport cn.hutool.core.date.DatePattern;\nimport com.fasterxml.jackson.annotation.JsonFormat;\nimport com.suntek.common.core.annotation.DictParam;\nimport com.fasterxml.jackson.annotation.JsonIgnore;\nimport java.util.Date;\nimport java.time.LocalDateTime;\nimport io.swagger.annotations.ApiModel;\nimport io.swagger.annotations.ApiModelProperty;\nimport java.io.Serializable;\n\n##表注释（宏定义）\n#tableComment(\"数据传输类\")\n@Data\npublic class ${className}Excel implements Serializable {\n    private static final long serialVersionUID = 1L;\n    \n    @ExcelProperty(value = \"序号\")\n    private transient WriteCellData<String> idx;\n    \n#foreach ($column in $tableInfo.fullColumn)\n #if($!{column.ext.get(\"导出\")})\n \n  #if($!{column.ext.get(\"dictType\")})\n    @ExcelIgnore\n    private $!{column.shortType} $!{column.name};\n    @ExcelProperty(value = \"$!{tool.escapeDoubleQuotes($!{column.comment})}\" )\n    private String $!{column.name}View;\n  #else\n    @ExcelProperty(value = \"$!{tool.escapeDoubleQuotes($!{column.comment})}\" )\n    private $!{column.shortType} $!{column.name};\n  #end\n #end\n#end\n\n\n\n    public ${className}Excel() {\n        WriteCellData<String> formula = new WriteCellData<>();\n        FormulaData formulaData = new FormulaData();\n        formulaData.setFormulaValue(\"ROW()-1\" );\n        formula.setFormulaData(formulaData);\n        idx = formula;\n    }\n}\n"
+      } ]
+    }
+  },
+  "columnConfig" : {
+    "PCI-U" : {
+      "name" : "PCI-U",
+      "elementList" : [ {
+        "title" : "隐藏列",
+        "type" : "BOOLEAN"
+      }, {
+        "title" : "显示在筛选",
+        "type" : "SELECT",
+        "selectValue" : "文本输入（=）,文本输入（like）,下拉选择器（且）,下拉选择器（或）,范围选择器"
+      }, {
+        "title" : "导出",
+        "type" : "BOOLEAN"
+      }, {
+        "title" : "dictType",
+        "type" : "TEXT"
+      }, {
+        "title" : "排序",
+        "type" : "SELECT",
+        "selectValue" : "desc,asc"
+      } ]
+    }
+  },
+  "globalConfig" : {
+    "PCI-U" : {
+      "name" : "PCI-U",
+      "elementList" : [ {
+        "name" : "autoImport.vm",
+        "value" : "##自动导入包（仅导入实体属性需要的包，通常用于实体类）\n#foreach($import in $importList)\nimport $!import;\n#end"
+      }, {
+        "name" : "define.vm",
+        "value" : "##（Velocity宏定义）\n\n##定义设置表名后缀的宏定义，调用方式：#setTableSuffix(\"Test\")\n#macro(setTableSuffix $suffix)\n    #set($tableName = $!tool.append($tableInfo.name, $suffix))\n#end\n\n##定义设置包名后缀的宏定义，调用方式：#setPackageSuffix(\"Test\")\n#macro(setPackageSuffix $suffix)\n#if($suffix!=\"\")package #end#if($tableInfo.savePackageName!=\"\")$!{tableInfo.savePackageName}.#{end}$!suffix;\n#end\n\n##定义直接保存路径与文件名简化的宏定义，调用方式：#save(\"/entity\", \".java\")\n#macro(save $path $fileName)\n    $!callback.setSavePath($tool.append($tableInfo.savePath, $path))\n    $!callback.setFileName($tool.append($tableInfo.name, $fileName))\n#end\n\n##定义表注释的宏定义，调用方式：#tableComment(\"注释信息\")\n#macro(tableComment $desc)\n/**\n * $!{tableInfo.comment}($!{tableInfo.name})$desc\n *\n * @author $!author\n * @since $!date\n */\n#end\n\n##初始化列状态\n#macro(initColumnState)\n    #set($hasStatusColumn = false)\n    #set($hasBigDecimalColumn = false)\n    #set($hasDateColumn = false)\n#foreach($column in $tableInfo.fullColumn)\n    #if($!tool.toLowerCase($!column.name) == \"status\")\n        #set($hasStatusColumn = true)\n    #end\n    #if($!column.shortType == \"BigDecimal\")\n        #set($hasBigDecimalColumn = true)\n    #end\n    #if($!column.shortType == \"Date\")\n        #set($hasDateColumn = true)\n    #end\n    #if($!column.ext.get(\"dictType\"))\n        #set($hasDictColumn = true)\n    #end\n#end\n#end\n\n##定义GET，SET方法的宏定义，调用方式：#getSetMethod($column)\n#macro(getSetMethod $column)\n\n    public $!{tool.getClsNameByFullName($column.type)} get$!{tool.firstUpperCase($column.name)}() {\n        return $!{column.name};\n    }\n\n    public void set$!{tool.firstUpperCase($column.name)}($!{tool.getClsNameByFullName($column.type)} $!{column.name}) {\n        this.$!{column.name} = $!{column.name};\n    }\n#end\n\n##定义表注释的宏定义，调用方式：#dateDesc(\"LocalDateTime\")\n#macro(dateDesc $dateType)\n#if($!{column.shortType} == \"LocalDateTime\")+ DatePattern.NORM_DATETIME_PATTERN #elseif($!{column.shortType} == \"LocalDate\")+ DatePattern.NORM_DATE_PATTERN #end\n#end"
+      }, {
+        "name" : "init.vm",
+        "value" : "##初始化区域\n\n##去掉表的t_前缀\n##$!tableInfo.setName($tool.getClassName($tableInfo.obj.name.replaceFirst(\"t_\",\"\")))\n\n##参考阿里巴巴开发手册，POJO 类中布尔类型的变量，都不要加 is 前缀，否则部分框架解析会引起序列化错误\n#foreach($column in $tableInfo.fullColumn)\n    #if($column.name.startsWith(\"is\") && $column.type.equals(\"java.lang.Boolean\"))\n        $!column.setName($tool.firstLowerCase($column.name.substring(2)))\n    #end\n#end\n\n##实现动态排除列\n#set($temp = $tool.newHashSet(\"id\", \"createTime\", \"updateTime\"))\n#foreach($item in $temp)\n    #set($newList = $tool.newArrayList())\n    #foreach($column in $tableInfo.otherColumn)\n        #if($column.name!=$item)\n            ##带有反回值的方法调用时使用$tool.call来消除返回值\n            $tool.call($newList.add($column))\n        #end\n    #end\n    ##重新保存\n    $tableInfo.setOtherColumn($newList)\n#end\n\n##对importList进行篡改\n#set($temp = $tool.newHashSet())\n#foreach($column in $tableInfo.fullColumn)\n    #if(!$column.type.startsWith(\"java.lang.\"))\n        ##带有反回值的方法调用时使用$tool.call来消除返回值\n        $tool.call($temp.add($column.type))\n    #end\n#end\n##覆盖\n#set($importList = $temp)"
+      }, {
+        "name" : "mybatisSupport.vm",
+        "value" : "##针对Mybatis 进行支持，主要用于生成xml文件\n#foreach($column in $tableInfo.fullColumn)\n    ##储存列类型\n    $tool.call($column.ext.put(\"sqlType\", $tool.getField($column.obj.dataType, \"typeName\")))\n    #if($tool.newHashSet(\"java.lang.String\").contains($column.type))\n        #set($jdbcType=\"VARCHAR\")\n    #elseif($tool.newHashSet(\"java.lang.Boolean\", \"boolean\").contains($column.type))\n        #set($jdbcType=\"BOOLEAN\")\n    #elseif($tool.newHashSet(\"java.lang.Byte\", \"byte\").contains($column.type))\n        #set($jdbcType=\"BYTE\")\n    #elseif($tool.newHashSet(\"java.lang.Integer\", \"int\", \"java.lang.Short\", \"short\").contains($column.type))\n        #set($jdbcType=\"INTEGER\")\n    #elseif($tool.newHashSet(\"java.lang.Long\", \"long\").contains($column.type))\n        #set($jdbcType=\"INTEGER\")\n    #elseif($tool.newHashSet(\"java.lang.Float\", \"float\", \"java.lang.Double\", \"double\").contains($column.type))\n        #set($jdbcType=\"NUMERIC\")\n    #elseif($tool.newHashSet(\"java.util.Date\", \"java.sql.Timestamp\", \"java.time.Instant\", \"java.time.LocalDateTime\", \"java.time.OffsetDateTime\", \"\tjava.time.ZonedDateTime\").contains($column.type))\n        #set($jdbcType=\"TIMESTAMP\")\n    #elseif($tool.newHashSet(\"java.sql.Date\", \"java.time.LocalDate\").contains($column.type))\n        #set($jdbcType=\"TIMESTAMP\")\n    #else\n        ##其他类型\n        #set($jdbcType=\"VARCHAR\")\n    #end\n    $tool.call($column.ext.put(\"jdbcType\", $jdbcType))\n#end\n\n##定义宏，查询所有列\n#macro(allSqlColumn)#foreach($column in $tableInfo.fullColumn)$column.obj.name#if($velocityHasNext), #end#end#end\n"
+      } ]
+    }
+  }
+}

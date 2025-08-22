@@ -1,0 +1,71 @@
+##导入宏定义
+$!{define.vm}
+$!{init.vm}
+##设置表后缀（宏定义）
+#setTableSuffix("PageVO")
+##保存文件（宏定义）
+#save("/model/vo", "PageVO.java")
+##包路径（宏定义）
+#setPackageSuffix("model.vo")
+##定义包路径
+#set($package = $!{tableInfo.savePackageName})
+##定义类名
+#set($className = $!{tableInfo.name})
+##自动导入包（全局变量）
+$!autoImport
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import com.suntek.common.core.base.BasePageVO;
+import cn.hutool.core.date.DatePattern;
+import java.math.BigDecimal;
+import cn.hutool.core.date.DatePattern;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import java.time.LocalDateTime;
+import java.util.Date;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.NoArgsConstructor;
+import java.util.List;
+
+##表注释（宏定义）
+#tableComment("分页值对象类")
+@Data
+@NoArgsConstructor
+@EqualsAndHashCode(callSuper = true)
+public class ${className}PageVO extends BasePageVO {
+    private static final long serialVersionUID = 1L;
+
+#foreach ($column in $tableInfo.fullColumn)
+ #if($!{column.ext.get("显示在筛选")})
+  #if($!{column.shortType} == "Date")
+    @JsonFormat(pattern = DatePattern.NORM_DATETIME_PATTERN, timezone = "Asia/Shanghai" )
+  #end
+  #if($!{column.ext.get("显示在筛选")} == "文本输入（=）")
+    @ApiModelProperty(value = "$!{tool.escapeDoubleQuotes($!{column.comment})}" )
+    private $!{column.shortType} $!{column.name};
+  #elseif($!{column.ext.get("显示在筛选")} == "文本输入（like）")
+    @ApiModelProperty(value = "$!{tool.escapeDoubleQuotes($!{column.comment})}" )
+    private $!{column.shortType} $!{column.name}RangeLike;
+  #elseif($!{column.ext.get("显示在筛选")} == "下拉选择器（且）")
+    @ApiModelProperty(value = "$!{tool.escapeDoubleQuotes($!{column.comment})}" )
+    private List<$!{column.shortType}> $!{column.name}List;
+  #elseif($!{column.ext.get("显示在筛选")} == "下拉选择器（或）")
+    @ApiModelProperty(value = "$!{tool.escapeDoubleQuotes($!{column.comment})}" )
+    private List<$!{column.shortType}> $!{column.name}List;
+  #elseif($!{column.ext.get("显示在筛选")} == "范围选择器")
+    #if($!{column.shortType} == "Date")
+    @JsonFormat(pattern = DatePattern.NORM_DATETIME_PATTERN, timezone = "Asia/Shanghai" )
+    #end
+    @ApiModelProperty(value = "$!{tool.escapeDoubleQuotes($!{column.comment})}（>=） " #dateDesc($!{column.shortType}))
+    private $!{column.shortType} $!{column.name}RangeFrom;
+    #if($!{column.shortType} == "Date")
+    @JsonFormat(pattern = DatePattern.NORM_DATETIME_PATTERN, timezone = "Asia/Shanghai" )
+    #end
+    @ApiModelProperty(value = "$!{tool.escapeDoubleQuotes($!{column.comment})}（<=） " #dateDesc($!{column.shortType}))
+    private $!{column.shortType} $!{column.name}RangeTo;
+  #end
+
+ #end
+#end
+}
+

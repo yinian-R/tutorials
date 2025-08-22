@@ -1,0 +1,178 @@
+##导入宏定义
+$!{define.vm}
+##设置表后缀（宏定义）
+#setTableSuffix("Controller")
+##保存文件（宏定义）
+#save("/controller", "Controller.java")
+##包路径（宏定义）
+#setPackageSuffix("controller")
+##定义包路径
+#set($package = $!{tableInfo.savePackageName})
+##定义类名
+#set($className = $!{tableInfo.name})
+##定义注释内容
+#set($comments = $!{tableInfo.comment})
+##定义服务名
+#set($serviceName = $!tool.append($!tool.firstLowerCase($!tableInfo.name), "Service"))
+##定义实体对象名
+#set($entityName = $!tool.firstLowerCase($!tableInfo.name))
+##初始化列状态
+#initColumnState()
+
+$!{autoImport.vm}
+import com.suntek.common.core.base.Result;
+import com.suntek.common.core.base.ReqBody;
+import com.suntek.common.core.constant.PublicConstants;
+import com.suntek.common.core.util.CopyUtil;
+import com.suntek.common.dao.base.PageDTO;
+import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
+import com.alibaba.excel.EasyExcel;
+import com.alibaba.excel.write.metadata.fill.FillWrapper;
+import com.alibaba.excel.support.ExcelTypeEnum;
+import com.suntek.common.web.constant.TemplateConstants;
+import com.suntek.common.web.excel.enhance.annotation.ExcelResponse;
+import com.suntek.common.web.excel.enhance.annotation.FillSheetParam;
+import com.suntek.common.web.excel.enhance.processor.ExcelWriterProcess;
+import com.suntek.common.web.excel.enhance.annotation.WriteSheetParam;
+import com.suntek.common.export.util.DownloadUtil;
+import javax.servlet.http.HttpServletResponse;
+import ${package}.model.po.${className}PO;
+import ${package}.model.dto.${className}DTO;
+import ${package}.model.excel.${className}Excel;
+import ${package}.model.vo.${className}AddVO;
+import ${package}.model.vo.${className}UpdateVO;
+import ${package}.model.vo.${className}PageVO;
+import ${package}.service.${className}Service;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import lombok.extern.slf4j.Slf4j;
+import com.suntek.common.core.annotation.TranslateDict;
+
+import javax.annotation.Resource;
+import java.io.File;
+import java.util.List;
+
+##表注释（宏定义）
+#tableComment("控制层")
+@Slf4j
+@RestController
+@RequestMapping("/$!tool.firstLowerCase($!tableInfo.name)")
+@Api(tags = "${comments}")
+public class ${className}Controller {
+
+    private static final String DESC = "【字典】#foreach ($column in $tableInfo.fullColumn)#if($!{column.ext.get("dictType")})$!{column.comment}:$!{column.ext.get("dictType")}、#end#end";
+
+    @Resource
+    private $!{tableInfo.name}Service $!{serviceName};
+
+    @PostMapping("/page")
+    @ApiOperation(value = "${comments} 获取列表分页", notes = DESC)
+    @ApiOperationSupport(order = 1)
+    public Result<PageDTO<${className}DTO>> listPage(@RequestBody ReqBody<${className}PageVO> param) {
+        return Result.success($!{serviceName}.listPage(param.getData()));
+    }
+
+#if(!$tableInfo.pkColumn.isEmpty())
+    #set($pk = $!{tableInfo.pkColumn.get(0)})
+
+    @GetMapping("/getById")
+    @ApiOperation(value = "${comments} 获取信息")
+    @ApiOperationSupport(order = 2)
+    @TranslateDict
+    public Result<${className}DTO> getById(@RequestParam("${pk.name}") ${pk.shortType} ${pk.name}) {
+        return Result.success($!{serviceName}.getBy(${pk.name}));
+    }
+#end
+
+
+    @PostMapping("/save")
+    @ApiOperation(value = "${comments} 添加", notes = DESC)
+    @ApiOperationSupport(order = 3)
+    public Result<Boolean> save(@Validated @RequestBody ReqBody<${className}AddVO> param) {
+        return Result.success($!{serviceName}.add(param.getData()));
+    }
+
+    @PostMapping("/update")
+    @ApiOperation(value = "${comments} 更新", notes = DESC)
+    @ApiOperationSupport(order = 6)
+    public Result<Boolean> update(@Validated @RequestBody ReqBody<${className}UpdateVO> param) {
+        return Result.success($!{serviceName}.updateBy(param.getData()));
+    }
+
+
+#if(!$tableInfo.pkColumn.isEmpty())
+    #set($pk = $!{tableInfo.pkColumn.get(0)})
+    #if($hasStatusColumn)
+
+    @PostMapping("/delete")
+    @ApiOperation(value = "${comments} 删除")
+    @ApiOperationSupport(order = 8)
+    public Result<Boolean> delete(@RequestParam("${pk.name}") ${pk.shortType} ${pk.name}) {
+        return Result.success($!{serviceName}.logicalRemoveById(${pk.name}));
+    }
+
+
+    @PostMapping("/batch/delete")
+    @ApiOperation(value = "${comments} 批量删除")
+    @ApiOperationSupport(order = 9)
+    public Result<Boolean> deleteBatch(@RequestBody ReqBody<List<${pk.shortType}>> params) {
+        return Result.success(${serviceName}.logicalRemoveByIds(params.getData()));
+    }
+    #else
+
+    @PostMapping("/delete")
+    @ApiOperation(value = "${comments} 删除")
+    @ApiOperationSupport(order = 10)
+    public Result<Boolean> delete(@RequestParam("${pk.name}") ${pk.shortType} ${pk.name}) {
+        return Result.success($!{serviceName}.removeById(${pk.name}));
+    }
+
+
+    @PostMapping("/batch/delete")
+    @ApiOperation(value = "${comments} 批量删除")
+    @ApiOperationSupport(order = 11)
+    public Result<Boolean> deleteBatch(@RequestBody ReqBody<List<${pk.shortType}>> params) {
+        return Result.success(${serviceName}.removeBatchByIds(params.getData()));
+    }
+    #end
+#end
+
+#if($callback.exportExcelWithTemplate)
+
+    @PostMapping("/export")
+    @ApiOperation(value = "${comments} 导出Excel", notes = "导出${comments}")
+    @ApiOperationSupport(order = 12)
+    @ExcelResponse(fileName = "${comments}记录导出", template = {TemplateConstants.ExcelConstants.FILL_TEMPLATE_DIR, "${comments}导出模板.xlsx"})
+    public ExcelWriterProcess export(@RequestBody ReqBody<${className}PageVO> param) {
+        ${className}PageVO vo = param.getData();
+        vo.setCurrent(1L);
+        vo.setSize(PublicConstants.Excel.DEFAULT_MAX_EXPORT_TOTAL);
+        List<${className}DTO> list = $!{serviceName}.listPage(vo).getRecords();
+        return excelWriter -> {
+            excelWriter.fill(new FillWrapper("data1", list), EasyExcel.writerSheet(0)
+                    .build()
+            );
+        };
+    }
+#else
+
+    @ExcelResponse(
+            fileName = "${comments}导出",
+            writeSheets = @WriteSheetParam(head = ${className}Excel.class)
+    )
+    @PostMapping("/export")
+    @ApiOperation(value = "${comments} 导出Excel")
+    @ApiOperationSupport(order = 13)
+    public List<${className}Excel> export(@RequestBody ReqBody<${className}PageVO> param) {
+        ${className}PageVO vo = param.getData();
+        vo.setCurrent(1L);
+        vo.setSize(PublicConstants.Excel.DEFAULT_MAX_EXPORT_TOTAL);
+        List<${className}DTO> list = $!{serviceName}.listPage(vo).getRecords();
+        return CopyUtil.copyList(list, ${className}Excel.class);
+    }
+#end
+}
