@@ -1,0 +1,69 @@
+##导入宏定义
+$!{define.vm}
+$!{init.vm}
+##设置表后缀（宏定义）
+#setTableSuffix("Excel")
+##保存文件（宏定义）
+#save("/model/excel", "Excel.java")
+##包路径（宏定义）
+#setPackageSuffix("model.excel")
+##定义包路径
+#set($package = $!{tableInfo.savePackageName})
+##定义类名
+#set($className = $!{tableInfo.name})
+##初始化列状态
+#initColumnState()
+##自动导入包（全局变量）
+$!autoImport
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import com.alibaba.excel.metadata.data.FormulaData;
+import com.alibaba.excel.metadata.data.WriteCellData;
+import com.suntek.common.core.base.BaseDTO;
+import com.alibaba.excel.annotation.ExcelIgnore;
+import com.alibaba.excel.annotation.ExcelProperty;
+import java.math.BigDecimal;
+import cn.hutool.core.date.DatePattern;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.suntek.common.core.annotation.DictParam;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.Date;
+import java.time.LocalDateTime;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.io.Serializable;
+
+##表注释（宏定义）
+#tableComment("数据传输类")
+@Data
+public class ${className}Excel implements Serializable {
+    private static final long serialVersionUID = 1L;
+    
+    @ExcelProperty(value = "序号")
+    private transient WriteCellData<String> idx;
+    
+#foreach ($column in $tableInfo.fullColumn)
+ #if($!{column.ext.get("导出")})
+ 
+  #if($!{column.ext.get("dictType")})
+    @ExcelIgnore
+    private $!{column.shortType} $!{column.name};
+    @ExcelProperty(value = "$!{tool.escapeDoubleQuotes($!{column.comment})}" )
+    private String $!{column.name}View;
+  #else
+    @ExcelProperty(value = "$!{tool.escapeDoubleQuotes($!{column.comment})}" )
+    private $!{column.shortType} $!{column.name};
+  #end
+ #end
+#end
+
+
+
+    public ${className}Excel() {
+        WriteCellData<String> formula = new WriteCellData<>();
+        FormulaData formulaData = new FormulaData();
+        formulaData.setFormulaValue("ROW()-1" );
+        formula.setFormulaData(formulaData);
+        idx = formula;
+    }
+}

@@ -31,3 +31,10 @@
 - onException - 处理异常，该方法抛出异常的
 - 使用 Map 存储数据，可不创建对象
 - doReadSync() - 同步读取，即读取所有数据返回
+
+## 特别说明
+**设置区间时（设置数据校验范围）若需设置整列 可 设置 firstRow、lastRow 为 -1**
+```
+CellRangeAddressList cellRangeAddressList = new CellRangeAddressList(-1, -1, 0, 0);
+```
+小知识：excel 最大行数 Ctrl + 下查看，代码中从0开始，所以需要-1

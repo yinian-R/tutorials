@@ -502,12 +502,16 @@ class _4AnnotationTest {
      */
     @Test
     void whenSerializingUsingJsonAppend_thenCorrect() throws JsonProcessingException {
-        BeanWithoutAppend beanWithoutAppend = new BeanWithoutAppend(2, "Bean With Append Annotation");
+        BeanWithoutAppend beanWithoutAppend = new BeanWithoutAppend(2, "Bean With Append Annotation", null);
         ObjectMapper objectMapper = new ObjectMapper();
         ObjectWriter objectWriter = objectMapper.writerFor(BeanWithoutAppend.class).withAttribute("version", 1.1);
         String result = objectWriter.writeValueAsString(beanWithoutAppend);
         
         assertTrue(result.contains("version"));
+        
+        result = "{\"id\":2,\"name\":\"Bean With Append Annotation\",\"list\":\"1212z,454\"}";
+        BeanWithoutAppend beanWithoutAppend1 = objectMapper.readValue(result, BeanWithoutAppend.class);
+        System.out.println();
     }
     
     /**

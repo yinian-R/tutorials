@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -16,4 +18,5 @@ import lombok.NoArgsConstructor;
 public class BeanWithoutAppend {
     private int id;
     private String name;
+    private List<String> list;
 }

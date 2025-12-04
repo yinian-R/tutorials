@@ -1,14 +1,15 @@
 # Jackson 简述
 
-- writeValue() 将Java对象输出JSON 
+- writeValue() 将Java对象输出JSON
 - writeValueAsString() 将Java对象输出JSON字符串
 - readTree() 将JSON字符串解析为JsonNode对象
 - configure() 扩展 ObjectMapper
-- TypeReference 
+- TypeReference
 
 **Jackson库的最大优势之一是高度可定制的序列化和反序列化过程**
 
 主要**注释**和**方法**：
+
 - 使用 setDateFormat 设置全局默认日期格式
 - 使用 @JsonFormat 设置日期格式
 
@@ -54,13 +55,14 @@
 - @JacksonAnnotationsInside 注释自定义 Jackson 注释
 
 - 使用 Jackson MixIn 语法，在序列化时忽略 addMixIn 添加的类型
--  mapper.disable(MapperFeature.USE_ANNOTATIONS) 禁用所有 Jackson 注解
+- mapper.disable(MapperFeature.USE_ANNOTATIONS) 禁用所有 Jackson 注解
 
 > PS：引入依赖 *jackson-datatype-jsr310*，使用 @JsonDeserialize、@JsonSerialize、@JsonFormat 定制Java 8 日期格式
 
 > 忽略属性使用 *@JsonIgnoreProperties*、*@JsonIgnore*、*@JsonIgnoreType*、*@JsonFilter*
 
 **支持 JAVA 8 日期**
+
 ```
 <dependency>
     <groupId>com.fasterxml.jackson.datatype</groupId>
@@ -86,12 +88,159 @@
 ```
 
 **支持 Java 8 Optional 支持**
+
 ```
 <dependency>
     <groupId>com.fasterxml.jackson.datatype</groupId>
     <artifactId>jackson-datatype-jdk8</artifactId>
     <version>2.11.1</version>
 </dependency>
+```
+
+## jackson 多态 @JsonTypeInfo
+
+- **JsonTypeInfo.As.PROPERTY**
+
+```
+@NoArgsConstructor
+@AllArgsConstructor
+public class Zoo {
+    @JsonTypeInfo(
+            use = JsonTypeInfo.Id.NAME,
+            include = JsonTypeInfo.As.PROPERTY,
+            property = "$type"
+    )
+    @JsonSubTypes({
+            @JsonSubTypes.Type(value = Dog.class, name = "dog"),
+            @JsonSubTypes.Type(value = Cat.class, name = "cat")
+    })
+    public Animal animal;
+}
+```
+
+```
+{
+  "animal": {
+    "$type": "dog",
+    "name": "lacy",
+    "barkVolume": 0.0
+  }
+}
+```
+
+- **JsonTypeInfo.As.WRAPPER_OBJECT**
+
+```
+@NoArgsConstructor
+@AllArgsConstructor
+public class Zoo {
+    @JsonTypeInfo(
+            use = JsonTypeInfo.Id.NAME,
+            include = JsonTypeInfo.As.WRAPPER_OBJECT
+    )
+    @JsonSubTypes({
+            @JsonSubTypes.Type(value = Dog.class, name = "dog"),
+            @JsonSubTypes.Type(value = Cat.class, name = "cat")
+    })
+    public Animal animal;
+}
+```
+
+```
+{
+  "animal": {
+    "dog": {
+      "name": "lacy",
+      "barkVolume": 0.0
+    }
+  }
+}
+```
+
+- **JsonTypeInfo.As.WRAPPER_ARRAY**
+
+```
+@NoArgsConstructor
+@AllArgsConstructor
+public class Zoo {
+    @JsonTypeInfo(
+            use = JsonTypeInfo.Id.NAME,
+            include = JsonTypeInfo.As.WRAPPER_ARRAY
+    )
+    @JsonSubTypes({
+            @JsonSubTypes.Type(value = Dog.class, name = "dog"),
+            @JsonSubTypes.Type(value = Cat.class, name = "cat")
+    })
+    public Animal animal;
+}
+```
+
+```
+{
+  "animal": [
+    "dog",
+    {
+      "name": "lacy",
+      "barkVolume": 0.0
+    }
+  ]
+}
+```
+
+- **JsonTypeInfo.As.EXTERNAL_PROPERTY**
+
+```
+@NoArgsConstructor
+@AllArgsConstructor
+public class Zoo {
+    @JsonTypeInfo(
+            use = JsonTypeInfo.Id.NAME,
+            include = JsonTypeInfo.As.EXTERNAL_PROPERTY
+    )
+    @JsonSubTypes({
+            @JsonSubTypes.Type(value = Dog.class, name = "dog"),
+            @JsonSubTypes.Type(value = Cat.class, name = "cat")
+    })
+    public Animal animal;
+}
+```
+
+```
+{
+  "animal": {
+    "name": "lacy",
+    "barkVolume": 0.0
+  },
+  "@type": "dog"
+}
+```
+
+- **JsonTypeInfo.Id.DEDUCTION**
+  不需要特定的值，而是使用特定的字段名。在没有单一候选人情况下，defaultImpl 无论是否合适都应该是目标类型
+
+```
+**基于演绎的多态性**
+基于演绎的多态性特征基于与特定亚型不同的属性的存在来推断亚型。如果没有子类型特定属性唯一可识别的子类型，defaultImpl则将使用 value 指定的类型。
+
+基于推论的多态性功能在 Jackson 2.12 中根据jackson-databind#43实现，并在2.12 发行说明中进行了总结：
+
+它基本上允许省略实际的 Type Id 字段或值，只要可以@JsonTypeInfo(use=DEDUCTION)从字段的存在中推断出 () 子类型。也就是说，每个子类型都包含一组不同的字段，因此在反序列化期间可以唯一且可靠地检测到类型。
+
+Jackson 2.12.2 中的jackson-databind#3055添加了这种在没有唯一可识别子类型时指定默认类型而不是抛出异常的能力：
+
+在没有单一候选人的情况下，defaultImpl无论是否适合，都应该是目标类型。
+
+在Jackson 2.12 Most Wanted (1/5): Deduction-Based Polymorphism文章中对基于演绎的多态性进行了稍长的解释，该文章由 Jackson 创建者撰写。
+```
+```
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.DEDUCTION
+)
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = Dog.class),
+        @JsonSubTypes.Type(value = Cat.class)
+})
+public Animal animal;
 ```
 
 ## 参考

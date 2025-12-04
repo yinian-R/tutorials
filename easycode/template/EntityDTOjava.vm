@@ -1,0 +1,80 @@
+##导入宏定义
+$!{define.vm}
+$!{init.vm}
+##设置表后缀（宏定义）
+#setTableSuffix("DTO")
+##保存文件（宏定义）
+#save("/model/dto", "DTO.java")
+##包路径（宏定义）
+#setPackageSuffix("model.dto")
+##定义包路径
+#set($package = $!{tableInfo.savePackageName})
+##定义类名
+#set($className = $!{tableInfo.name})
+##初始化列状态
+#initColumnState()
+##自动导入包（全局变量）
+$!autoImport
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import com.alibaba.excel.metadata.data.FormulaData;
+import com.alibaba.excel.metadata.data.WriteCellData;
+import com.suntek.common.core.base.BaseDTO;
+import cn.hutool.core.date.DatePattern;
+import java.math.BigDecimal;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.suntek.common.core.annotation.DictParam;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.Date;
+import java.time.LocalDateTime;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.io.Serializable;
+
+##表注释（宏定义）
+#tableComment("数据传输类")
+@Data
+public class ${className}DTO implements Serializable {
+    private static final long serialVersionUID = 1L;
+    
+#foreach ($column in $tableInfo.fullColumn)
+    
+ #if(!$!{column.ext.get("隐藏列")})
+    #if($!{column.ext.get("dictType")})
+    @DictParam(dictType = "$!{column.ext.get("dictType")}", dictNameFiled = "$!{column.name}View")
+    #end
+    #if($!{column.shortType} == "Date")
+    @JsonFormat(pattern = DatePattern.NORM_DATETIME_PATTERN, timezone = "Asia/Shanghai" )
+    @ApiModelProperty(value = "$!{tool.escapeDoubleQuotes($!{column.comment})}" )
+    private $!{column.shortType} $!{column.name};
+  #elseif($!{column.shortType} == "LocalDateTime")
+    @ApiModelProperty(value = "$!{tool.escapeDoubleQuotes($!{column.comment})} " + DatePattern.NORM_DATETIME_PATTERN)
+    private $!{column.shortType} $!{column.name};
+  #else
+    @ApiModelProperty(value = "$!{tool.escapeDoubleQuotes($!{column.comment})}#if($!{column.ext.get("dictType")}), 字典类型: $!{column.ext.get("dictType")}#end")
+    private $!{column.shortType} $!{column.name};
+  #end
+    #if($!{column.ext.get("dictType")})
+    @ApiModelProperty(value = "$!{tool.escapeDoubleQuotes($!{column.comment})}（中文）" )
+    private String $!{column.name}View;
+    #end
+ #end
+#end
+
+#if($callback.exportExcelWithTemplate)
+    /**
+     * excel row
+     */
+    @ApiModelProperty(value = "导出使用" , hidden = true)
+    @JsonIgnore
+    private transient WriteCellData<String> idx;
+
+    public ${className}DTO() {
+        WriteCellData<String> formula = new WriteCellData<>();
+        FormulaData formulaData = new FormulaData();
+        formulaData.setFormulaValue("ROW()-1" );
+        formula.setFormulaData(formulaData);
+        idx = formula;
+    }
+#end
+}

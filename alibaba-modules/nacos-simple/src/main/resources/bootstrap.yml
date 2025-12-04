@@ -3,6 +3,12 @@ spring:
     name: nacos-simple
   cloud:
     nacos:
+      discovery:
+        enabled: true
+        # nacos server
+        server-addr: 127.0.0.1:8848
+        # 命名空间ID，不同环境的分离配置。默认 public
+        namespace: a85a37ef-5bec-478c-a60f-0b11f10b3da4
       config:
         # 是否获取 nacos 配置
         enabled: true

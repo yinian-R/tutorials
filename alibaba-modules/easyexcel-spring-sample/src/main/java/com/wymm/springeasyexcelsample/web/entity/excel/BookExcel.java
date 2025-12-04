@@ -27,5 +27,9 @@ public class BookExcel {
     @ExcelProperty("描述")
     private String description;
     
+    @ExcelIgnore
+    @ExcelProperty("图片")
+    private byte[] pic;
+    
 }
 

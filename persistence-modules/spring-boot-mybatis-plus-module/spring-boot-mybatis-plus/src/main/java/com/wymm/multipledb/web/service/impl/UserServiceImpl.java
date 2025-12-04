@@ -8,5 +8,16 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
-
+    
+    //
+    //@Override
+    //public List<User> searchUser(List<SearchCriteria> params) {
+    //
+    //    Example example = new Example(User.class);
+    //    UserSearchQueryCriteriaConsumer searchConsumer = new UserSearchQueryCriteriaConsumer(example);
+    //    params.forEach(searchConsumer);
+    //
+    //    return userMapper.selectByExample(example);
+    //}
+    
 }

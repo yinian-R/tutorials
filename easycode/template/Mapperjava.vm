@@ -1,0 +1,30 @@
+##导入宏定义
+$!{define.vm}
+##设置表后缀（宏定义）
+#setTableSuffix("Mapper")
+##保存文件（宏定义）
+#save("/mapper", "Mapper.java")
+##包路径（宏定义）
+#setPackageSuffix("mapper")
+##定义包路径
+#set($package = $!{tableInfo.savePackageName})
+##定义类名
+#set($className = $!{tableInfo.name})
+$!autoImport
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import java.time.LocalDateTime;
+import ${package}.model.po.${className}PO;
+import ${package}.model.dto.${className}DTO;
+import ${package}.model.vo.${className}PageVO;
+
+##表注释（宏定义）
+#tableComment("映射类")
+@Mapper
+public interface ${className}Mapper extends BaseMapper<${className}PO> {
+
+    IPage<${className}DTO> pageList(@Param("vo")${className}PageVO vo, @Param("page")Page page);
+}

@@ -1180,7 +1180,7 @@ CREATE TABLE `flyway_test`.`basedata_routine`
     `UPDATE_TIME`               datetime(0)                                                   NOT NULL COMMENT '更新时间',
     `STATUS`                    varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NOT NULL DEFAULT 'S0A' COMMENT '状态',
     `REMARK`                    varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL     DEFAULT NULL COMMENT '备注',
-    `DATA_SRC`                  varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NULL     DEFAULT NULL COMMENT '数据来源 hsom:综合运营系统  miniapp:小马达小程序\r\nhworld:盟广酒店系统   pcipay:清分支付平台  dahua:大华门禁  aioplatform:一体机平台',
+    `DATA_SRC`                  varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NULL     DEFAULT NULL COMMENT '数据来源',
     `BASIC_DISEASES`            varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NULL     DEFAULT NULL COMMENT '基础病',
     `ACUTE_DISEASES`            varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NULL     DEFAULT NULL COMMENT '急性病',
     `MEDICINE_RECORD`           longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci     NULL COMMENT '服药记录',

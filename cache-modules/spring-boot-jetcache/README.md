@@ -37,3 +37,6 @@ CaffeineAutoConfiguration
 @ConfigurationProperties(prefix = "jetcache")
 public class JetCacheProperties
 ```
+
+## 参考
+官网文档（包含配置和注解说明等） https://github.com/alibaba/jetcache/tree/master/docs/CN

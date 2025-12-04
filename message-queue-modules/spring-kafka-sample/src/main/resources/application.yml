@@ -1,13 +1,27 @@
 spring:
   kafka:
-    producer:
-      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    bootstrap-servers: 172.25.20.16:9092
+#    user: huawei
+#    password: huawei123456
+#    producer:
+#      properties:
+#        security.protocol: SASL_PLAINTEXT
+#        sasl.mechanism: PLAIN
+#        sasl.jaas.config: org.apache.kafka.common.security.scram.ScramLoginModule required username=${spring.kafka.user} password=${spring.kafka.password};
     consumer:
-      group-id: group1
-      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
-      properties:
-        spring:
-          json:
-            trusted:
-              packages: com.example.kafka.kafka.modal
+      group-id: kafka-sample-test
+#      properties:
+#        security.protocol: SASL_PLAINTEXT
+#        sasl.mechanism: PLAIN
+#        sasl.jaas.config: org.apache.kafka.common.security.scram.ScramLoginModule required username=${spring.kafka.user} password=${spring.kafka.password};
 
+
+logging:
+  level:
+    # 根路径日志级别
+    root: warn
+    com.alibaba.nacos: info
+    org.apache.kafka: debug
+    org.springframework.kafka.listener: debug
+    # 本程序最上层日志级别
+    com.example.kafka.kafka: debug
