@@ -1,0 +1,100 @@
+##导入宏定义
+$!{define.vm}
+##设置表后缀（宏定义）
+#setTableSuffix("Service")
+##保存文件（宏定义）
+#save("/service", "Service.java")
+##包路径（宏定义）
+#setPackageSuffix("service")
+##定义包路径
+#set($package = $!{tableInfo.savePackageName})
+##定义类名
+#set($className = $!{tableInfo.name})
+##定义注释内容
+#set($comments = $!{tableInfo.comment})
+##初始化列状态
+#initColumnState()
+##定义实体对象名
+#set($entityName = $!tool.firstLowerCase($!tableInfo.name))
+$!autoImport
+import com.baomidou.mybatisplus.extension.service.IService;
+import ${package}.model.po.${className}PO;
+import ${package}.model.dto.${className}DTO;
+import ${package}.model.vo.${className}PageVO;
+import ${package}.model.vo.${className}AddVO;
+import ${package}.model.vo.${className}UpdateVO;
+import com.suntek.common.dao.base.PageDTO;
+#if(!$callback.exportExcelWithTemplate)
+import java.io.File;
+#end
+import java.util.Collection;
+
+##表注释（宏定义）
+#tableComment("服务定义层")
+public interface ${className}Service extends IService<${className}PO> {
+
+    /**
+     * 分页查询${comments}
+     *
+     * @param vo 分页查询条件
+     * @return PageDTO<${className}DTO> 分页结果
+     */
+    PageDTO<${className}DTO> listPage(${className}PageVO vo);
+
+#if(!$tableInfo.pkColumn.isEmpty())
+    #set($pk = $!{tableInfo.pkColumn.get(0)})
+    /**
+     * 根据主键编号获取${comments}
+     *
+     * @param ${pk.name} 主键编号
+     * @return ${className}DTO 对象信息
+     */
+    ${className}DTO getBy($!{pk.shortType} ${pk.name});
+#end
+
+    /**
+     * 新增${comments}
+     *
+     * @param vo 新增对象
+     * @return boolean 是否成功
+     */
+    boolean add(${className}AddVO vo);
+
+    /**
+     * 批量新增${comments}
+     *
+     * @param voList 新增对象列表
+     * @return boolean 是否成功
+     */
+    boolean addBatch(Collection<${className}AddVO> voList);
+    
+    /**
+     * 修改${comments}
+     *
+     * @param vo 修改对象
+     * @return boolean 是否成功
+     */
+    boolean updateBy(${className}UpdateVO vo);
+
+
+#if(!$tableInfo.pkColumn.isEmpty())
+    #set($pk = $!{tableInfo.pkColumn.get(0)})
+    #if($hasStatusColumn)
+    /**
+     * 根据主键编号逻辑删除${comments}
+     *
+     * @param $!{pk.name} 主键编号
+     * @return boolean 是否成功
+     */
+    boolean logicalRemoveById($!{pk.shortType} $!{pk.name});
+
+    /**
+     * 根据主键编号集合批量逻辑删除${comments}
+     *
+     * @param idList 主键编号集合
+     * @return boolean 是否成功
+     */
+    boolean logicalRemoveByIds(Collection<$!{pk.shortType}> idList);
+    #end
+#end
+}
