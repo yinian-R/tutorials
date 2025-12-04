@@ -22,42 +22,46 @@ $!callback.setSavePath($tool.append($modulePath, "/src/main/resources/mapper"))
   #if($!{column.ext.get("显示在筛选")} == "文本输入（=）")
     #if($!{column.shortType} == "String")
         <if test="vo.$!{column.name} != null and vo.$!{column.name} != ''">
-             and $column.obj.name = #{vo.$!{column.name}}
+             AND $column.obj.name = #{vo.$!{column.name}}
         </if>
     #else
         <if test="vo.$!{column.name} != null">
-             and $column.obj.name = #{vo.$!{column.name}}
+             AND $column.obj.name = #{vo.$!{column.name}}
         </if>
     #end
   #elseif($!{column.ext.get("显示在筛选")} == "文本输入（like）")
     #if($!{column.shortType} == "String")
         <if test="vo.$!{column.name}RangeLike != null and vo.$!{column.name}RangeLike != ''">
-             and $column.obj.name like concat('%', #{vo.$!{column.name}RangeLike}, '%')
+             AND $column.obj.name LIKE CONCAT('%', #{vo.$!{column.name}RangeLike}, '%')
         </if>
     #else
-        未知异常
+        <!-- 非字符串类型不支持模糊查询 -->
     #end
   #elseif($!{column.ext.get("显示在筛选")} == "下拉选择器（且）")
         <if test="vo.$!{column.name}List != null and vo.$!{column.name}List.size() > 0">
-            and $column.obj.name in
+             AND $column.obj.name IN
             <foreach collection="vo.$!{column.name}List" item="item" separator="," open="(" close=")">
                 #{item}
             </foreach>
         </if>
   #elseif($!{column.ext.get("显示在筛选")} == "下拉选择器（或）")
         <if test="vo.$!{column.name}List != null and vo.$!{column.name}List.size() > 0">
-            and <foreach collection="vo.$!{column.name}List" item="item" separator=" or " open="(" close=")">
-                ($column.obj.name = #{item})
+            AND 
+            <foreach collection="vo.$!{column.name}List" item="item" separator=" OR " open="(" close=")">
+                $column.obj.name = #{item}
             </foreach>
         </if>
   #elseif($!{column.ext.get("显示在筛选")} == "范围选择器")
-          <if test="vo.$!{column.name}RangeFrom != null and vo.$!{column.name}RangeTo != null">
-             and $column.obj.name <![CDATA[ >= ]]> #{vo.$!{column.name}RangeFrom}
-             and $column.obj.name <![CDATA[ <= ]]> #{vo.$!{column.name}RangeTo}
+          <if test="vo.$!{column.name}RangeFrom != null">
+             AND $column.obj.name <![CDATA[ >= ]]> #{vo.$!{column.name}RangeFrom}
+        </if>
+          <if test="vo.$!{column.name}RangeTo != null">
+             AND $column.obj.name <![CDATA[ <= ]]> #{vo.$!{column.name}RangeTo}
         </if>
   #end
 #end
         </where>
+        ORDER BY id DESC
     </select>
     
 </mapper>

@@ -1,0 +1,35 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/redis_sample?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT
+    username: root
+    password: root
+  redis:
+    host: 127.0.0.1
+    port: 6379
+  cache:
+    redis:
+      time-to-live: 600000
+      key-prefix: 'webredisdemo:'
+  mvc:
+    pathmatch:
+      matching-strategy: ANT_PATH_MATCHER
+mybatis:
+  type-aliases-package: com.example.springwebredis.web.model
+  mapper-locations: classpath:com/example/springwebredis/web/mapper/*Mapper.xml
+  configuration:
+#    map-underscore-to-camel-case: true
+    default-fetch-size: 100
+    default-statement-timeout: 30
+    cache-enabled: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+logging:
+  level:
+    com.example.springwebredis.web.mapper: trace
+
+knife4j:
+  enable: true

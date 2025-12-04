@@ -16,7 +16,5 @@
         <module>spring-data-elasticsearch</module>
         <module>spring-data-jpa</module>
         <module>spring-data-mongodb</module>
-        <module>spring-data-redis</module>
-        <module>spring-web-redis</module>
     </modules>
 </project>

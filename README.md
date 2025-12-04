@@ -96,7 +96,7 @@
 - Spring Data Elasticsearch 访问 Elasticsearch - [💡 spring-data-elasticsearch](/persistence-modules/spring-data-elasticsearch)
 - Spring Data MongoDB 访问 MongoDB - [💡 spring-data-mongodb](/persistence-modules/spring-data-mongodb)
 - Spring Data Redis 访问 Redis - [💡 spring-data-redis](/persistence-modules/spring-data-redis)
-- Spring Data Redis + Cache 使用示例 - [💡 spring-web-redis](/persistence-modules/spring-web-redis)
+- Spring Data Redis + Cache 使用示例 - [💡 spring-web-redis](/cache-modules/spring-web-redis)
 
 ## 远程调用
 **HTTP**

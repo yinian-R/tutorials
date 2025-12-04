@@ -104,4 +104,47 @@ public class _1MinioFileUploadTest {
                                 .build());
         System.out.println(url);
     }
+    
+    
+    @Test
+    void downloadWithInterceptor() throws Exception {
+        // 创建日志拦截器
+        okhttp3.Interceptor loggingInterceptor = new okhttp3.Interceptor() {
+            @Override
+            public okhttp3.Response intercept(Chain chain) throws IOException {
+                okhttp3.Request request = chain.request();
+                System.out.println("MinIO请求: " + request.method() + " " + request.url());
+                
+                long startTime = System.currentTimeMillis();
+                okhttp3.Response response = chain.proceed(request);
+                long endTime = System.currentTimeMillis();
+                
+                System.out.println("MinIO响应: " + response.code() + " " + response.message());
+                System.out.println("耗时: " + (endTime - startTime) + "ms");
+                
+                return response;
+            }
+        };
+        
+        // 构建带拦截器的 MinIO 客户端
+        MinioClient minioClient = MinioClient.builder()
+                .endpoint("http://172.25.21.117:23000")
+                .credentials("Svb5IkbVkUNW9qO5", "rcTbHals4dDLALyvUaP7i7udCEX4Nanx")
+                .httpClient(new okhttp3.OkHttpClient.Builder()
+                        .addInterceptor(loggingInterceptor)
+                        .build())
+                .build();
+        
+        // 执行下载
+        minioClient.downloadObject(
+                DownloadObjectArgs.builder()
+                        .bucket("asiatrip")
+                        .object("node-v18.14.1-x64.msi")
+                        .filename("D:\\360MoveData\\Users\\76442\\Desktop\\新建文件夹\\node-v18.14.1-x64.msi")
+                        .build());
+        
+        // 输出文件信息
+        java.io.File file = new java.io.File("D:\\360MoveData\\Users\\76442\\Desktop\\新建文件夹\\node-v18.14.1-x64.msi");
+        System.out.println("文件下载完成，大小: " + file.length() + " bytes");
+    }
 }

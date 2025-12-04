@@ -36,8 +36,8 @@ public interface ${className}Service extends IService<${className}PO> {
     /**
      * 分页查询${comments}
      *
-     * @param vo 分页对象
-     * @return PageDTO<${className}DTO>
+     * @param vo 分页查询条件
+     * @return PageDTO<${className}DTO> 分页结果
      */
     PageDTO<${className}DTO> listPage(${className}PageVO vo);
 
@@ -47,6 +47,7 @@ public interface ${className}Service extends IService<${className}PO> {
      * 根据主键编号获取${comments}
      *
      * @param ${pk.name} 主键编号
+     * @return ${className}DTO 对象信息
      */
     ${className}DTO getBy($!{pk.shortType} ${pk.name});
 #end
@@ -55,7 +56,7 @@ public interface ${className}Service extends IService<${className}PO> {
      * 新增${comments}
      *
      * @param vo 新增对象
-     * @return PageDTO<${className}DTO>
+     * @return boolean 是否成功
      */
     boolean add(${className}AddVO vo);
 
@@ -63,7 +64,7 @@ public interface ${className}Service extends IService<${className}PO> {
      * 批量新增${comments}
      *
      * @param voList 新增对象列表
-     * @return PageDTO<${className}DTO>
+     * @return boolean 是否成功
      */
     boolean addBatch(Collection<${className}AddVO> voList);
     
@@ -71,7 +72,7 @@ public interface ${className}Service extends IService<${className}PO> {
      * 修改${comments}
      *
      * @param vo 修改对象
-     * @return PageDTO<${className}DTO>
+     * @return boolean 是否成功
      */
     boolean updateBy(${className}UpdateVO vo);
 
@@ -83,6 +84,7 @@ public interface ${className}Service extends IService<${className}PO> {
      * 根据主键编号逻辑删除${comments}
      *
      * @param $!{pk.name} 主键编号
+     * @return boolean 是否成功
      */
     boolean logicalRemoveById($!{pk.shortType} $!{pk.name});
 
@@ -90,6 +92,7 @@ public interface ${className}Service extends IService<${className}PO> {
      * 根据主键编号集合批量逻辑删除${comments}
      *
      * @param idList 主键编号集合
+     * @return boolean 是否成功
      */
     boolean logicalRemoveByIds(Collection<$!{pk.shortType}> idList);
     #end

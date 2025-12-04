@@ -44,7 +44,7 @@ public class ${className}AddVO {
     @ApiModelProperty(value = "$!{tool.escapeDoubleQuotes($!{column.comment})} " + DatePattern.NORM_DATETIME_PATTERN)
     private $!{column.shortType} $!{column.name};
   #else
-    @ApiModelProperty(value = "$!{tool.escapeDoubleQuotes($!{column.comment})}" )
+    @ApiModelProperty(value = "$!{tool.escapeDoubleQuotes($!{column.comment})}#if($!{column.ext.get("dictType")}), 字典类型: $!{column.ext.get("dictType")}#end")
     private $!{column.shortType} $!{column.name};
   #end
  #end
